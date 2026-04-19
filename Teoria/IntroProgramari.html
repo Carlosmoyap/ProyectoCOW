@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software i Entorns de Desenvolupament (Complet)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Highlight.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+
+    <style>
+        /* Estils Base per a Projecció */
+        * { box-sizing: border-box; }
+        body {
+            background-color: #e9ecef;
+            display: grid;
+            gap: 40px;
+            grid-template-columns: 1fr;
+            margin: 0;
+            padding: 40px 0;
+            place-items: center;
+            font-family: 'Urbanist', sans-serif;
+        }
+
+        .slide-container {
+            background-color: #ffffff;
+            color: #212529;
+            height: 720px;
+            width: 1280px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid #dee2e6;
+        }
+
+        /* Elements decoratius */
+        .slide-container::before {
+            content: '';
+            position: absolute;
+            top: -150px;
+            right: -150px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 123, 255, 0.05) 0%, transparent 70%);
+            z-index: 0;
+        }
+
+        .slide-container::after {
+            content: '';
+            position: absolute;
+            bottom: 40px;
+            left: 60px;
+            right: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, #007bff, transparent);
+            z-index: 0;
+        }
+
+        .slide-container > * { position: relative; z-index: 1; }
+
+        /* Tipografia */
+        h1 { font-size: 70px; font-weight: 700; line-height: 1.1; margin: 0; color: #1a1a1a; }
+        h1 span { color: #007bff; }
+        .slide-title { font-size: 42px; font-weight: 700; margin-bottom: 20px; color: #1a1a1a; text-align: left; width: 100%; border-left: 8px solid #007bff; padding-left: 15px; }
+        .slide-title span { color: #007bff; }
+        p, li { font-size: 20px; color: #495057; line-height: 1.4; }
+        .subtitle { font-size: 28px; color: #6c757d; margin-top: 15px; font-weight: 400; }
+
+        /* Footer */
+        .source-footer {
+            position: absolute;
+            bottom: 15px;
+            right: 60px;
+            font-size: 12px;
+            color: #6c757d;
+            font-style: italic;
+            background-color: rgba(248, 249, 250, 0.95);
+            padding: 5px 10px;
+            border-radius: 10px;
+            border: 1px solid #dee2e6;
+        }
+
+        /* Layouts */
+        .content-area { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; width: 100%; }
+        .title-layout { text-align: center; justify-content: center; height: 100%; display: flex; flex-direction: column; align-items: center; }
+
+        /* Taula Completa */
+        .tech-table-wrapper { overflow-y: auto; max-height: 500px; border-radius: 8px; border: 1px solid #dee2e6; }
+        .tech-table { width: 100%; border-collapse: collapse; font-size: 16px; }
+        .tech-table th { background: #007bff; color: white; padding: 12px; text-align: left; position: sticky; top: 0; }
+        .tech-table td { padding: 10px 12px; border-bottom: 1px solid #e9ecef; color: #333; }
+        .tech-table tr:nth-child(even) { background-color: #f8f9fa; }
+        .tech-table tr:hover { background-color: #e2e6ea; }
+
+        /* Two Column */
+        .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+        
+        /* Grid de Llenguatges */
+        .lang-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .lang-box { background: #f8f9fa; border: 1px solid #dee2e6; padding: 20px; border-radius: 12px; }
+        .lang-box h3 { color: #007bff; margin-top: 0; font-size: 24px; border-bottom: 2px solid #dee2e6; padding-bottom: 10px; }
+        .lang-list { list-style: none; padding: 0; margin: 0; }
+        .lang-list li { padding: 8px 0; border-bottom: 1px dashed #dee2e6; font-size: 18px; display: flex; align-items: center; }
+        .lang-list li::before { content: '•'; color: #007bff; font-weight: bold; margin-right: 10px; }
+
+        /* Codi i Configuració */
+        pre { width: 100%; margin: 10px 0; border-radius: 6px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        pre code.hljs { padding: 15px; font-family: 'Courier New', monospace; font-size: 16px; line-height: 1.3; }
+
+        .config-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; overflow-y: auto; max-height: 480px; padding-right: 10px; }
+        .config-item { background: #fff; border: 1px solid #dee2e6; padding: 12px; border-radius: 6px; border-left: 4px solid #17a2b8; font-size: 16px; }
+        .config-key { font-family: monospace; font-weight: bold; color: #d63384; display: block; margin-bottom: 4px; }
+
+    </style>
+</head>
+<body>
+
+<!-- Slide 1: Títol -->
+<div class="slide-container" id="slide1">
+    <div class="title-layout">
+        <h1>Software i <span>Entorn</span></h1>
+        <p class="subtitle">Anàlisi detallada d'arquitectures, llenguatges i configuració de servidors.</p>
+    </div>
+    <div class="source-footer">Basat en el document complet: 01_2_Software.pdf</div>
+</div>
+
+<!-- Slide 2: Taula Completa d'Arquitectures -->
+<div class="slide-container" id="slide2">
+    <h2 class="slide-title">Software més usat (Arquitectures)</h2>
+    <div class="content-area">
+        <div class="tech-table-wrapper">
+            <table class="tech-table">
+                <thead>
+                    <tr>
+                        <th>Web</th>
+                        <th>Visitants (Aprox)</th>
+                        <th>Front-end</th>
+                        <th>Back-end</th>
+                        <th>Base de Dades</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Google</strong></td>
+                        <td>1.100M</td>
+                        <td>JavaScript</td>
+                        <td>C, C++, Go, Java, Python</td>
+                        <td>BigTable, MariaDB</td>
+                    </tr>
+                    <tr>
+                        <td><strong>YouTube</strong></td>
+                        <td>1.000M</td>
+                        <td>JavaScript</td>
+                        <td>C/C++, Python, Java, Go</td>
+                        <td>BigTable, MariaDB</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Facebook</strong></td>
+                        <td>900M</td>
+                        <td>JavaScript</td>
+                        <td>Hack, PHP (HHVM), C++, Java, Python, Erlang, D, Xhp, Haskell</td>
+                        <td>MySQL, HBase, Cassandra</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Yahoo</strong></td>
+                        <td>750M</td>
+                        <td>JavaScript</td>
+                        <td>PHP</td>
+                        <td>MySQL, PostgreSQL</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Amazon</strong></td>
+                        <td>500M</td>
+                        <td>JavaScript</td>
+                        <td>Java, C++, Perl</td>
+                        <td>Oracle Database</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Wikipedia</strong></td>
+                        <td>475M</td>
+                        <td>JavaScript</td>
+                        <td>PHP, Hack</td>
+                        <td>MySQL, MariaDB</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Twitter</strong></td>
+                        <td>290M</td>
+                        <td>JavaScript</td>
+                        <td>C++, Java, Scala, Ruby on Rails</td>
+                        <td>MySQL</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bing</strong></td>
+                        <td>285M</td>
+                        <td>JavaScript</td>
+                        <td>ASP.NET</td>
+                        <td>Microsoft SQL Server</td>
+                    </tr>
+                    <tr>
+                        <td><strong>eBay</strong></td>
+                        <td>285M</td>
+                        <td>JavaScript</td>
+                        <td>Java, JavaScript, Scala</td>
+                        <td>Oracle Database</td>
+                    </tr>
+                    <tr>
+                        <td><strong>LinkedIn</strong></td>
+                        <td>260M</td>
+                        <td>JavaScript</td>
+                        <td>Java, JavaScript, Scala</td>
+                        <td>Voldemort</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 3: Llenguatges Web -->
+<div class="slide-container" id="slide3">
+    <h2 class="slide-title">Llenguatges de <span>Programació Web</span></h2>
+    <div class="content-area">
+        <div class="lang-grid">
+            <div class="lang-box">
+                <h3><i class="fa-solid fa-laptop"></i> Costat Client</h3>
+                <p>S'executen al navegador de l'usuari. No accedeixen directament a la BD.</p>
+                <ul class="lang-list">
+                    <li><strong>HTML:</strong> Estructura (Hypertext Markup Language).</li>
+                    <li><strong>CSS:</strong> Estil i disseny.</li>
+                    <li><strong>JavaScript:</strong> Interactivitat.</li>
+                    <li><strong>Applets Java:</strong> (En desús) Petits programes incrustats.</li>
+                    <li><strong>VBScript:</strong> (En desús) Scripting de Microsoft.</li>
+                </ul>
+            </div>
+            <div class="lang-box">
+                <h3><i class="fa-solid fa-server"></i> Costat Servidor</h3>
+                <p>S'executen al servidor web. Generen l'HTML dinàmicament.</p>
+                <ul class="lang-list">
+                    <li><strong>PHP:</strong> El més popular en entorns Linux/Apache.</li>
+                    <li><strong>ASP / ASP.NET:</strong> Tecnologia Microsoft.</li>
+                    <li><strong>JSP (Java Server Pages):</strong> Tecnologia Java.</li>
+                    <li><strong>Perl:</strong> Molt potent per processament de text (CGI).</li>
+                    <li><strong>Python / Ruby:</strong> Moderns i elegants.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 4: Frameworks -->
+<div class="slide-container" id="slide4">
+    <h2 class="slide-title">Conceptes: <span>Frameworks</span></h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <h3>Definició</h3>
+                <p>Conjunt estandarditzat de conceptes, pràctiques i criteris per enfocar un tipus de problemàtica. Serveix de referència per organitzar i desenvolupar software.</p>
+                <h3>Avantatges</h3>
+                <ul style="margin-top: 10px;">
+                    <li>Evita codi repetitiu.</li>
+                    <li>Gestió d'errors i seguretat integrada.</li>
+                    <li>Redueix costos i temps.</li>
+                </ul>
+            </div>
+            <div>
+                <h3>Exemples PHP</h3>
+                <ul class="lang-list">
+                    <li><strong>Zend Framework:</strong> Orientat a objectes, MVC, suport BD (Oracle, DB2, MySQL).</li>
+                    <li><strong>Symfony:</strong> Rapidíssim, sistema de plantilles, caché, motor BD intel·ligent.</li>
+                    <li><strong>CakePHP:</strong> Estructura MVC, compatible PHP4/5.</li>
+                    <li><strong>CodeIgniter:</strong> Molt ràpid i lleuger.</li>
+                    <li><strong>Phalcon:</strong> Escrit com extensió C per màxim rendiment.</li>
+                    <li><strong>Laravel:</strong> Sintaxi elegant i expressiva.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 5: XAMPP Instal·lació -->
+<div class="slide-container" id="slide5">
+    <h2 class="slide-title">Entorn Local: <span>XAMPP</span></h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <h3>Què inclou?</h3>
+                <p>Apache + MySQL + PHP + Perl.</p>
+                <h3>Instal·lació</h3>
+                <ul style="margin-top: 10px;">
+                    <li>Descarregar de <code>apachefriends.org</code>.</li>
+                    <li>Executar instal·lador (Next > Next).</li>
+                    <li>Directori recomanat: <code>c:\xampp</code>.</li>
+                    <li>Panell de Control: Permet arrencar/aturar serveis (Apache, MySQL).</li>
+                </ul>
+                <div style="background: #fff3cd; padding: 10px; border-radius: 6px; margin-top: 20px; font-size: 16px;">
+                    <i class="fa-solid fa-triangle-exclamation"></i> <strong>Important:</strong> Si Skype utilitza el port 80, Apache no arrencarà. Cal canviar la configuració de ports.
+                </div>
+            </div>
+            <div>
+                <h3>Estructura de Carpetes</h3>
+                <div style="background: #212529; color: #fff; padding: 20px; border-radius: 8px; font-family: monospace;">
+                    c:\xampp\<br>
+                    ├── apache\ (Configuració servidor)<br>
+                    ├── php\ (Configuració llenguatge)<br>
+                    ├── mysql\ (Dades BD)<br>
+                    └── <strong>htdocs\</strong> (Directori WEB)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;└── el_meu_projecte\<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── index.php
+                </div>
+                <p style="margin-top: 15px; font-size: 16px;">Per veure la web, obrir al navegador: <code>http://localhost/el_meu_projecte/</code></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 6: php.ini detallat -->
+<div class="slide-container" id="slide6">
+    <h2 class="slide-title">Configuració PHP: <span>php.ini</span></h2>
+    <div class="content-area">
+        <p style="margin-bottom: 20px;">Fitxer de configuració ubicat a <code>C:/xampp/php/php.ini</code>. Paràmetres clau:</p>
+        <div class="config-list">
+            <div class="config-item">
+                <span class="config-key">short_open_tag = On</span>
+                Permet utilitzar etiquetes curtes <code>&lt;? ?&gt;</code>.
+            </div>
+            <div class="config-item">
+                <span class="config-key">safe_mode = Off</span>
+                Habilita totes les funcions PHP (recomanat per educació).
+            </div>
+            <div class="config-item">
+                <span class="config-key">display_errors = On</span>
+                Mostra errors al navegador (vital per depurar).
+            </div>
+            <div class="config-item">
+                <span class="config-key">max_execution_time = 30</span>
+                Segons màxims d'execució d'un script.
+            </div>
+            <div class="config-item">
+                <span class="config-key">memory_limit = 128M</span>
+                Memòria màxima per script.
+            </div>
+            <div class="config-item">
+                <span class="config-key">error_reporting = E_ALL & ~E_NOTICE...</span>
+                Nivell de detall dels errors mostrats.
+            </div>
+            <div class="config-item">
+                <span class="config-key">post_max_size = 8M</span>
+                Màxim de dades enviades per POST.
+            </div>
+            <div class="config-item">
+                <span class="config-key">upload_max_filesize = 8M</span>
+                Mida màxima per fitxers pujats.
+            </div>
+            <div class="config-item">
+                <span class="config-key">file_uploads = On</span>
+                Habilita la pujada de fitxers via HTTP.
+            </div>
+            <div class="config-item">
+                <span class="config-key">SMTP = localhost</span>
+                Configuració per enviament de correus (mail function).
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 7: .htaccess Detallat -->
+<div class="slide-container" id="slide7">
+    <h2 class="slide-title">Configuració Apache: <span>.htaccess</span></h2>
+    <div class="content-area">
+        <p>Fitxer ocult que permet configuració descentralitzada per directori. Capacitats:</p>
+        
+        <div class="two-column">
+            <div>
+                <ul class="lang-list">
+                    <li><strong>Autorització i Autenticació:</strong> Protegir carpetes amb contrasenya (`.htpasswd`).</li>
+                    <li><strong>Pàgines d'Error:</strong> Personalitzar missatges 404, 500.</li>
+                    <li><strong>Llistat de Directoris:</strong> Activar/Desactivar l'índex de fitxers.</li>
+                    <li><strong>MIME Types:</strong> Definir com el servidor tracta certs fitxers.</li>
+                    <li><strong>Cache Control:</strong> Gestionar la memòria cau del navegador.</li>
+                    <li><strong>CGI Handlers:</strong> Executar scripts Perl/Python.</li>
+                </ul>
+            </div>
+            <div>
+                <p style="margin-bottom: 10px; font-weight: bold;">Exemple pràctic:</p>
+                <pre><code class="language-apache"># Evitar llistar fitxers
+Options -Indexes
+
+# Pàgina 404 personal
+ErrorDocument 404 /errors/notfound.html
+
+# Redirecció 301
+Redirect 301 /vella.php /nova.php
+
+# Protecció de fitxer específic
+&lt;Files "config.php"&gt;
+  Order Allow,Deny
+  Deny from all
+&lt;/Files&gt;</code></pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

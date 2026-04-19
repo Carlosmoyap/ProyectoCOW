@@ -1,0 +1,114 @@
+/* Estilos para la página de reserva (client.php) */
+
+.container-reserva {
+    max-width: 800px;
+    margin: 50px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+.form-group label {
+    font-weight: bold;
+    color: #333;
+}
+
+.error {
+    color: red;
+    font-size: 0.9em;
+    display: none;
+}
+
+.btn-reservar {
+    width: 100%;
+    margin-top: 20px;
+    font-size: 18px;
+    padding: 12px;
+}
+
+.header-reserva {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #2c3e50;
+}
+
+.required {
+    color: red;
+}
+
+.panel-hotels {
+    margin-bottom: 25px;
+}
+
+.table-no-margin {
+    margin-bottom: 0;
+}
+
+.actions-group {
+    margin-top: 20px;
+}
+
+.btn-gap-left {
+    margin-left: 8px;
+}
+
+.preview-reserva {
+    display: none;
+    margin-top: 15px;
+}
+
+.preview-contingut {
+    margin-top: 8px;
+}
+
+.autocomplete-group {
+    position: relative;
+}
+
+.suggestion-list {
+    display: none;
+    position: absolute;
+    z-index: 20;
+    width: 100%;
+    list-style: none;
+    margin: 4px 0 0 0;
+    padding: 0;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    max-height: 220px;
+    overflow-y: auto;
+}
+
+.suggestion-item {
+    padding: 8px 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.suggestion-item:hover {
+    background: #f5f9ff;
+}
+
+.ajax-result-box {
+    display: none;
+    margin-top: 20px;
+}
+
+.ajax-result-summary {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 12px;
+    margin-top: 10px;
+}
+
+.ajax-result-summary div {
+    margin-bottom: 6px;
+}

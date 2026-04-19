@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programació Servidor amb PHP - Completa amb Tests</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Lato:wght@400;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+/* 1. THE SETUP */
+* { box-sizing: border-box; }
+p { margin: 0; margin-bottom: 15px; }
+
+body {
+  background-color: #0f172a;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr;
+  margin: 0;
+  min-height: 100vh;
+  padding: 20px 0;
+  place-items: center;
+}
+
+.slide-container {
+  align-items: center;
+  background-color: #1e293b;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  font-family: 'Lato', sans-serif;
+  height: 720px;
+  justify-content: center;
+  overflow: hidden;
+  padding: 60px;
+  position: relative;
+  width: 1280px;
+}
+
+/* BACKGROUND STYLING */
+.slide-container::before {
+  content: '';
+  position: absolute;
+  top: -200px;
+  right: -200px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+  z-index: 0;
+}
+
+/* Challenge Slide Background */
+.slide-container.challenge::before {
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.15) 0%, transparent 70%);
+}
+
+.slide-container > * { position: relative; z-index: 1; }
+
+/* 2. CONSISTENT TYPOGRAPHY */
+.slide-container h1, .slide-container h2, .slide-container h3 {
+  color: #f8fafc;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+}
+
+.slide-container p, .slide-container li, .slide-container .subtitle,
+.slide-container th, .slide-container td {
+  color: #cbd5e1;
+  font-family: 'Lato', sans-serif;
+}
+
+.slide-container h1 { font-size: 70px; text-align: center; }
+.slide-container h1 span { color: #a78bfa; }
+.slide-container.challenge h1 span { color: #fbbf24; }
+
+.slide-container .slide-title {
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-align: left;
+  width: 100%;
+  border-left: 8px solid #a78bfa;
+  padding-left: 20px;
+}
+
+.slide-container.challenge .slide-title {
+  border-left-color: #fbbf24;
+}
+
+.slide-container h3 { font-size: 32px; font-weight: 400; margin-bottom: 15px; color: #38bdf8; }
+.slide-container.challenge h3 { color: #fbbf24; }
+
+.slide-container p, .slide-container li, .slide-container th, .slide-container td {
+  font-size: 22px;
+  line-height: 1.5;
+}
+
+.slide-container .subtitle { font-size: 30px; font-weight: 400; margin: 20px auto; text-align: center; }
+
+/* CODE BLOCKS */
+pre {
+  background-color: #0f172a;
+  border-left: 6px solid #38bdf8;
+  border-radius: 8px;
+  padding: 20px;
+  font-family: 'Fira Code', monospace;
+  font-size: 18px;
+  color: #e2e8f0;
+  margin-bottom: 15px;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+  overflow-x: hidden;
+}
+code { font-family: 'Fira Code', monospace; color: #7dd3fc; }
+
+/* 3. LAYOUT DEFINITIONS */
+.content-area { align-items: center; display: flex; flex-direction: column; flex-grow: 1; justify-content: center; width: 100%; }
+.title-layout { text-align: center; display: flex; flex-direction: column; justify-content: center; height: 100%; }
+.two-column { align-items: flex-start; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; width: 100%; }
+.two-column.tiled { align-items: stretch; }
+.two-column.tiled > div { background-color: rgba(15, 23, 42, 0.6); border-radius: 12px; border: 1px solid #334155; padding: 30px; }
+.two-column ul { list-style: disc; margin: 0; padding-left: 25px; }
+.two-column li { margin-bottom: 10px; }
+.tiled-content { align-items: stretch; display: flex; gap: 40px; justify-content: center; width: 100%; }
+.tile { align-items: center; background-color: rgba(15, 23, 42, 0.6); border-radius: 12px; border: 1px solid #334155; display: flex; flex-direction: column; flex: 1; justify-content: flex-start; padding: 30px; text-align: center; }
+.tile .icon { color: #a78bfa; font-size: 48px; margin-bottom: 20px; }
+.table-layout { width: 100%; }
+.table-layout table { border-collapse: collapse; width: 100%; background: rgba(15, 23, 42, 0.6); border-radius: 8px; overflow: hidden; }
+.table-layout th, .table-layout td { border-bottom: 1px solid #334155; padding: 15px 20px; text-align: left; }
+.table-layout th { background-color: rgba(139, 92, 246, 0.2); color: #f8fafc; font-weight: 700; font-family: 'Poppins', sans-serif; }
+.table-layout tr:last-child td { border-bottom: none; }
+.bullet-list { width: 100%; }
+.bullet-list ul { list-style: none; margin: 0; padding: 0; }
+.bullet-list li { gap: 15px; margin-bottom: 20px; padding-left: 40px; position: relative; }
+.bullet-list i { color: #a78bfa; font-size: 24px; left: 0; margin-top: 5px; position: absolute; }
+.bullet-list li strong { color: #f8fafc; font-weight: 700; }
+.svg-container { background: #f8fafc; padding: 20px; border-radius: 12px; display: flex; justify-content: center; width: 100%; margin-top: 20px; }
+
+/* 4. INTERACTIVE QUIZ ELEMENTS */
+.quiz-grid { display: grid; grid-template-columns: 1fr; gap: 20px; width: 100%; }
+.quiz-item { background: rgba(15, 23, 42, 0.8); border: 2px solid #475569; border-radius: 12px; padding: 20px; display: flex; justify-content: space-between; align-items: center; }
+.quiz-q { font-size: 24px; font-weight: 700; color: #f8fafc; flex: 1; }
+.quiz-a { flex: 1; background: #0f172a; padding: 15px; border-radius: 8px; border-left: 4px solid #10b981; color: #10b981; font-weight: 700; }
+
+/* The Magic Reveal Box for Teachers */
+.reveal-box {
+  filter: blur(12px);
+  opacity: 0.5;
+  transition: all 0.4s ease;
+  cursor: pointer;
+  user-select: none;
+}
+.reveal-box:hover {
+  filter: blur(0);
+  opacity: 1;
+}
+.reveal-hint {
+  position: absolute;
+  font-size: 14px;
+  color: #64748b;
+  margin-top: -30px;
+  font-style: italic;
+}
+    </style>
+</head>
+<body>
+
+<!-- Slide 1: Title_Slide -->
+<div class="slide-container" id="slide1">
+    <div class="title-layout">
+        <i class="fa-brands fa-php" style="font-size: 160px; color: #a78bfa; margin-bottom: 30px;"></i>
+        <h1>Programació de Servidors <br>amb <span>PHP</span></h1>
+        <p class="subtitle">Guia Completa: Teoria, Exemples i Tests Pràctics</p>
+    </div>
+</div>
+
+<!-- Slide 2: Arquitectura Web amb SVG -->
+<div class="slide-container" id="slide2">
+    <h2 class="slide-title">1. Arquitectura Web Base</h2>
+    <div class="content-area">
+        <p>Procés: El navegador obté la IP (DNS) &rarr; Fa petició HTTP &rarr; El Servidor executa PHP &rarr; Retorna HTML.</p>
+        <div class="svg-container">
+            <svg width="920" height="400" viewBox="0 0 920 460" xmlns="http://www.w3.org/2000/svg">
+              <style>
+                text { font-family: Inter, Arial, sans-serif; fill: #1f2933; }
+                .title { font-size: 22px; font-weight: 600; }
+                .subtitle { font-size: 15px; fill: #52606d; }
+                .box { rx: 14; stroke-width: 1.5; }
+                .client { fill: #e3f2fd; stroke: #1e88e5; }
+                .server { fill: #ede7f6; stroke: #5e35b1; }
+                .code { fill: #fff; stroke: #cbd2d9; }
+                .arrow { stroke: #334155; stroke-width: 2; marker-end: url(#arrow); fill: none; }
+                .label { font-size: 14px; fill: #334155; font-weight: bold;}
+                .codeText { font-family: monospace; font-size: 13px; fill: #111; }
+                .output { font-size: 16px; font-weight: 500; }
+              </style>
+              <defs>
+                <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                  <path d="M0,0 L0,6 L9,3 z" fill="#334155"/>
+                </marker>
+              </defs>
+              <text x="180" y="40" text-anchor="middle" class="title">Client</text>
+              <text x="180" y="62" text-anchor="middle" class="subtitle">Navegador Web</text>
+              <rect x="40" y="80" width="280" height="300" class="box client"/>
+              <rect x="65" y="110" width="230" height="36" class="box code"/>
+              <text x="180" y="133" text-anchor="middle" class="label">http://exemple.com/hello.php</text>
+              <rect x="65" y="170" width="230" height="180" class="box code"/>
+              <text x="180" y="210" text-anchor="middle" class="output">Hola Món!</text>
+              <text x="180" y="235" text-anchor="middle" class="subtitle">HTML renderitzat</text>
+              <text x="740" y="40" text-anchor="middle" class="title">Servidor</text>
+              <text x="740" y="62" text-anchor="middle" class="subtitle">Execució PHP (Apache)</text>
+              <rect x="600" y="80" width="280" height="300" class="box server"/>
+              <rect x="625" y="110" width="230" height="90" class="box code"/>
+              <text x="740" y="130" text-anchor="middle" class="label">Script PHP (hello.php)</text>
+              <text x="640" y="155" class="codeText">&lt;?php</text>
+              <text x="640" y="175" class="codeText">echo "Hola Món!";</text>
+              <text x="640" y="195" class="codeText">?&gt;</text>
+              <rect x="625" y="230" width="230" height="90" class="box code"/>
+              <text x="740" y="250" text-anchor="middle" class="label">HTML generat</text>
+              <text x="640" y="275" class="codeText">&lt;html&gt;</text>
+              <text x="640" y="295" class="codeText">&lt;body&gt;Hola Món!&lt;/body&gt;</text>
+              <text x="640" y="315" class="codeText">&lt;/html&gt;</text>
+              <line x1="320" y1="128" x2="600" y2="128" class="arrow"/>
+              <text x="460" y="118" text-anchor="middle" class="label">Petició HTTP (GET)</text>
+              <line x1="740" y1="200" x2="740" y2="230" class="arrow"/>
+              <text x="755" y="218" class="label">Execució</text>
+              <line x1="600" y1="275" x2="320" y2="275" class="arrow"/>
+              <text x="460" y="265" text-anchor="middle" class="label">Resposta HTTP (HTML)</text>
+            </svg>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 3: Tiled_Text_With_Icons -->
+<div class="slide-container" id="slide3">
+    <h2 class="slide-title">2. Llenguatges Servidor i PHP</h2>
+    <div class="content-area">
+        <p style="text-align:center; margin-bottom: 40px;">El backend es pot programar en Java EE, Ruby on Rails, ASP.NET, Python... Però escollim PHP per:</p>
+        <div class="tiled-content">
+            <div class="tile"><div class="icon"><i class="fa-solid fa-lock-open"></i></div><h3>Lliure i Open Source</h3><p>Qualsevol pot muntar i utilitzar un servidor PHP gratuïtament i modificar-lo.</p></div>
+            <div class="tile"><div class="icon"><i class="fa-solid fa-server"></i></div><h3>Alta Compatibilitat</h3><p>Soportat de forma nativa per la immensa majoria de servidors web comercials.</p></div>
+            <div class="tile"><div class="icon"><i class="fa-solid fa-book"></i></div><h3>Documentació</h3><p>Molt senzill d'aprendre i amb manual exhaustiu (php.net/funcio).</p></div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 4: Two_Column_Tiled_Text -->
+<div class="slide-container" id="slide4">
+    <h2 class="slide-title">3. Formularis HTML (Inputs Bàsics)</h2>
+    <div class="content-area">
+        <div class="two-column tiled">
+            <div>
+                <h3>Atributs del Form i Input</h3>
+                <ul>
+                    <li><code>action="url"</code>: Destí de les dades.</li>
+                    <li><code>name="var"</code>: Nom del paràmetre enviat.</li>
+                    <li><code>type</code>: button, password, radio, submit, text...</li>
+                    <li><code>size="10"</code>: Controla la dimensió visual.</li>
+                    <li><code>maxlength="8"</code>: Límit de caràcters permesos.</li>
+                    <li><code>readonly</code> o <code>disabled</code>: Bloqueig de camp.</li>
+                </ul>
+            </div>
+            <div>
+                <h3>Exemple Codi HTML</h3>
+<pre>
+&lt;form action="search.php" method="POST"&gt;
+  Cerca:
+  &lt;input type="text" name="q" 
+         size="10" maxlength="20"/&gt;
+
+  DNI:
+  &lt;input type="text" disabled 
+         value="47777777A"/&gt;
+
+  &lt;input type="submit" value="Go"/&gt;
+&lt;/form&gt;
+</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 5: Two_Column_Tiled_Text -->
+<div class="slide-container" id="slide5">
+    <h2 class="slide-title">4. Formularis HTML (Inputs Avançats)</h2>
+    <div class="content-area">
+        <div class="two-column tiled">
+            <div>
+                <h3>Textarea i Checkbox</h3>
+                <p>Els camps multilínia i selectors múltiples.</p>
+<pre>
+&lt;textarea rows="4" cols="20" name="msg"&gt;
+  Escriu aquí...
+&lt;/textarea&gt;
+
+&lt;input type="checkbox" name="ext" 
+       checked="checked" value="si"/&gt; Extra
+</pre>
+            </div>
+            <div>
+                <h3>Desplegables (Select)</h3>
+                <p>Llistes d'opcions seleccionables.</p>
+<pre>
+&lt;select name="personatge"&gt;
+  &lt;option value="kirk"&gt;James Kirk&lt;/option&gt;
+  &lt;option value="picard" selected&gt;
+    Jean-Luc Picard
+  &lt;/option&gt;
+&lt;/select&gt;
+</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 6: Two_Column_Tiled_Text -->
+<div class="slide-container" id="slide6">
+    <h2 class="slide-title">5. Sintaxi PHP i Comentaris</h2>
+    <div class="content-area">
+        <div class="two-column tiled">
+            <div>
+                <h3>Execució i Tags</h3>
+                <ul>
+                    <li>El codi ha d'estar dins de <code>&lt;?php ... ?&gt;</code>.</li>
+                    <li>S'allotja a <code>c:\xampp\htdocs\</code>.</li>
+                    <li>S'accedeix via navegador amb <code>http://localhost/fitxer.php</code>.</li>
+                </ul>
+            </div>
+            <div>
+                <h3>Comentaris i HTML</h3>
+<pre>
+&lt;?php
+  # Comentari d'una línia
+  // Altre comentari de línia
+  /* Comentari de 
+     múltiples línies */
+     
+  echo "Hola món";
+?&gt;
+&lt;br&gt; &lt;!-- HTML incrustat --&gt;
+&lt;?php echo "Adeu"; ?&gt;
+</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 7: Table -->
+<div class="slide-container" id="slide7">
+    <h2 class="slide-title">6. Peticions HTTP: GET vs POST</h2>
+    <div class="content-area">
+        <div class="table-layout">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Característica</th>
+                        <th>Petició GET (<code>$_GET</code>)</th>
+                        <th>Petició POST (<code>$_POST</code>)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Funció</strong></td>
+                        <td>Demana una pàgina o dades.</td>
+                        <td>Envia dades al servidor web per processar.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Visibilitat</strong></td>
+                        <td>Incrusta paràmetres a la URL (Query String).</td>
+                        <td>Incrusta paràmetres al cos (body) del paquet HTTP.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Longitud</strong></td>
+                        <td>Limitat (aprox. 1024 caràcters).</td>
+                        <td>Molt alta (ideal per enviar fitxers o textos grans).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Seguretat</strong></td>
+                        <td><strong>Insegur:</strong> Dades privades visibles a la URL (i historial).</td>
+                        <td><strong>Més Segur:</strong> Ideal per contrasenyes.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 8: Two_Column_Tiled_Text -->
+<div class="slide-container" id="slide8">
+    <h2 class="slide-title">7. Recepció de Dades al Servidor</h2>
+    <div class="content-area">
+        <div class="two-column tiled">
+            <div>
+                <h3>Query String (GET)</h3>
+                <p>URL: <code>test.php?base=3&exp=4</code></p>
+<pre>
+&lt;?php
+  // Recollir de la URL
+  $b = $_GET["base"];
+  $e = $_GET["exp"];
+  
+  $res = pow($b, $e);
+  echo "$b ^ $e = $res";
+?&gt;
+</pre>
+            </div>
+            <div>
+                <h3>Formulari Body (POST)</h3>
+                <p>Mètode recomanat per a dades d'usuari.</p>
+<pre>
+&lt;?php
+  // Comprovar si existeix primer
+  if(isset($_POST["email"])) {
+      $mail = $_POST["email"];
+      echo "Correu rebut: " . $mail;
+  } else {
+      echo "Falta el correu!";
+  }
+?&gt;
+</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 9: Two_Column_Tiled_Text -->
+<div class="slide-container" id="slide9">
+    <h2 class="slide-title">8. Post al mateix fitxer (PHP_SELF)</h2>
+    <div class="content-area">
+        <div class="two-column tiled">
+            <div>
+                <h3>L'Atribut PHP_SELF</h3>
+                <p>Un formulari pot enviar dades a ell mateix. Això redueix el nombre de pàgines a mantenir al servidor.</p>
+                <p>S'utilitza <code>$_SERVER['PHP_SELF']</code> al camp <code>action</code> del form HTML.</p>
+            </div>
+            <div>
+                <h3>Exemple Codi</h3>
+<pre>
+&lt;!-- HTML Form --&gt;
+&lt;form method="post" 
+ action="&lt;?php echo $_SERVER['PHP_SELF'];?&gt;"&gt;
+  Nom: &lt;input type="text" name="nom"&gt;
+  &lt;input type="submit"&gt;
+&lt;/form&gt;
+
+&lt;?php // PHP Process
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $nom = $_POST['nom'];
+  echo "Has enviat: " . $nom;
+}
+?&gt;
+</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 10: TEST 1 (CHALLENGE) -->
+<div class="slide-container challenge" id="slide10">
+    <h2 class="slide-title"><i class="fa-solid fa-pen-to-square"></i> Exercici Pràctic 1: Formularis i Variables</h2>
+    <span class="reveal-hint">Panses el ratolí per sobre de la resposta per revelar-la</span>
+    <div class="content-area">
+        <div class="quiz-grid">
+            <div class="quiz-item">
+                <div class="quiz-q">1. Si un form no té l'atribut <code>method</code>, quin s'usa per defecte?</div>
+                <div class="quiz-a reveal-box">S'utilitza el mètode GET per defecte.</div>
+            </div>
+            <div class="quiz-item">
+                <div class="quiz-q">2. Quin problema de seguretat hi ha si envies un <code>&lt;input type="password"&gt;</code> usant GET?</div>
+                <div class="quiz-a reveal-box">La contrasenya serà visible a la URL i quedarà guardada a l'historial del navegador.</div>
+            </div>
+            <div class="quiz-item">
+                <div class="quiz-q">3. Com es comprova si el botó Submit d'un POST ha estat clicat a PHP?</div>
+                <div class="quiz-a reveal-box">Usant <code>if ($_SERVER["REQUEST_METHOD"] == "POST")</code> o comprovant si la variable existeix: <code>isset($_POST['submit'])</code>.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 11: Styled_Bullet_Points -->
+<div class="slide-container" id="slide11">
+    <h2 class="slide-title">9. Modularització: include vs require</h2>
+    <div class="content-area">
+        <div class="bullet-list">
+            <ul>
+                <li><i class="fa-solid fa-puzzle-piece"></i> <strong>Concepte:</strong> Permet inserir el contingut d'un fitxer PHP (ex. menu.php) dins d'un altre fitxer abans que el servidor l'executi.</li>
+                <li><i class="fa-solid fa-triangle-exclamation"></i> <strong>include():</strong> Intenta carregar el fitxer. Si no el troba, genera un <em>Warning</em>, però el script <strong>continua la seva execució</strong> amb normalitat.</li>
+                <li><i class="fa-solid fa-skull-crossbones"></i> <strong>require():</strong> Exigeix el fitxer per funcionar. Si no el troba, genera un <em>Fatal Error</em> i el script <strong>s'atura immediatament</strong>.</li>
+                <li><i class="fa-solid fa-code"></i> <strong>Ús Pràctic:</strong> <code>&lt;?php include("menu.php"); ?&gt;</code> s'incrusta directament al cos del codi HTML.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 12: Tiled_Text_With_Icons -->
+<div class="slide-container" id="slide12">
+    <h2 class="slide-title">10. Arrays Superglobals</h2>
+    <div class="content-area">
+        <div class="tiled-content">
+            <div class="tile">
+                <div class="icon"><i class="fa-solid fa-download"></i></div>
+                <h3>$_GET / $_POST</h3>
+                <p>Recuperen els paràmetres introduïts al formulari, depenent del mètode HTTP utilitzat.</p>
+            </div>
+            <div class="tile">
+                <div class="icon"><i class="fa-solid fa-file-arrow-up"></i></div>
+                <h3>$_FILES</h3>
+                <p>Array associatiu que conté els fitxers físics pujats des d'un formulari multipart.</p>
+            </div>
+            <div class="tile">
+                <div class="icon"><i class="fa-solid fa-cookie-bite"></i></div>
+                <h3>$_COOKIE / $_SESSION</h3>
+                <p>Permeten la persistència de dades entre pàgines i l'autenticació d'usuaris loguejats.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 13: Table -->
+<div class="slide-container" id="slide13">
+    <h2 class="slide-title">11. Detall Variable $_SERVER</h2>
+    <div class="content-area">
+        <div class="table-layout">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Propietat ($_SERVER)</th>
+                        <th>Descripció (Exemple de resultat)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>["SERVER_NAME"]</code></td>
+                        <td>Nom del web server (ex. <em>webster.cs.washington.edu</em>).</td>
+                    </tr>
+                    <tr>
+                        <td><code>["REMOTE_ADDR"]</code></td>
+                        <td>IP de l'usuari (client) connectat (ex. <em>192.168.1.34</em>).</td>
+                    </tr>
+                    <tr>
+                        <td><code>["HTTP_USER_AGENT"]</code></td>
+                        <td>Navegador de l'usuari (ex. <em>Mozilla/5.0 Windows...</em>).</td>
+                    </tr>
+                    <tr>
+                        <td><code>["REQUEST_METHOD"]</code></td>
+                        <td>Mètode HTTP usat (<em>GET</em> o <em>POST</em>).</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 14: Two_Column_Tiled_Text -->
+<div class="slide-container" id="slide14">
+    <h2 class="slide-title">12. Pujada de Fitxers (Uploads)</h2>
+    <div class="content-area">
+        <div class="two-column tiled">
+            <div>
+                <h3>Requisits HTML i $_FILES</h3>
+                <p>L'HTML ha d'usar obligatòriament <code>enctype="multipart/form-data"</code> i mètode POST.</p>
+                <p>PHP rep el fitxer a <code>$_FILES["camp"]</code> amb:</p>
+                <ul>
+                    <li><code>name</code>: Nom local de l'arxiu.</li>
+                    <li><code>type</code>: Tipus MIME (ex. image/jpeg).</li>
+                    <li><code>size</code>: Mida en bytes.</li>
+                    <li><code>tmp_name</code>: Ruta on PHP ho desa temporalment.</li>
+                </ul>
+            </div>
+            <div>
+                <h3>Procés en PHP</h3>
+<pre>
+&lt;?php
+$tmp = $_FILES["avatar"]["tmp_name"];
+$nom = $_FILES["avatar"]["name"];
+
+// Moure del temporal a la carpeta final
+if (is_uploaded_file($tmp)) {
+  move_uploaded_file($tmp, "fotos/$nom");
+  echo "Guardat a fotos/$nom";
+} else {
+  echo "Error de pujada.";
+}
+?&gt;
+</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 15: Two_Column_Tiled_Text -->
+<div class="slide-container" id="slide15">
+    <h2 class="slide-title">13. Strings i Funcions Bàsiques</h2>
+    <div class="content-area">
+        <div class="two-column tiled">
+            <div>
+                <h3>Cometes dobles vs simples</h3>
+                <p>Les <code>""</code> interpreten variables internament. Les <code>''</code> no interpreten res (són literals purs).</p>
+<pre>
+$edat = 16;
+echo "Tens $edat anys.";
+// Resultat: Tens 16 anys.
+
+echo 'Tens $edat anys.';
+// Resultat: Tens $edat anys.
+</pre>
+            </div>
+            <div>
+                <h3>Explode, Implode i List</h3>
+                <p>Mètodes de conversió Text &harr; Array.</p>
+<pre>
+// Text a Array (separa per espais)
+$tokens = explode(" ", "Marty D Stepp");
+
+// Extracció directa a variables
+list($nom, $ini, $cog) = $tokens;
+
+// Array a Text (uneix amb guions)
+$str = implode("-", $tokens);
+// Resultat: "Marty-D-Stepp"
+</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 16: Two_Column_Tiled_Text -->
+<div class="slide-container" id="slide16">
+    <h2 class="slide-title">14. Estructura Arrays a PHP</h2>
+    <div class="content-area">
+        <div class="two-column tiled">
+            <div>
+                <h3>Arrays Numèrics Standard</h3>
+                <p>Índexs base 0 automàtics.</p>
+<pre>
+$noms = array("Larry", "Moe");
+
+// Afegir element al final dinàmicament
+$noms[] = "Curly"; 
+
+echo $noms[2]; // Imprimeix Curly
+</pre>
+            </div>
+            <div>
+                <h3>Arrays Associatius (Diccionaris)</h3>
+                <p>Substitueixen l'índex numèric per "Claus" text.</p>
+<pre>
+$age = array(
+  "Peter" => 35, 
+  "Ben"   => 37
+);
+
+// Afegir o modificar
+$age['Joe'] = 43;
+
+echo "En Peter té " . $age['Peter'];
+</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 17: Table -->
+<div class="slide-container" id="slide17">
+    <h2 class="slide-title">15. Funcions natives per Arrays</h2>
+    <div class="content-area">
+        <div class="table-layout">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Família / Funció</th>
+                        <th>Descripció de l'operació</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>count($arr)</code> / <code>print_r($arr)</code></td>
+                        <td>Compta els elements / Imprimeix l'estructura completa per depurar (debug).</td>
+                    </tr>
+                    <tr>
+                        <td><code>array_pop</code> / <code>array_push</code></td>
+                        <td>Ús de l'array com a Pila (extreu de dalt o afegeix al final).</td>
+                    </tr>
+                    <tr>
+                        <td><code>in_array($val, $arr)</code></td>
+                        <td>Cerca si un valor existeix (Retorna True/False).</td>
+                    </tr>
+                    <tr>
+                        <td><code>sort($arr)</code> / <code>rsort($arr)</code></td>
+                        <td>Ordenació creixent o decreixent (modifica l'array original).</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 18: Two_Column_Tiled_Text -->
+<div class="slide-container" id="slide18">
+    <h2 class="slide-title">16. Funcions i Bucle Foreach</h2>
+    <div class="content-area">
+        <div class="two-column tiled">
+            <div>
+                <h3>Creació de Funcions pròpies</h3>
+                <p>S'utilitza <code>function</code> i es pot retornar valor amb <code>return</code>.</p>
+<pre>
+&lt;?php
+function quadrat($x) {
+  return $x * $x;
+}
+
+echo "El quadrat de 4 és: " . quadrat(4);
+?&gt;
+</pre>
+            </div>
+            <div>
+                <h3>Bucle Foreach</h3>
+                <p>Especialitzat en iterar arrays associatius.</p>
+<pre>
+&lt;?php
+$age = array("Peter"=>35, "Ben"=>37);
+
+foreach($age as $key => $val) {
+  echo "Nom: $key, Edat: $val \n";
+}
+?&gt;
+</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 19: TEST 2 (CHALLENGE) -->
+<div class="slide-container challenge" id="slide19">
+    <h2 class="slide-title"><i class="fa-solid fa-code"></i> Exercici Pràctic 2: Arrays i Lògica</h2>
+    <span class="reveal-hint">Panses el ratolí per sobre de la resposta per revelar-la</span>
+    <div class="content-area">
+        <div class="two-column tiled" style="align-items: center;">
+            <div>
+                <h3>Llegeix el codi. Quin serà l'output final?</h3>
+<pre>
+$colors = array("blau", "verd");
+$colors[] = "vermell";
+
+$text = implode(" i ", $colors);
+echo $text;
+</pre>
+            </div>
+            <div class="reveal-box" style="display:flex; justify-content:center; align-items:center; background:#0f172a; border-color:#10b981;">
+                <h3 style="color:#10b981; margin:0; font-family: monospace;">blau i verd i vermell</h3>
+            </div>
+        </div>
+        <div class="quiz-grid" style="margin-top:20px;">
+            <div class="quiz-item">
+                <div class="quiz-q">Com iteraries un array numèric anomenat <code>$notes</code> per mostrar només els valors (sense la key)?</div>
+                <div class="quiz-a reveal-box"><code>foreach ($notes as $nota) { echo $nota; }</code></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 20: Two_Column_Tiled_Text -->
+<div class="slide-container" id="slide20">
+    <h2 class="slide-title">17. Programació Orientada a Objectes (POO)</h2>
+    <div class="content-area">
+        <div class="two-column tiled">
+            <div>
+                <h3>Classes i Instàncies</h3>
+                <p>S'accedeix a les propietats i mètodes amb <code>-&gt;</code> (mai amb un punt).</p>
+<pre>
+class Usuari {
+  public $nom = "Anonim";
+}
+
+$u = new Usuari();
+$u-&gt;nom = "Joan";
+echo $u-&gt;nom;
+</pre>
+            </div>
+            <div>
+                <h3>Constructor i $this</h3>
+                <p><code>__construct</code> rep dades al fer <code>new</code>. S'empra <code>$this-&gt;</code> per auto-referenciar-se dins la classe.</p>
+<pre>
+class TextObj {
+  private $color;
+  function __construct($c) {
+    $this-&gt;color = $c;
+  }
+  function printColor() {
+    echo $this-&gt;color;
+  }
+}
+</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 21: Table -->
+<div class="slide-container" id="slide21">
+    <h2 class="slide-title">18. E/S de Fitxers (Input/Output)</h2>
+    <div class="content-area">
+        <div class="table-layout">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Funció</th>
+                        <th>Descripció i Comportament</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>file("ruta.txt")</code></td>
+                        <td>Llegeix i retorna el fitxer en format Array (cada línia és un element de l'array).</td>
+                    </tr>
+                    <tr>
+                        <td><code>file_get_contents("ruta.txt")</code></td>
+                        <td>Retorna tot el contingut del fitxer en un sol i enorme String unificat.</td>
+                    </tr>
+                    <tr>
+                        <td><code>file_put_contents("ruta.txt", $str)</code></td>
+                        <td>Escriu un string en un fitxer, creant-lo si no existeix. Per defecte sobreescriu.</td>
+                    </tr>
+                    <tr>
+                        <td><code>FILE_APPEND</code></td>
+                        <td>Paràmetre opcional: <code>file_put_contents($f, $s, FILE_APPEND)</code> per concatenar (no esborrar).</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 22: Two_Column_Tiled_Text -->
+<div class="slide-container" id="slide22">
+    <h2 class="slide-title">19. Validació i Seguretat (XSS)</h2>
+    <div class="content-area">
+        <div class="two-column tiled">
+            <div>
+                <h3>Client vs Servidor</h3>
+                <ul>
+                    <li><strong>Client (JS/HTML5):</strong> Ràpid per l'usuari. Fàcil de saltar i, per tant, insuficient per a seguretat real.</li>
+                    <li><strong>Servidor (PHP):</strong> Obligatori. L'única barrera real abans de guardar a la base de dades.</li>
+                </ul>
+            </div>
+            <div>
+                <h3>Cross-Site Scripting (XSS)</h3>
+                <p>Si l'usuari entra <code>&lt;script&gt;malware()&lt;/script&gt;</code> i l'imprimim, ens hackeja la web. Cal netejar:</p>
+<pre>
+$input = "&lt;b&gt;Hack&lt;/b&gt;";
+
+// htmlspecialchars converteix els tags 
+// en entitats segures (&amp;lt;b&amp;gt;)
+$segur = htmlspecialchars($input);
+
+echo $segur; // Text literal segur
+</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 23: Two_Column_Tiled_Text -->
+<div class="slide-container" id="slide23">
+    <h2 class="slide-title">20. Expressions Regulars (Regex)</h2>
+    <div class="content-area">
+        <div class="two-column tiled">
+            <div>
+                <h3>Estructura Bàsica</h3>
+                <p>Cadenes entre <code>/ /</code> per comprovar patrons texturals exactes o complexos.</p>
+                <ul>
+                    <li><code>^</code> : Inici | <code>$</code> : Final.</li>
+                    <li><code>[a-z0-9]</code> : Rang alfanumèric.</li>
+                    <li><code>\d</code> : Només número.</li>
+                    <li><code>{min,max}</code> : Nombre de repeticions.</li>
+                </ul>
+            </div>
+            <div>
+                <h3>Funció de validació a PHP</h3>
+                <p>S'utilitza <code>preg_match(regex, text)</code></p>
+<pre>
+// Validar un preu ex: $100.00
+$regex = "/^\$\d{1,}\.\d{2}$/";
+$preu = "$45.99";
+
+if (preg_match($regex, $preu)) {
+    echo "Format Correcte";
+}
+</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 24: TEST 3 (CHALLENGE) -->
+<div class="slide-container challenge" id="slide24">
+    <h2 class="slide-title"><i class="fa-solid fa-shield-halved"></i> Exercici Pràctic 3: Seguretat i Regex</h2>
+    <span class="reveal-hint">Panses el ratolí per sobre de la resposta per revelar-la</span>
+    <div class="content-area">
+        <div class="quiz-grid">
+            <div class="quiz-item">
+                <div class="quiz-q">1. Has de validar un CP espanyol (exactament 5 números). Quina Regex utilitzaries?</div>
+                <div class="quiz-a reveal-box"><code>/^\d{5}$/</code> (Inici `^`, dígit `\d`, 5 vegades `{5}`, final `$`)</div>
+            </div>
+            <div class="quiz-item">
+                <div class="quiz-q">2. Si vull llegir totes les línies d'un fitxer 'log.txt' on cada línia sigui un element d'un array, quina funció uso?</div>
+                <div class="quiz-a reveal-box"><code>$linies = file("log.txt");</code></div>
+            </div>
+            <div class="quiz-item">
+                <div class="quiz-q">3. Un usuari envia un comentari a un fòrum. Quina funció PHP és obligatòria aplicar abans de fer un "echo" d'aquest comentari a la web?</div>
+                <div class="quiz-a reveal-box"><code>htmlspecialchars($comentari)</code> per evitar atacs XSS.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 25: Two_Column_Tiled_Text -->
+<div class="slide-container" id="slide25">
+    <h2 class="slide-title">21. Redireccions i Excepcions</h2>
+    <div class="content-area">
+        <div class="two-column tiled">
+            <div>
+                <h3>Redireccions (Headers)</h3>
+                <p>Per canviar de pàgina, enviem la capçalera <code>Location:</code>. <strong>Important:</strong> s'ha de fer abans de cap <code>echo</code> o HTML.</p>
+<pre>
+if ($login_correcte) {
+  header("Location: dashboard.php");
+  exit(); // Aturar script actual
+}
+</pre>
+            </div>
+            <div>
+                <h3>Maneig d'Excepcions (Try/Catch)</h3>
+                <p>Permet capturar errors estructuradament evitant que la pàgina "peti" per a l'usuari final.</p>
+<pre>
+try {
+  if (!file_exists("config.ini")) {
+    throw new Exception("Arxiu corrupte");
+  }
+} catch (Exception $e) {
+  echo "Error capturat: ".$e-&gt;getMessage();
+}
+</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 26: MINI PROJECTE (EXEMPLE COMPLET) -->
+<div class="slide-container" id="slide26">
+    <h2 class="slide-title"><i class="fa-solid fa-rocket"></i> 22. Mini-Projecte: Formulari i Validació</h2>
+    <div class="content-area">
+        <p style="text-align:center; margin-bottom: 20px;">Unificant Conceptes: PHP_SELF, Seguretat XSS, Validació i Missatges d'Error.</p>
+        <div style="width: 100%; max-width: 900px;">
+<pre style="font-size: 16px;">
+&lt;?php
+$missatge = "";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // 1. Recollim el GET/POST aplicant XSS prevention
+    $nom = htmlspecialchars($_POST["nom"]);
+    
+    // 2. Validació (ex: el nom només pot tenir lletres)
+    if (preg_match("/^[a-zA-Z\s]+$/", $nom)) {
+        // 3. Desa en fitxer si és vàlid
+        file_put_contents("usuaris.txt", $nom . "\n", FILE_APPEND);
+        $missatge = "Usuari $nom registrat correctament.";
+    } else {
+        $missatge = "Error: Format de nom invàlid.";
+    }
+}
+?&gt;
+
+&lt;form method="POST" action="&lt;?php echo $_SERVER['PHP_SELF']; ?&gt;"&gt;
+   &lt;label&gt;Nom d'Usuari:&lt;/label&gt;
+   &lt;input type="text" name="nom" required&gt;
+   &lt;input type="submit" value="Desar"&gt;
+&lt;/form&gt;
+&lt;p&gt;&lt;?php echo $missatge; ?&gt;&lt;/p&gt;
+</pre>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

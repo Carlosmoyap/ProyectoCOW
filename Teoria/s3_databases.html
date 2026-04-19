@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bases de Dades, SQL i PHP (PDO)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* CORE SETUP - ESTRICTE 1280x720 PROJECCIÓ */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            background-color: #0f172a;
+            display: grid;
+            gap: 40px;
+            grid-template-columns: 1fr;
+            min-height: 100vh;
+            padding: 40px 0;
+            place-items: center;
+        }
+
+        .slide-container {
+            background-color: #1e293b;
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            font-family: 'Inter', sans-serif;
+            height: 720px;
+            width: 1280px;
+            overflow: hidden;
+            padding: 60px 80px;
+            position: relative;
+            color: #f1f5f9;
+        }
+
+        /* DECORACIÓ SUBTIL */
+        .slide-container::before {
+            content: ''; position: absolute; top: -200px; right: -200px; width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.15) 0%, transparent 70%); z-index: 0; pointer-events: none;
+        }
+        .slide-container.challenge::before {
+            background: radial-gradient(circle, rgba(245, 158, 11, 0.15) 0%, transparent 70%);
+        }
+        .slide-container > * { position: relative; z-index: 1; }
+
+        /* TIPOGRAFIA */
+        h1 { font-size: 72px; font-weight: 800; line-height: 1.1; margin-bottom: 20px; text-align: center; }
+        h1 span { color: #38bdf8; }
+        
+        .slide-title {
+            font-size: 42px;
+            font-weight: 800;
+            border-left: 8px solid #38bdf8;
+            padding-left: 20px;
+            margin-bottom: 30px;
+            color: #f8fafc;
+            width: 100%;
+        }
+        .slide-container.challenge .slide-title { border-left-color: #fbbf24; color: #fbbf24; }
+
+        p, li { font-size: 22px; line-height: 1.5; margin-bottom: 12px; color: #cbd5e1; }
+        ul { padding-left: 30px; margin-bottom: 20px; }
+        li::marker { color: #38bdf8; font-size: 1.2em; }
+        strong { color: #f8fafc; }
+
+        /* CODI CLAR I GRAN */
+        pre {
+            background-color: #0f172a;
+            border-left: 5px solid #38bdf8;
+            border-radius: 8px;
+            padding: 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 18px;
+            color: #e2e8f0;
+            margin-bottom: 20px;
+            box-shadow: inset 0 4px 6px rgba(0,0,0,0.3);
+            overflow-x: hidden;
+        }
+        pre.sql { border-left-color: #f59e0b; }
+        code { font-family: 'Fira Code', monospace; color: #7dd3fc; }
+        .kw { color: #c678dd; } /* Keyword */
+        .str { color: #a6e22e; } /* String */
+        .fn { color: #66d9ef; } /* Function */
+        .var { color: #fd971f; } /* Variable */
+        .sql-kw { color: #f59e0b; font-weight: 600; } /* SQL Keyword */
+
+        /* LAYOUTS */
+        .content-area { display: flex; flex-direction: column; flex-grow: 1; width: 100%; justify-content: center; }
+        .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; height: 100%; align-items: start; }
+        .title-layout { align-items: center; display: flex; flex-direction: column; justify-content: center; text-align: center; height: 100%; }
+
+        /* TAULES NETES */
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; background: rgba(15, 23, 42, 0.6); border-radius: 8px; overflow: hidden; }
+        th, td { border-bottom: 1px solid #334155; padding: 12px 16px; text-align: left; font-size: 18px; }
+        th { background-color: rgba(56, 189, 248, 0.2); color: #f8fafc; font-weight: 800; }
+        tr:nth-child(even) { background-color: rgba(30, 41, 59, 0.4); }
+        
+        /* CAIXES DE DESTACAT */
+        .info-box { background: rgba(56, 189, 248, 0.1); border: 1px solid #38bdf8; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        
+        /* MAGIC REVEAL (Tests) */
+        .quiz-grid { display: grid; grid-template-columns: 1fr; gap: 15px; width: 100%; }
+        .quiz-item { background: rgba(15, 23, 42, 0.8); border: 2px solid #475569; border-radius: 12px; padding: 20px; display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+        .quiz-q { font-size: 22px; font-weight: 600; color: #f8fafc; flex: 1; }
+        .quiz-a { flex: 1; background: #0f172a; padding: 15px; border-radius: 8px; border-left: 4px solid #10b981; color: #10b981; font-weight: 700; font-family: monospace; font-size: 18px; }
+        .reveal-box { filter: blur(10px); opacity: 0.5; transition: all 0.3s ease; cursor: pointer; user-select: none; }
+        .reveal-box:hover { filter: blur(0); opacity: 1; }
+
+        .qa-layout { text-align: center; }
+        .qa-layout h2 { font-size: 80px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+<!-- Slide 1: Títol -->
+<div class="slide-container" id="slide1">
+    <div class="title-layout">
+        <i class="fa-solid fa-database" style="font-size: 140px; color: #38bdf8; margin-bottom: 30px;"></i>
+        <h1>Bases de Dades <br>i <span>PHP (PDO)</span></h1>
+        <p style="font-size: 30px; color: #94a3b8; margin-top: 20px;">SQL Multitaula, XAMPP i Connexions Segures</p>
+    </div>
+</div>
+
+<!-- Slide 2: Programari de Bases de Dades -->
+<div class="slide-container" id="slide2">
+    <h2 class="slide-title">1. Programari de Bases de Dades</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <h3>Sistemes Gestors (SGBD)</h3>
+                <ul>
+                    <li><strong>Oracle:</strong> Estàndard empresarial molt potent.</li>
+                    <li><strong>Microsoft SQL Server:</strong> Potent i natiu Windows.</li>
+                    <li><strong>PostgreSQL:</strong> Lliure, open-source, molt potent i complex.</li>
+                    <li><strong>SQLite:</strong> Transportable, lleuger, sense servidor (usat en mòbils).</li>
+                    <li><strong style="color:#38bdf8;">MySQL / MariaDB:</strong> Simple, lliure, open-source. L'estàndard web.</li>
+                </ul>
+            </div>
+            <div>
+                <div class="info-box" style="text-align: center; padding: 40px 20px;">
+                    <h3 style="font-size: 36px; margin-bottom: 20px;">L'Ecosistema LAMP</h3>
+                    <p style="font-size: 26px;"><strong>L</strong>inux</p>
+                    <p style="font-size: 26px;"><strong>A</strong>pache</p>
+                    <p style="font-size: 26px; color: #38bdf8; font-weight: bold;">M<span style="color:#cbd5e1; font-weight:normal;">ySQL</span></p>
+                    <p style="font-size: 26px;"><strong>P</strong>HP</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 3: XAMPP i phpMyAdmin -->
+<div class="slide-container" id="slide3">
+    <h2 class="slide-title">2. Entorn Local: XAMPP i phpMyAdmin</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <h3>Gestió de Serveis (XAMPP)</h3>
+                <ul>
+                    <li>Cal activar els mòduls <strong>Apache</strong> i <strong>MySQL</strong> al panell de control de XAMPP.</li>
+                    <li>L'arrel física on es guarden les bases de dades és a <code>C:\xampp\mysql\data</code>.</li>
+                    <li>Es pot accedir via consola executant <code>C:\xampp\mysql\bin\mysql.exe</code>.</li>
+                </ul>
+            </div>
+            <div>
+                <h3>Interfície Web (phpMyAdmin)</h3>
+                <p>Eina escrita en PHP per administrar MySQL visualment. S'hi accedeix via <code>http://localhost/phpmyadmin</code>.</p>
+                <div style="background: rgba(15,23,42,0.8); padding: 20px; border-radius: 8px;">
+                    <p style="margin-bottom: 10px;"><strong>Flux de creació visual:</strong></p>
+                    <ol style="padding-left: 20px;">
+                        <li>Pestanya "Bases de dades" &rarr; Crear (ex: <em>alumnes</em>).</li>
+                        <li>Crear Taula (ex: <em>estudiants</em>) &rarr; Indicar N columnes.</li>
+                        <li>Definir tipus de dades (<code>INT</code>, <code>VARCHAR</code>) i Auto-Increment (<code>A_I</code>).</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 4: Sintaxi SQL Bàsica -->
+<div class="slide-container" id="slide4">
+    <h2 class="slide-title">3. Repàs: Sintaxi SQL Bàsica</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+<pre class="sql">
+<span class="com">-- Seleccionar columnes específiques</span>
+<span class="sql-kw">SELECT</span> name, population 
+<span class="sql-kw">FROM</span> cities;
+
+<span class="com">-- Valors únics sense repetir</span>
+<span class="sql-kw">SELECT DISTINCT</span> language 
+<span class="sql-kw">FROM</span> languages;
+
+<span class="com">-- Filtrar per condicions numèriques</span>
+<span class="sql-kw">SELECT</span> * <span class="sql-kw">FROM</span> countries 
+<span class="sql-kw">WHERE</span> gnp > 2000000;
+</pre>
+            </div>
+            <div>
+<pre class="sql">
+<span class="com">-- Cerca per patrons (LIKE)</span>
+<span class="com">-- % = Qualsevol text darrere</span>
+<span class="sql-kw">SELECT</span> code, name <span class="sql-kw">FROM</span> countries 
+<span class="sql-kw">WHERE</span> name <span class="sql-kw">LIKE</span> 'United%';
+
+<span class="com">-- Ordenar resultats</span>
+<span class="sql-kw">ORDER BY</span> population <span class="sql-kw">DESC</span>;
+
+<span class="com">-- Limitar número de resultats</span>
+<span class="sql-kw">LIMIT</span> 5;
+</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 5: Bases de Dades Relacionals -->
+<div class="slide-container" id="slide5">
+    <h2 class="slide-title">4. Bases de Dades Relacionals</h2>
+    <div class="content-area">
+        <div class="info-box">
+            <ul>
+                <li><strong>Clau Primària (Primary Key - PK):</strong> Columna que garanteix que cada fila és única (ex: <code>id</code> d'un estudiant). Generalment Auto-Incremental.</li>
+                <li><strong>Clau Forana (Foreign Key - FK):</strong> Columna a la taula B que emmagatzema un valor de la Clau Primària de la taula A, creant una <strong>relació</strong>.</li>
+            </ul>
+        </div>
+        
+        <div style="display: flex; gap: 20px; width: 100%;">
+            <div style="flex: 1;">
+                <h3>Taula: students</h3>
+                <table>
+                    <tr><th>id (PK)</th><th>name</th></tr>
+                    <tr><td>123</td><td>Bart</td></tr>
+                    <tr><td>888</td><td>Lisa</td></tr>
+                </table>
+            </div>
+            <div style="flex: 1;">
+                <h3>Taula: grades</h3>
+                <table>
+                    <tr><th>student_id (FK)</th><th>course_id</th><th>grade</th></tr>
+                    <tr><td>123</td><td>10001</td><td>C</td></tr>
+                    <tr><td>888</td><td>10002</td><td>A+</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 6: JOINs -->
+<div class="slide-container" id="slide6">
+    <h2 class="slide-title">5. Consultes Multitaula (JOIN)</h2>
+    <div class="content-area">
+        <p>Unim dades de diferents taules relacionant la PK d'una amb la FK de l'altra.</p>
+        <div class="two-column">
+            <div>
+<pre class="sql">
+<span class="com">-- Quins cursos fa en Bart?</span>
+<span class="sql-kw">SELECT</span> s.name, g.course_id, g.grade
+<span class="sql-kw">FROM</span> students s
+<span class="sql-kw">JOIN</span> grades g <span class="sql-kw">ON</span> s.id = g.student_id
+<span class="sql-kw">WHERE</span> s.name = 'Bart';
+</pre>
+                <p style="font-size: 16px;"><em>* Hem creat els "àlies" <code>s</code> i <code>g</code> per simplificar l'escriptura.</em></p>
+            </div>
+            <div>
+                <div class="info-box">
+                    <h3 style="margin-bottom: 10px;">Consells per dissenyar la Query:</h3>
+                    <ol style="margin-left: 20px;">
+                        <li>Quina/es taules tenen les dades? (<strong>FROM / JOIN</strong>)</li>
+                        <li>Com estan connectades? (<strong>ON pk = fk</strong>)</li>
+                        <li>Quines columnes vull mostrar? (<strong>SELECT</strong>)</li>
+                        <li>Com filtro les dades? (<strong>WHERE</strong>)</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 7: PDO Introducció -->
+<div class="slide-container" id="slide7">
+    <h2 class="slide-title">6. PHP + MySQL: Introducció a PDO</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <h3>L'Antic Mètode (Obsolet)</h3>
+                <p style="color: #ef4444; text-decoration: line-through;"><code>mysql_connect("host", "usr", "pw");</code></p>
+                <p>Aquest mètode ja no existeix a les versions modernes de PHP per motius de seguretat i obsolescència.</p>
+                
+                <h3 style="margin-top: 30px;">El Mètode Actual: PDO</h3>
+                <p><strong>PDO (PHP Data Objects)</strong> és una llibreria orientada a objectes que permet connectar-se a múltiples tipus de bases de dades de forma segura i eficient.</p>
+            </div>
+            <div>
+                <h3>Comandes principals de PDO:</h3>
+                <table>
+                    <tr><th>Mètode</th><th>Descripció</th></tr>
+                    <tr><td><code>query()</code></td><td>Executa SQL tipus SELECT i retorna resultats.</td></tr>
+                    <tr><td><code>exec()</code></td><td>Executa INSERT, UPDATE, DELETE (modificacions).</td></tr>
+                    <tr><td><code>quote()</code></td><td>Neteja valors per evitar Injecció SQL.</td></tr>
+                    <tr><td><code>setAttribute()</code></td><td>Configura la connexió (ex: gestió d'errors).</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 8: Connexió PDO -->
+<div class="slide-container" id="slide8">
+    <h2 class="slide-title">7. Connectar a la Base de Dades</h2>
+    <div class="content-area">
+        <p>Sempre utilitzarem blocs <code>try...catch</code> per capturar errors de connexió (ex: servidor apagat, password incorrecte) sense ensenyar el codi d'error cru a l'usuari.</p>
+<pre>
+<span class="kw">&lt;?php</span>
+<span class="var">$servidor</span> = <span class="str">"localhost"</span>;
+<span class="var">$usuari</span> = <span class="str">"root"</span>;
+<span class="var">$pw</span> = <span class="str">""</span>;
+<span class="var">$bd</span> = <span class="str">"world"</span>;
+
+<span class="kw">try</span> {
+    <span class="com">// Connexió DSN (Data Source Name)</span>
+    <span class="var">$conn</span> = <span class="kw">new</span> PDO(<span class="str">"mysql:host=</span><span class="var">$servidor</span><span class="str">;dbname=</span><span class="var">$bd</span><span class="str">;charset=utf8"</span>, <span class="var">$usuari</span>, <span class="var">$pw</span>);
+    
+    <span class="com">// Configurar PDO per llançar Excepcions si hi ha errors SQL</span>
+    <span class="var">$conn</span>->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+} <span class="kw">catch</span>(PDOException <span class="var">$e</span>) {
+    <span class="fn">echo</span> <span class="str">"Error de connexió: "</span> . <span class="var">$e</span>->getMessage();
+}
+<span class="kw">?&gt;</span>
+</pre>
+        <p><strong>Tancar connexió:</strong> <code>$conn = null;</code> (Opcional, es tanca sol al final de l'script).</p>
+    </div>
+</div>
+
+<!-- Slide 9: Consultes SELECT i Resultats -->
+<div class="slide-container" id="slide9">
+    <h2 class="slide-title">8. Analitzar resultats (SELECT)</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <p>El mètode <code>query()</code> retorna un objecte de tipus <code>PDOStatement</code>, no un array directe.</p>
+                <div class="info-box">
+                    <p style="margin-bottom:5px; font-weight:bold;">Mètodes d'aquest objecte:</p>
+                    <ul style="margin-bottom:0;">
+                        <li><code>rowCount()</code>: Número de files retornades.</li>
+                        <li><code>columnCount()</code>: Número de columnes.</li>
+                        <li><code>fetch()</code>: Retorna la següent línia.</li>
+                    </ul>
+                </div>
+            </div>
+            <div>
+<pre>
+<span class="var">$sql</span> = <span class="str">"SELECT name, population FROM city LIMIT 3"</span>;
+<span class="var">$resultat</span> = <span class="var">$conn</span>->query(<span class="var">$sql</span>);
+
+<span class="kw">if</span> (<span class="var">$resultat</span>->rowCount() > <span class="str">0</span>) {
+    <span class="com">// Iterar cada fila i mostrar</span>
+    <span class="kw">foreach</span> (<span class="var">$resultat</span> <span class="kw">as</span> <span class="var">$fila</span>) {
+        <span class="fn">echo</span> <span class="var">$fila</span>[<span class="str">'name'</span>] . <span class="str">" - "</span> . <span class="var">$fila</span>[<span class="str">'population'</span>];
+    }
+}
+</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 10: Inserció i Seguretat -->
+<div class="slide-container" id="slide10">
+    <h2 class="slide-title">9. Modificar dades (INSERT / DELETE)</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <h3>Ús d'exec()</h3>
+                <p>Per operacions que no retornen files, usem <code>exec()</code>.</p>
+<pre>
+<span class="var">$sql</span> = <span class="str">"DELETE FROM alumnes WHERE id=3"</span>;
+<span class="var">$conn</span>->exec(<span class="var">$sql</span>);
+</pre>
+                <h3 style="margin-top:20px;">Saber la ID Inserida</h3>
+                <p>Si la taula té Auto-Increment, podem saber quina ID ha tocat:</p>
+<pre>
+<span class="var">$id_nova</span> = <span class="var">$conn</span>->lastInsertId();
+</pre>
+            </div>
+            <div>
+                <h3>Seguretat: PDO quote()</h3>
+                <p style="color:#fca5a5;">CUIDAT! Incrustar variables directament a l'SQL permet atacs d'injecció.</p>
+                <p><code>quote()</code> ho saneja i afegeix cometes simples al voltant de la cadena de forma segura.</p>
+<pre>
+<span class="var">$nom</span> = <span class="var">$_GET</span>[<span class="str">"nom"</span>];
+
+<span class="com">// PREVENCIÓ INJECCIÓ SQL</span>
+<span class="var">$nom_segur</span> = <span class="var">$conn</span>->quote(<span class="var">$nom</span>);
+
+<span class="var">$sql</span> = <span class="str">"SELECT * FROM actors 
+        WHERE last_name = "</span> . <span class="var">$nom_segur</span>;
+</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 11: Transaccions -->
+<div class="slide-container" id="slide11">
+    <h2 class="slide-title">10. Transaccions (Múltiples operacions)</h2>
+    <div class="content-area">
+        <p>Una transacció agrupa vàries consultes SQL. Si una d'elles falla, s'anul·len <strong>totes</strong> per mantenir la coherència de la base de dades (ideal per a pagaments, transferències, etc.).</p>
+<pre>
+<span class="kw">try</span> {
+    <span class="com">// 1. Obrim la transacció</span>
+    <span class="var">$conn</span>->beginTransaction();
+
+    <span class="com">// 2. Executem varies sentències relacionades</span>
+    <span class="var">$conn</span>->exec(<span class="str">"INSERT INTO MyGuests (nom) VALUES ('John')"</span>);
+    <span class="var">$conn</span>->exec(<span class="str">"INSERT INTO MyGuests (nom) VALUES ('Mary')"</span>);
+
+    <span class="com">// 3. Si tot va bé, confirmem els canvis reals a la BD</span>
+    <span class="var">$conn</span>->commit();
+    <span class="fn">echo</span> <span class="str">"Registres creats amb èxit"</span>;
+
+} <span class="kw">catch</span>(PDOException <span class="var">$e</span>) {
+    <span class="com">// Si UNA falla, desfem TOT fins a com estàvem al pas 1</span>
+    <span class="var">$conn</span>->rollback();
+    <span class="fn">echo</span> <span class="str">"Error, operació cancel·lada: "</span> . <span class="var">$e</span>->getMessage();
+}
+</pre>
+    </div>
+</div>
+
+<!-- SLIDE 12: TEST 1 (CHALLENGE) -->
+<div class="slide-container challenge" id="slide12">
+    <h2 class="slide-title"><i class="fa-solid fa-code"></i> Exercicis Multitaula (Base 'simpsons')</h2>
+    <div class="content-area">
+        <p style="text-align:center; margin-bottom: 20px; font-style: italic;">Panses el ratolí per sobre la caixa dreta per revelar la Query</p>
+        <div class="quiz-grid">
+            <div class="quiz-item">
+                <div class="quiz-q">1. Quins cursos han estat escollits tant per Bart com per Lisa? Mostra els id dels cursos.</div>
+                <div class="quiz-a reveal-box">
+<span style="color:#f59e0b;">SELECT DISTINCT</span> g.course_id<br>
+<span style="color:#f59e0b;">FROM</span> grades g<br>
+<span style="color:#f59e0b;">JOIN</span> students s <span style="color:#f59e0b;">ON</span> g.student_id = s.id<br>
+<span style="color:#f59e0b;">WHERE</span> s.name <span style="color:#f59e0b;">IN</span> ('Bart', 'Lisa');
+                </div>
+            </div>
+            <div class="quiz-item">
+                <div class="quiz-q">2. Quins són els noms de tots els professors que ha tingut en Bart?</div>
+                <div class="quiz-a reveal-box">
+<span style="color:#f59e0b;">SELECT</span> t.name<br>
+<span style="color:#f59e0b;">FROM</span> teachers t<br>
+<span style="color:#f59e0b;">JOIN</span> courses c <span style="color:#f59e0b;">ON</span> t.id = c.teacher_id<br>
+<span style="color:#f59e0b;">JOIN</span> grades g <span style="color:#f59e0b;">ON</span> c.id = g.course_id<br>
+<span style="color:#f59e0b;">JOIN</span> students s <span style="color:#f59e0b;">ON</span> g.student_id = s.id<br>
+<span style="color:#f59e0b;">WHERE</span> s.name = 'Bart';
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 13: TEST 2 (CHALLENGE) -->
+<div class="slide-container challenge" id="slide13">
+    <h2 class="slide-title"><i class="fa-solid fa-earth-americas"></i> Exercici PHP + MySQL (Base 'world')</h2>
+    <div class="content-area">
+        <p style="text-align:center; margin-bottom: 20px; font-style: italic;">Panses el ratolí per sobre la caixa dreta per revelar la resposta</p>
+        <div class="quiz-grid">
+            <div class="quiz-item">
+                <div class="quiz-q">Escriu un Script PHP amb PDO per inserir la ciutat "Kunduz" d'Afganistan ('AFG') amb 304.600 habitants al districte 'Kunduz'.</div>
+                <div class="quiz-a reveal-box" style="font-size: 16px;">
+<span style="color:#7dd3fc;">$sql</span> = <span style="color:#a6e22e;">"INSERT INTO city (Name, CountryCode, District, Population) VALUES ('Kunduz', 'AFG', 'Kunduz', 304600)"</span>;<br><br>
+<span style="color:#7dd3fc;">$conn</span>->exec(<span style="color:#7dd3fc;">$sql</span>);<br>
+<span style="color:#66d9ef;">echo</span> <span style="color:#a6e22e;">"ID inserida: "</span> . <span style="color:#7dd3fc;">$conn</span>->lastInsertId();
+                </div>
+            </div>
+            <div class="quiz-item">
+                <div class="quiz-q">A la BD World, com seleccionaries i ordenaries de major a menor població només les ciutats d'Espanya ('ESP')?</div>
+                <div class="quiz-a reveal-box" style="font-size: 16px;">
+<span style="color:#f59e0b;">SELECT</span> Name, Population <br>
+<span style="color:#f59e0b;">FROM</span> city <br>
+<span style="color:#f59e0b;">WHERE</span> CountryCode = 'ESP' <br>
+<span style="color:#f59e0b;">ORDER BY</span> Population <span style="color:#f59e0b;">DESC</span>;
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 14: Q&A -->
+<div class="slide-container" id="slide14">
+    <div class="qa-layout">
+        <i class="fa-solid fa-circle-question" style="font-size: 100px; color: #38bdf8; margin-bottom: 20px;"></i>
+        <h2>Preguntes?</h2>
+        <p>Fi de la secció de Bases de Dades, SQL i PHP (PDO).</p>
+    </div>
+</div>
+
+</body>
+</html>

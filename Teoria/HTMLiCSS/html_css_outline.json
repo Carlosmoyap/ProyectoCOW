@@ -1,0 +1,202 @@
+{
+  "pages": [
+    {
+      "number": 1,
+      "type": "cover",
+      "title": "HTML i CSS: Fonaments del Desenvolupament Web",
+      "content": "Una guia completa per crear pàgines web modernes"
+    },
+    {
+      "number": 2,
+      "type": "table_of_contents",
+      "title": "Continguts",
+      "content": "1. Introducció a HTML; 2. Estructura bàsica i tags principals; 3. HTML Semàntic; 4. Formularis i multimedia; 5. Introducció a CSS; 6. Selectors i especificitat; 7. Model de caixa i propietats; 8. Layout: Flexbox i Grid; 9. Disseny responsiu; 10. Millors pràctiques"
+    },
+    {
+      "number": 3,
+      "type": "chapter",
+      "title": "01: Introducció a HTML",
+      "content": "El llenguatge d'etiquetatge que dóna estructura al contingut web"
+    },
+    {
+      "number": 4,
+      "type": "content",
+      "title": "Què és HTML?",
+      "content": "Explicar què és HTML (HyperText Markup Language), la seva funció com a llenguatge d'etiquetatge, la diferència entre HTML i llenguatges de programació, i com els navegadors interpreten l'HTML per renderitzar pàgines web."
+    },
+    {
+      "number": 5,
+      "type": "content",
+      "title": "Estructura bàsica d'un document HTML",
+      "content": "Mostrar l'estructura fonamental d'un document HTML amb les etiquetes html, head, body, i explicar la funció de cada element incloent DOCTYPE, meta tags, title i charset."
+    },
+    {
+      "number": 6,
+      "type": "content",
+      "title": "Etiquetes HTML fonamentals",
+      "content": "Presentar les etiquetes més utilitzades: títols (h1-h6), paràgrafs (p), enllaços (a) amb atributs href i target, imatges (img) amb src i alt, i llistes (ul, ol, li)."
+    },
+    {
+      "number": 7,
+      "type": "chapter",
+      "title": "02: HTML Semàntic",
+      "content": "Donar significat a l'estructura per millorar l'accessibilitat i SEO"
+    },
+    {
+      "number": 8,
+      "type": "content",
+      "title": "Etiquetes semàntiques HTML5",
+      "content": "Explicar les etiquetes semàntiques: header, nav, main, section, article, aside, footer. Mostrar quan i per què utilitzar-les en lloc de divs genèrics, i els beneficis per a SEO i accessibilitat."
+    },
+    {
+      "number": 9,
+      "type": "content",
+      "title": "Estructura semàntica d'una pàgina",
+      "content": "Mostrar un exemple pràctic d'una pàgina web estructurada amb etiquetes semàntiques, demostrant com organitzar header, nav, main amb sections i articles, aside i footer."
+    },
+    {
+      "number": 10,
+      "type": "chapter",
+      "title": "03: Formularis i Multimedia",
+      "content": "Interactuar amb l'usuari i enriquir el contingut"
+    },
+    {
+      "number": 11,
+      "type": "content",
+      "title": "Formularis HTML",
+      "content": "Cobrir les etiquetes de formulari: form, input (text, email, password, checkbox, radio, submit), label, textarea, select i option. Explicar atributs importants com name, id, placeholder, required."
+    },
+    {
+      "number": 12,
+      "type": "content",
+      "title": "Imatges, Vídeo i Àudio",
+      "content": "Mostrar com incorporar multimedia: img amb atributs essencials, picture per a imatges responsives, video i audio amb controls i sources múltiples, i iframe per a contingut extern."
+    },
+    {
+      "number": 13,
+      "type": "chapter",
+      "title": "04: Introducció a CSS",
+      "content": "Estilitzar i donar vida a les pàgines web"
+    },
+    {
+      "number": 14,
+      "type": "content",
+      "title": "Què és CSS?",
+      "content": "Explicar CSS (Cascading Style Sheets), la seva funció per controlar l'aparença visual, la separació de contingut i presentació, i els tres mètodes d'aplicació: inline, intern i extern."
+    },
+    {
+      "number": 15,
+      "type": "content",
+      "title": "Sintaxi i estructura CSS",
+      "content": "Mostrar la sintaxi bàsica: selectors, propietats i valors. Explicar regles, declaracions, blocs de codi, i com els comentaris ajuden a organitzar el codi CSS."
+    },
+    {
+      "number": 16,
+      "type": "content",
+      "title": "Selectors CSS fonamentals",
+      "content": "Presentar els tipus de selectors: d'element (p, div), de classe (.classe), d'ID (#id), universals (*), de descendència (div p), de fill directe (div > p), i adjacents (h1 + p)."
+    },
+    {
+      "number": 17,
+      "type": "content",
+      "title": "Selectors avançats i pseudo-classes",
+      "content": "Cobrir selectors d'atribut ([type="text"]), pseudo-classes d'estat (:hover, :focus, :active, :visited) i estructurals (:first-child, :last-child, :nth-child)."
+    },
+    {
+      "number": 18,
+      "type": "content",
+      "title": "Especificitat i cascada",
+      "content": "Explicar com funciona la cascada, el càlcul d'especificitat (inline, ID, classe/atribut, element), la importància de !important, i estratègies per evitar conflictes d'estils."
+    },
+    {
+      "number": 19,
+      "type": "chapter",
+      "title": "05: Model de Caixa i Propietats",
+      "content": "Entendre com els elements ocupen espai a la pàgina"
+    },
+    {
+      "number": 20,
+      "type": "content",
+      "title": "El Model de Caixa (Box Model)",
+      "content": "Explicar detalladament el box model: content, padding, border, margin. Mostrar com box-sizing: border-box canvia el comportament, i la diferència entre width/height i les dimensions reals."
+    },
+    {
+      "number": 21,
+      "type": "content",
+      "title": "Colors i fons",
+      "content": "Cobrir formats de color (noms, hexadecimal, rgb, rgba, hsl), propietats de fons (background-color, background-image, background-size, background-position), i transparències."
+    },
+    {
+      "number": 22,
+      "type": "content",
+      "title": "Tipografia i text",
+      "content": "Presentar propietats de text: font-family, font-size, font-weight, line-height, text-align, text-decoration, color, i com utilitzar Google Fonts."
+    },
+    {
+      "number": 23,
+      "type": "chapter",
+      "title": "06: Layout amb Flexbox i Grid",
+      "content": "Sistemes moderns per crear layouts complexos"
+    },
+    {
+      "number": 24,
+      "type": "content",
+      "title": "Flexbox: Conceptes bàsics",
+      "content": "Explicar Flexbox: display: flex, flex-direction, justify-content, align-items, flex-wrap, gap. Mostrar exemples pràctics de centració i distribució d'elements."
+    },
+    {
+      "number": 25,
+      "type": "content",
+      "title": "CSS Grid: Layouts bidimensionals",
+      "content": "Introduir CSS Grid: display: grid, grid-template-columns, grid-template-rows, grid-gap, grid-column, grid-row. Mostrar com crear layouts de pàgina completa."
+    },
+    {
+      "number": 26,
+      "type": "content",
+      "title": "Flexbox vs Grid: Quan utilitzar cada un",
+      "content": "Comparar Flexbox i Grid, explicant quan és millor utilitzar cada sistema: Flexbox per a layouts unidimensionals i alineació, Grid per a layouts bidimensionals complexos."
+    },
+    {
+      "number": 27,
+      "type": "chapter",
+      "title": "07: Disseny Responsiu",
+      "content": "Adaptar les pàgines a qualsevol dispositiu"
+    },
+    {
+      "number": 28,
+      "type": "content",
+      "title": "Media Queries",
+      "content": "Explicar les media queries: sintaxi @media, breakpoints comuns (mòbil, tauleta, escriptori), mobile-first vs desktop-first, i exemples pràctics d'adaptació de layouts."
+    },
+    {
+      "number": 29,
+      "type": "content",
+      "title": "Unitats relatives i viewport",
+      "content": "Cobrir unitats responsives: %, em, rem, vw, vh, vmin, vmax. Explicar com i quan utilitzar cada unita per crear dissenys flexibles i escalables."
+    },
+    {
+      "number": 30,
+      "type": "chapter",
+      "title": "08: Millors Pràctiques",
+      "content": "Escriure codi net, mantenible i accessible"
+    },
+    {
+      "number": 31,
+      "type": "content",
+      "title": "Organització i estructura del codi",
+      "content": "Presentar millors pràctiques: utilitzar CSS extern, nomenclatura clara de classes, evitar !important, mantenir baixa especificitat, comentar el codi, i estructurar en seccions lògiques."
+    },
+    {
+      "number": 32,
+      "type": "content",
+      "title": "Accessibilitat i SEO",
+      "content": "Explicar com millorar l'accessibilitat: text alternatiu a imatges, contrast de colors adequat, etiquetes semàntiques, atributs ARIA bàsics, i navegació per teclat."
+    },
+    {
+      "number": 33,
+      "type": "final",
+      "title": "Recursos i Pròxims Passos",
+      "content": "MDN Web Docs, CSS-Tricks, freeCodeCamp, exercicis pràctics i projectes per continuar aprenent"
+    }
+  ]
+}

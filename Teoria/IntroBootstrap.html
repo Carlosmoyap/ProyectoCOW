@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introducció a Bootstrap - Visual</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- 1. CARREGUEM BOOTSTRAP REAL (Perquè es vegin els resultats) -->
+    <!-- Bootstrap 3.3.7 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    
+    <!-- FontAwesome (Icones presentació) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Highlight.js (Per al codi) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <!-- jQuery (Necessari per Bootstrap JS) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+    <script>hljs.highlightAll();</script>
+
+    <style>
+        /* RESET I ESTILS PROPIS DE LA PRESENTACIÓ */
+        /* Important: Utilitzem selectors específics per no trencar el Bootstrap que carreguem */
+        
+        body {
+            background-color: #e9ecef;
+            display: grid;
+            gap: 40px;
+            grid-template-columns: 1fr;
+            margin: 0;
+            padding: 40px 0;
+            place-items: center;
+            font-family: 'Urbanist', sans-serif !important; /* Forcem la font de la presentació */
+        }
+
+        /* Contenidor de la Diapositiva */
+        .slide-container {
+            background-color: #ffffff;
+            color: #212529;
+            height: 800px; /* Una mica més alt per encabir els exemples */
+            width: 1280px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid #dee2e6;
+            font-size: 16px; /* Base size reset */
+        }
+
+        /* Títols de la presentació (Sobreescrivim Bootstrap h1, h2...) */
+        .slide-container h1 { font-family: 'Urbanist', sans-serif; font-size: 80px; font-weight: 700; margin: 0; color: #1a1a1a; line-height: 1.2; }
+        .slide-container h1 span { color: #7952b3; }
+        .slide-title { font-family: 'Urbanist', sans-serif; font-size: 42px; font-weight: 700; margin-bottom: 20px; color: #1a1a1a; border-left: 8px solid #7952b3; padding-left: 15px; width: 100%; display: block; }
+        .slide-title span { color: #7952b3; }
+        .subtitle { font-size: 28px; color: #6c757d; margin-top: 15px; font-weight: 400; }
+
+        /* Decoració Fons */
+        .slide-container::before {
+            content: ''; position: absolute; top: -150px; right: -150px; width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(111, 66, 193, 0.1) 0%, transparent 70%); z-index: 0;
+        }
+        .slide-container::after {
+            content: ''; position: absolute; bottom: 40px; left: 60px; right: 60px; height: 2px;
+            background: linear-gradient(90deg, #7952b3, transparent); z-index: 0;
+        }
+        .slide-container > * { position: relative; z-index: 1; }
+
+        /* Layout Codi vs Resultat */
+        .demo-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* 50% Codi, 50% Resultat */
+            gap: 30px;
+            height: 100%;
+            align-items: start;
+            overflow: hidden;
+        }
+
+        .code-col {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* Caixa de Codi */
+        pre { margin: 0; border-radius: 6px; border: 1px solid #ddd; }
+        pre code.hljs { padding: 20px; font-family: 'Courier New', monospace; font-size: 15px; line-height: 1.4; border-radius: 6px; }
+
+        /* Caixa de Resultat (Live Preview) */
+        .result-box {
+            background: #fff;
+            border: 2px dashed #7952b3;
+            border-radius: 8px;
+            padding: 20px;
+            height: 100%;
+            overflow-y: auto;
+            position: relative;
+        }
+        .result-label {
+            position: absolute;
+            top: 0; right: 0;
+            background: #7952b3;
+            color: white;
+            padding: 2px 8px;
+            font-size: 12px;
+            border-bottom-left-radius: 8px;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        .source-footer {
+            position: absolute; bottom: 15px; right: 60px; font-size: 12px; color: #6c757d;
+            font-style: italic; background-color: rgba(248, 249, 250, 0.95); padding: 5px 10px;
+            border-radius: 10px; border: 1px solid #dee2e6;
+        }
+
+        /* Utilitats visuals per a les demos */
+        .show-grid [class^=col-] {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            background-color: rgba(86,61,124,.15);
+            border: 1px solid rgba(86,61,124,.2);
+            text-align: center;
+        }
+        
+    </style>
+</head>
+<body>
+
+<!-- Slide 1: Títol -->
+<div class="slide-container" id="slide1">
+    <div style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100%;">
+        <h1>Introducció a <span>Bootstrap</span></h1>
+        <p class="subtitle">El framework HTML, CSS i JS per a projectes responsive.</p>
+        <div style="margin-top: 40px; font-size: 80px; color: #7952b3;">
+            <i class="fa-brands fa-bootstrap"></i>
+        </div>
+    </div>
+    <div class="source-footer">Basat en: 01_6_BOOTSTRAP.pdf</div>
+</div>
+
+<!-- Slide 2: Instal·lació Evolució -->
+<div class="slide-container" id="slide2">
+    <h2 class="slide-title">Instal·lació: Evolució (v3 vs v5)</h2>
+    <div class="demo-layout">
+        <!-- Columna Bootstrap 3 -->
+        <div class="code-col">
+            <h3 style="color: #d9534f; margin-top: 0;">Bootstrap 3 (PDF)</h3>
+            <p>Necessita <strong>jQuery</strong> per funcionar.</p>
+            <pre><code class="language-html">&lt;!-- CSS --&gt;
+&lt;link href=".../bootstrap.min.css" rel="stylesheet"&gt;
+
+&lt;!-- JS (Ordre importància!) --&gt;
+&lt;script src=".../jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src=".../bootstrap.min.js"&gt;&lt;/script&gt;</code></pre>
+            <div class="alert alert-danger" style="font-size: 14px; margin-top: 10px; padding: 10px;">
+                <strong>Dependència:</strong> Sense jQuery, els menús i modals no funcionen.
+            </div>
+        </div>
+
+        <!-- Columna Bootstrap 5 -->
+        <div class="code-col">
+            <h3 style="color: #5cb85c; margin-top: 0;">Bootstrap 5 (Actual)</h3>
+            <p><strong>Sense jQuery</strong>. Usa JavaScript natiu.</p>
+            <pre><code class="language-html">&lt;!-- CSS --&gt;
+&lt;link href=".../bootstrap.min.css" rel="stylesheet"&gt;
+
+&lt;!-- JS (Bundle inclou Popper) --&gt;
+&lt;script src=".../bootstrap.bundle.min.js"&gt;&lt;/script&gt;</code></pre>
+            <div class="alert alert-success" style="font-size: 14px; margin-top: 10px; padding: 10px;">
+                <strong>Millora:</strong> Més lleuger i ràpid al no dependre de llibreries externes grans.
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 3: Viewport -->
+<div class="slide-container" id="slide3">
+    <h2 class="slide-title">Disseny <span>Responsive</span></h2>
+    <div class="content-area">
+        <p>Per garantir que les pàgines es visualitzin i comportin correctament en dispositius mòbils, és <strong>obligatori</strong> afegir l'etiqueta <code>viewport</code> dins del <code>&lt;head&gt;</code>.</p>
+        
+        <pre><code class="language-html">&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code></pre>
+        
+        <div style="background: #f8f9fa; border-left: 5px solid #7952b3; padding: 15px; margin-top: 20px;">
+            <p style="margin: 0;"><strong><code>width=device-width</code></strong>: Ajusta l'ample de la pàgina a l'ample de la pantalla del dispositiu.</p>
+            <p style="margin: 10px 0 0;"><strong><code>initial-scale=1</code></strong>: Estableix el nivell de zoom inicial quan es carrega la pàgina.</p>
+        </div>
+
+        <div class="alert alert-info" style="margin-top: 20px;">
+            <i class="fa-solid fa-circle-info"></i> <strong>Nota sobre versions:</strong> Aquest requisit és <strong>universal</strong>. Tant Bootstrap 3, 4 com l'actual <strong>Bootstrap 5</strong> necessiten aquesta línia. Sense ella, els mòbils renderitzaran la web com si fos una pantalla d'escriptori (lletra minúscula).
+        </div>
+    </div>
+</div>
+
+<!-- Slide 4: Sistema de Graella (Grid) -->
+<div class="slide-container" id="slide4">
+    <h2 class="slide-title">Sistema de Graella (Grid)</h2>
+    <div class="demo-layout">
+        <div class="code-col">
+            <p>Divideix la pantalla en <strong>12 columnes</strong>. Es poden agrupar.</p>
+            <pre><code class="language-html">&lt;div class="row"&gt;
+  &lt;div class="col-md-4"&gt;.col-md-4&lt;/div&gt;
+  &lt;div class="col-md-4"&gt;.col-md-4&lt;/div&gt;
+  &lt;div class="col-md-4"&gt;.col-md-4&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="row"&gt;
+  &lt;div class="col-md-8"&gt;.col-md-8&lt;/div&gt;
+  &lt;div class="col-md-4"&gt;.col-md-4&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+        <div class="result-box show-grid">
+            <span class="result-label">Resultat</span>
+            <br>
+            <div class="row">
+                <div class="col-md-4">.col-md-4</div>
+                <div class="col-md-4">.col-md-4</div>
+                <div class="col-md-4">.col-md-4</div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-8">.col-md-8 (Més ample)</div>
+                <div class="col-md-4">.col-md-4</div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6">.col-md-6 (Meitat)</div>
+                <div class="col-md-6">.col-md-6 (Meitat)</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 5: Tipografia i Context -->
+<div class="slide-container" id="slide5">
+    <h2 class="slide-title">Tipografia i Colors</h2>
+    <div class="demo-layout">
+        <div class="code-col">
+            <p>Classes per donar color semàntic al text.</p>
+            <pre><code class="language-html">&lt;p class="text-muted"&gt;Text apagat (Muted)&lt;/p&gt;
+&lt;p class="text-primary"&gt;Text Primari (Blau)&lt;/p&gt;
+&lt;p class="text-success"&gt;Text Èxit (Verd)&lt;/p&gt;
+&lt;p class="text-info"&gt;Text Informació (Blau cel)&lt;/p&gt;
+&lt;p class="text-warning"&gt;Text Avís (Taronja)&lt;/p&gt;
+&lt;p class="text-danger"&gt;Text Perill (Vermell)&lt;/p&gt;
+
+&lt;!-- Fons --&gt;
+&lt;p class="bg-primary"&gt;Fons Primari&lt;/p&gt;</code></pre>
+        </div>
+        <div class="result-box">
+            <span class="result-label">Resultat</span>
+            <p class="text-muted">Això és text apagat (.text-muted).</p>
+            <p class="text-primary">Això és text primari (.text-primary).</p>
+            <p class="text-success">Això és text d'èxit (.text-success).</p>
+            <p class="text-info">Això és text informatiu (.text-info).</p>
+            <p class="text-warning">Això és text d'avís (.text-warning).</p>
+            <p class="text-danger">Això és text de perill (.text-danger).</p>
+            <p class="bg-primary" style="padding: 10px; color: white;">Paràgraf amb fons primari (.bg-primary)</p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 6: Taules -->
+<div class="slide-container" id="slide6">
+    <h2 class="slide-title">Taules</h2>
+    <div class="demo-layout">
+        <div class="code-col">
+            <p>Afegint la classe <code>.table</code> es formateja automàticament.</p>
+            <pre><code class="language-html">&lt;table class="table table-striped table-bordered"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;#&lt;/th&gt;
+      &lt;th&gt;Nom&lt;/th&gt;
+      &lt;th&gt;Cognom&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;Mark&lt;/td&gt;
+      &lt;td&gt;Otto&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr class="success"&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;Jacob&lt;/td&gt;
+      &lt;td&gt;Thornton&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+        </div>
+        <div class="result-box">
+            <span class="result-label">Resultat</span>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr><th>#</th><th>Nom</th><th>Cognom</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>Mark</td><td>Otto</td></tr>
+                    <tr class="success"><td>2</td><td>Jacob</td><td>Thornton (Row success)</td></tr>
+                    <tr><td>3</td><td>Larry</td><td>The Bird</td></tr>
+                </tbody>
+            </table>
+            <p class="small text-muted">* <code>.table-striped</code> fa l'efecte zebra.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 7: Imatges -->
+<div class="slide-container" id="slide7">
+    <h2 class="slide-title">Imatges</h2>
+    <div class="demo-layout">
+        <div class="code-col">
+            <pre><code class="language-html">&lt;!-- Arrodonida --&gt;
+&lt;img src="..." class="img-rounded"&gt;
+
+&lt;!-- Cercle --&gt;
+&lt;img src="..." class="img-circle"&gt;
+
+&lt;!-- Marc polaroid --&gt;
+&lt;img src="..." class="img-thumbnail"&gt;
+
+&lt;!-- Responsive (s'adapta) --&gt;
+&lt;img src="..." class="img-responsive"&gt;</code></pre>
+        </div>
+        <div class="result-box" style="text-align: center;">
+            <span class="result-label">Resultat</span>
+            <div class="row">
+                <div class="col-xs-4">
+                    <img src="https://placehold.co/100" class="img-rounded" alt="Rounded">
+                    <p>.img-rounded</p>
+                </div>
+                <div class="col-xs-4">
+                    <img src="https://placehold.co/100" class="img-circle" alt="Circle">
+                    <p>.img-circle</p>
+                </div>
+                <div class="col-xs-4">
+                    <img src="https://placehold.co/100" class="img-thumbnail" alt="Thumbnail">
+                    <p>.img-thumbnail</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 8: Botons -->
+<div class="slide-container" id="slide8">
+    <h2 class="slide-title">Botons</h2>
+    <div class="demo-layout">
+        <div class="code-col">
+            <pre><code class="language-html">&lt;!-- Colors (Estils) --&gt;
+&lt;button class="btn btn-default"&gt;Default&lt;/button&gt;
+&lt;button class="btn btn-primary"&gt;Primary&lt;/button&gt;
+&lt;button class="btn btn-success"&gt;Success&lt;/button&gt;
+&lt;button class="btn btn-info"&gt;Info&lt;/button&gt;
+&lt;button class="btn btn-warning"&gt;Warning&lt;/button&gt;
+&lt;button class="btn btn-danger"&gt;Danger&lt;/button&gt;
+
+&lt;!-- Mides --&gt;
+&lt;button class="btn btn-primary btn-lg"&gt;Gran&lt;/button&gt;
+&lt;button class="btn btn-primary btn-xs"&gt;Mini&lt;/button&gt;</code></pre>
+        </div>
+        <div class="result-box">
+            <span class="result-label">Resultat</span>
+            <p>
+                <button class="btn btn-default">Default</button>
+                <button class="btn btn-primary">Primary</button>
+                <button class="btn btn-success">Success</button>
+            </p>
+            <p>
+                <button class="btn btn-info">Info</button>
+                <button class="btn btn-warning">Warning</button>
+                <button class="btn btn-danger">Danger</button>
+            </p>
+            <hr>
+            <p>
+                <button class="btn btn-primary btn-lg">Large (.btn-lg)</button>
+                <button class="btn btn-primary">Normal</button>
+                <button class="btn btn-primary btn-sm">Small (.btn-sm)</button>
+                <button class="btn btn-primary btn-xs">Extra Small</button>
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 9: Alertes -->
+<div class="slide-container" id="slide9">
+    <h2 class="slide-title">Alertes (Missatges)</h2>
+    <div class="demo-layout">
+        <div class="code-col">
+            <pre><code class="language-html">&lt;div class="alert alert-success"&gt;
+  &lt;strong&gt;Èxit!&lt;/strong&gt; Operació correcta.
+&lt;/div&gt;
+
+&lt;div class="alert alert-info"&gt;
+  &lt;strong&gt;Info!&lt;/strong&gt; Missatge informatiu.
+&lt;/div&gt;
+
+&lt;div class="alert alert-warning"&gt;
+  &lt;strong&gt;Compte!&lt;/strong&gt; Això és un avís.
+&lt;/div&gt;
+
+&lt;div class="alert alert-danger"&gt;
+  &lt;strong&gt;Error!&lt;/strong&gt; Alguna cosa ha fallat.
+&lt;/div&gt;</code></pre>
+        </div>
+        <div class="result-box">
+            <span class="result-label">Resultat</span>
+            <div class="alert alert-success"><strong>Èxit!</strong> Operació correcta.</div>
+            <div class="alert alert-info"><strong>Info!</strong> Missatge informatiu.</div>
+            <div class="alert alert-warning"><strong>Compte!</strong> Això és un avís.</div>
+            <div class="alert alert-danger"><strong>Error!</strong> Alguna cosa ha fallat.</div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 10: Paginació i Breadcrumbs (NOU) -->
+<div class="slide-container" id="slide10">
+    <h2 class="slide-title">Navegació: Paginació i Breadcrumbs</h2>
+    <div class="demo-layout">
+        <div class="code-col">
+            <pre><code class="language-html">&lt;!-- Fil d'Ariadna --&gt;
+&lt;ol class="breadcrumb"&gt;
+  &lt;li&gt;&lt;a href="#"&gt;Inici&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="#"&gt;Biblioteca&lt;/a&gt;&lt;/li&gt;
+  &lt;li class="active"&gt;Dades&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;!-- Paginació --&gt;
+&lt;ul class="pagination"&gt;
+  &lt;li&gt;&lt;a href="#"&gt;&laquo;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="#"&gt;1&lt;/a&gt;&lt;/li&gt;
+  &lt;li class="active"&gt;&lt;a href="#"&gt;2&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="#"&gt;3&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="#"&gt;&raquo;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+        </div>
+        <div class="result-box">
+            <span class="result-label">Resultat</span>
+            <h4>Fil d'Ariadna (Breadcrumb)</h4>
+            <ol class="breadcrumb">
+              <li><a href="#">Inici</a></li>
+              <li><a href="#">Biblioteca</a></li>
+              <li class="active">Dades</li>
+            </ol>
+            
+            <hr>
+            
+            <h4>Paginació</h4>
+            <ul class="pagination">
+              <li><a href="#">&laquo;</a></li>
+              <li><a href="#">1</a></li>
+              <li class="active"><a href="#">2</a></li>
+              <li><a href="#">3</a></li>
+              <li><a href="#">4</a></li>
+              <li><a href="#">&raquo;</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 11: Labels, Badges i Progress (NOU) -->
+<div class="slide-container" id="slide11">
+    <h2 class="slide-title">Etiquetes i Indicadors</h2>
+    <div class="demo-layout">
+        <div class="code-col">
+            <pre><code class="language-html">&lt;!-- Labels (Etiquetes) --&gt;
+&lt;span class="label label-default"&gt;Nou&lt;/span&gt;
+&lt;span class="label label-primary"&gt;Admin&lt;/span&gt;
+&lt;span class="label label-danger"&gt;Error&lt;/span&gt;
+
+&lt;!-- Badges (Comptadors) --&gt;
+Inbox &lt;span class="badge"&gt;42&lt;/span&gt;
+
+&lt;!-- Barra Progrés --&gt;
+&lt;div class="progress"&gt;
+  &lt;div class="progress-bar" style="width: 60%;"&gt;
+    60%
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+        <div class="result-box">
+            <span class="result-label">Resultat</span>
+            <h4>Labels</h4>
+            <p>
+                <span class="label label-default">Default</span>
+                <span class="label label-primary">Primary</span>
+                <span class="label label-success">Success</span>
+                <span class="label label-info">Info</span>
+                <span class="label label-warning">Warning</span>
+                <span class="label label-danger">Danger</span>
+            </p>
+            
+            <hr>
+            <h4>Badges</h4>
+            <ul class="list-group">
+                <li class="list-group-item">Safata d'entrada <span class="badge">42</span></li>
+                <li class="list-group-item">Missatges enviats <span class="badge">5</span></li>
+            </ul>
+
+            <hr>
+            <h4>Progress Bar</h4>
+            <div class="progress">
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width: 40%">40%</div>
+            </div>
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped active" role="progressbar" style="width: 75%">75% (Animada)</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 12: List Groups i Panels -->
+<div class="slide-container" id="slide12">
+    <h2 class="slide-title">Panells i Llistes</h2>
+    <div class="demo-layout">
+        <div class="code-col">
+            <pre><code class="language-html">&lt;!-- Panel (Caixa amb títol) --&gt;
+&lt;div class="panel panel-primary"&gt;
+  &lt;div class="panel-heading"&gt;Títol del Panell&lt;/div&gt;
+  &lt;div class="panel-body"&gt;Contingut...&lt;/div&gt;
+  &lt;div class="panel-footer"&gt;Peu&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- List Group --&gt;
+&lt;div class="list-group"&gt;
+  &lt;a href="#" class="list-group-item active"&gt;Item 1&lt;/a&gt;
+  &lt;a href="#" class="list-group-item"&gt;Item 2&lt;/a&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+        <div class="result-box">
+            <span class="result-label">Resultat</span>
+            <div class="panel panel-primary">
+                <div class="panel-heading">Títol del Panell</div>
+                <div class="panel-body">Contingut principal del panell. Molt útil per agrupar informació.</div>
+                <div class="panel-footer">Peu del panell</div>
+            </div>
+
+            <div class="list-group">
+                <a href="#" class="list-group-item active">Element Actiu (Enllaç)</a>
+                <a href="#" class="list-group-item">Segon Element</a>
+                <a href="#" class="list-group-item list-group-item-danger">Element Perillós</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 13: Formularis -->
+<div class="slide-container" id="slide13">
+    <h2 class="slide-title">Formularis</h2>
+    <div class="demo-layout">
+        <div class="code-col">
+            <pre><code class="language-html">&lt;form&gt;
+  &lt;div class="form-group"&gt;
+    &lt;label&gt;Email:&lt;/label&gt;
+    &lt;input type="email" class="form-control"&gt;
+  &lt;/div&gt;
+  &lt;div class="form-group"&gt;
+    &lt;label&gt;Password:&lt;/label&gt;
+    &lt;input type="password" class="form-control"&gt;
+  &lt;/div&gt;
+  &lt;button type="submit" class="btn btn-default"&gt;
+    Enviar
+  &lt;/button&gt;
+&lt;/form&gt;</code></pre>
+        </div>
+        <div class="result-box">
+            <span class="result-label">Resultat</span>
+            <form>
+                <div class="form-group">
+                    <label for="email">Email address:</label>
+                    <input type="email" class="form-control" id="email" placeholder="nom@exemple.com">
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Password:</label>
+                    <input type="password" class="form-control" id="pwd" placeholder="*****">
+                </div>
+                <div class="checkbox">
+                    <label><input type="checkbox"> Recorda'm</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Entrar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 14: Barra de Navegació -->
+<div class="slide-container" id="slide14">
+    <h2 class="slide-title">Navbar (Menú)</h2>
+    <div class="demo-layout">
+        <div class="code-col">
+            <p>Es col·lapsa automàticament en mòbils.</p>
+            <pre><code class="language-html">&lt;nav class="navbar navbar-inverse"&gt;
+  &lt;div class="container-fluid"&gt;
+    &lt;div class="navbar-header"&gt;
+      &lt;a class="navbar-brand" href="#"&gt;WebName&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;ul class="nav navbar-nav"&gt;
+      &lt;li class="active"&gt;&lt;a href="#"&gt;Home&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="#"&gt;Page 1&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="#"&gt;Page 2&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/nav&gt;</code></pre>
+        </div>
+        <div class="result-box">
+            <span class="result-label">Resultat</span>
+            
+            <p><strong>Navbar Default:</strong></p>
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">La Meva Web</a>
+                    </div>
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Inici</a></li>
+                        <li><a href="#">Contacte</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <p><strong>Navbar Inverse:</strong></p>
+            <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">Logo</a>
+                    </div>
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="#">Link</a></li>
+                    </ul>
+                    <button class="btn btn-danger navbar-btn navbar-right">Sortir</button>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

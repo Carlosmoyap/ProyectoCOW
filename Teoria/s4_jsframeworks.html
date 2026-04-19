@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentació: Llibreries i Frameworks JS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --slide-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #cbd5e1;
+            --accent-primary: #06b6d4;
+            --accent-secondary: #10b981;
+            --code-bg: #0b1120;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow: hidden; /* Prevent scrolling, we use slides */
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* --- PRESENTATION LOGIC --- */
+        .presentation {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease;
+            transform: scale(0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+            z-index: 10;
+        }
+
+        /* --- SLIDE CONTENT CONTAINER --- */
+        .slide-content {
+            background-color: var(--slide-bg);
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 1200px;
+            aspect-ratio: 16/9;
+            padding: 60px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Decorations */
+        .slide-content::before {
+            content: ''; position: absolute; top: -150px; right: -150px; width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, transparent 70%); z-index: 0; pointer-events: none;
+        }
+        .slide-content::after {
+            content: ''; position: absolute; bottom: -150px; left: -150px; width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%); z-index: 0; pointer-events: none;
+        }
+
+        .content-inner {
+            position: relative;
+            z-index: 1;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- TYPOGRAPHY & LAYOUT --- */
+        h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.2; text-align: center; margin-bottom: 20px; }
+        h1 span { color: var(--accent-primary); }
+        
+        .slide-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            border-left: 8px solid var(--accent-primary);
+            padding-left: 20px;
+            margin-bottom: 30px;
+            color: var(--text-main);
+        }
+
+        h3 { font-size: 1.5rem; color: var(--accent-primary); margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        p, li { font-size: 1.2rem; line-height: 1.6; color: var(--text-muted); margin-bottom: 15px; }
+        ul { padding-left: 25px; margin-bottom: 20px; }
+        li::marker { color: var(--accent-primary); }
+        strong { color: var(--text-main); }
+
+        .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; flex-grow: 1; }
+        .center-layout { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; height: 100%; }
+
+        /* --- COMPONENTS --- */
+        pre {
+            background-color: var(--code-bg);
+            border-left: 4px solid var(--accent-primary);
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Fira Code', monospace;
+            font-size: 1rem;
+            color: #e2e8f0;
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+        code { font-family: 'Fira Code', monospace; color: #fde047; }
+        pre code { color: inherit; }
+        .kw { color: #c678dd; } /* Keyword */
+        .str { color: #a6e22e; } /* String */
+        .fn { color: #61afef; } /* Function */
+        .com { color: #5c6370; font-style: italic; } /* Comment */
+
+        table { width: 100%; border-collapse: collapse; background: rgba(15, 23, 42, 0.4); border-radius: 8px; overflow: hidden; }
+        th, td { border-bottom: 1px solid #334155; padding: 12px 15px; text-align: left; vertical-align: top; }
+        th { background-color: rgba(6, 182, 212, 0.15); color: var(--text-main); font-weight: 800; }
+        tr:nth-child(even) { background-color: rgba(30, 41, 59, 0.3); }
+
+        .badge { padding: 4px 8px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; display: inline-block; margin-bottom: 5px; }
+        .badge.pro { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid #059669; }
+        .badge.con { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid #dc2626; }
+
+        .info-box { background: rgba(6, 182, 212, 0.1); border: 1px solid var(--accent-primary); padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .alert-box { background: rgba(245, 158, 11, 0.1); border-left: 6px solid #f59e0b; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+
+        .svg-container { background: #f8fafc; padding: 20px; border-radius: 12px; display: flex; justify-content: center; align-items: center; box-shadow: inset 0 2px 10px rgba(0,0,0,0.1); width: 100%; }
+
+        /* --- CONTROLS --- */
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            z-index: 100;
+        }
+
+        .btn-nav {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid #334155;
+            color: var(--text-main);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-nav:hover { background: var(--accent-primary); border-color: var(--accent-primary); transform: scale(1.1); }
+        .btn-nav:disabled { opacity: 0.3; cursor: not-allowed; transform: none; background: rgba(30, 41, 59, 0.8); border-color: #334155; }
+
+        .counter {
+            background: rgba(30, 41, 59, 0.8);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            border: 1px solid #334155;
+        }
+
+        /* Spin animation for React logo */
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        .spin-slow { animation: spin 10s linear infinite; }
+    </style>
+</head>
+<body>
+
+    <div class="presentation" id="presentation">
+        
+        <!-- SLIDE 1: Títol -->
+        <div class="slide active">
+            <div class="slide-content">
+                <div class="content-inner center-layout">
+                    <div style="display:flex; gap: 40px; margin-bottom: 40px;">
+                        <i class="fa-brands fa-js" style="font-size: 100px; color: #facc15;"></i>
+                        <i class="fa-brands fa-react spin-slow" style="font-size: 100px; color: #61dafb;"></i>
+                        <i class="fa-brands fa-vuejs" style="font-size: 100px; color: #42b883;"></i>
+                    </div>
+                    <h1>Programació Client II:<br><span>Llibreries i Frameworks</span></h1>
+                    <p style="font-size: 1.5rem; margin-top: 20px;">De jQuery i Prototype a l'Ecosistema Reactiu Actual</p>
+                    <p style="font-size: 1rem; color: #64748b; margin-top: 40px;">Usa les fletxes ⬅️ ➡️ per navegar</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: Timeline -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="content-inner">
+                    <h2 class="slide-title">1. Evolució de JavaScript al Client</h2>
+                    <p>Al principi, JS era caòtic i cada navegador tenia regles diferents per manipular el DOM. Les llibreries van néixer per unificar-ho tot fins arribar als potents frameworks actuals.</p>
+                    
+                    <div class="svg-container" style="margin-top: 40px; padding: 40px 20px;">
+                        <svg width="100%" height="250" viewBox="0 0 1000 250" xmlns="http://www.w3.org/2000/svg">
+                            <style>
+                                .line { stroke: #cbd5e1; stroke-width: 6; stroke-linecap: round; }
+                                .node { fill: #1e293b; stroke: #06b6d4; stroke-width: 4; }
+                                .txt-year { font-family: Inter, sans-serif; font-size: 18px; fill: #64748b; font-weight:bold; }
+                                .txt-title { font-family: Inter, sans-serif; font-size: 22px; fill: #0f172a; font-weight:900; }
+                                .txt-desc { font-family: Inter, sans-serif; font-size: 14px; fill: #334155; }
+                            </style>
+                            
+                            <!-- Timeline Line -->
+                            <line x1="50" y1="125" x2="950" y2="125" class="line"/>
+
+                            <!-- Nodes -->
+                            <circle cx="100" cy="125" r="15" class="node" style="stroke:#facc15;"/>
+                            <text x="100" y="90" text-anchor="middle" class="txt-year">1995</text>
+                            <text x="100" y="165" text-anchor="middle" class="txt-title">Vanilla JS</text>
+                            <text x="100" y="190" text-anchor="middle" class="txt-desc">El naixement</text>
+
+                            <circle cx="350" cy="125" r="15" class="node" style="stroke:#a855f7;"/>
+                            <text x="350" y="90" text-anchor="middle" class="txt-year">2005</text>
+                            <text x="350" y="165" text-anchor="middle" class="txt-title">Prototype.js</text>
+                            <text x="350" y="190" text-anchor="middle" class="txt-desc">Extensió de l'estàndard</text>
+
+                            <circle cx="600" cy="125" r="15" class="node" style="stroke:#3b82f6;"/>
+                            <text x="600" y="90" text-anchor="middle" class="txt-year">2006</text>
+                            <text x="600" y="165" text-anchor="middle" class="txt-title">jQuery</text>
+                            <text x="600" y="190" text-anchor="middle" class="txt-desc">Estandardització del DOM</text>
+
+                            <circle cx="850" cy="125" r="15" class="node" style="stroke:#10b981;"/>
+                            <text x="850" y="90" text-anchor="middle" class="txt-year">2013 - Actualitat</text>
+                            <text x="850" y="165" text-anchor="middle" class="txt-title">Frameworks Reactius</text>
+                            <text x="850" y="190" text-anchor="middle" class="txt-desc">React, Vue, Angular</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: Prototype -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="content-inner">
+                    <h2 class="slide-title">2. Els Pioners: Prototype.js i Script.aculo.us</h2>
+                    <div class="two-column">
+                        <div>
+                            <h3><i class="fa-solid fa-cube"></i> Prototype.js</h3>
+                            <p>Una llibreria creada per dotar JavaScript de Programació Orientada a Objectes i facilitar crides AJAX.</p>
+                            <ul>
+                                <li>Va inventar la funció màgica <strong><code>$()</code></strong> per substituir <code>getElementById()</code>.</li>
+                                <li>Extenia objectes natius (una mala pràctica avui dia, però revolucionari aleshores).</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3><i class="fa-solid fa-wand-magic-sparkles"></i> Script.aculo.us</h3>
+                            <p>Un complement construït sobre Prototype exclusivament per fer interfícies d'usuari (UI) dinàmiques.</p>
+                            <ul>
+                                <li>Sistema <strong>Drag & Drop</strong> (arrossegar elements).</li>
+                                <li>Efectes visuals complexos (Fade, Puff, Shake).</li>
+                            </ul>
+<pre>
+<span class="com">// Efecte Fade amb Script.aculo.us</span>
+<span class="kw">new</span> Effect.<span class="fn">Fade</span>(<span class="str">'element_id'</span>, { duration: <span class="str">2.0</span> });
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: jQuery -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="content-inner">
+                    <h2 class="slide-title">3. jQuery: La Revolució Clàssica</h2>
+                    <div class="two-column">
+                        <div>
+                            <p>Amb el lema <strong>"Write less, do more"</strong>, jQuery va solucionar les incompatibilitats entre navegadors unificant-ho tot sota l'objecte <code>jQuery</code> o l'àlies <code>$</code>.</p>
+                            <h3>Els seus grans èxits:</h3>
+                            <ul>
+                                <li>Selecció amb <strong>selectors CSS</strong> (abans que existís <code>querySelector</code>).</li>
+                                <li>Encadenament de mètodes (Method chaining).</li>
+                                <li>L'event unificat <code>$(document).ready()</code>.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3>Codi Clàssic</h3>
+<pre>
+<span class="com">// Espera que el DOM estigui carregat</span>
+<span class="fn">$</span>(document).<span class="fn">ready</span>(<span class="kw">function</span>() {
+  
+  <span class="com">// Assigna event a un botó</span>
+  <span class="fn">$</span>(<span class="str">"#boto_menu"</span>).<span class="fn">click</span>(<span class="kw">function</span>() {
+    
+    <span class="com">// Selecciona elements, canvia CSS i anima</span>
+    <span class="fn">$</span>(<span class="str">".panel"</span>)
+        .<span class="fn">css</span>(<span class="str">"background"</span>, <span class="str">"#333"</span>)
+        .<span class="fn">slideToggle</span>(<span class="str">"fast"</span>);
+  });
+  
+});
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: jQuery Avui -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="content-inner">
+                    <h2 class="slide-title">4. És necessari jQuery a l'Actualitat?</h2>
+                    <div class="two-column">
+                        <div>
+                            <div class="alert-box">
+                                <strong>VIGILA!</strong> Actualment, JS "Vanilla" natiu ha copiat gairebé totes les millores de jQuery. No s'hauria de carregar tota la llibreria per fer coses bàsiques.
+                            </div>
+                            <h3>On s'utilitza encara?</h3>
+                            <ul>
+                                <li>Projectes corporatius antics (Legacy).</li>
+                                <li>L'ecosistema <strong>WordPress</strong> (themes/plugins).</li>
+                                <li>Plantilles basades en Bootstrap 3 i 4.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3>jQuery vs Vanilla JS (Actual)</h3>
+<pre>
+<span class="com">// JQUERY (Ocultar elements)</span>
+<span class="fn">$</span>(<span class="str">".caixa"</span>).<span class="fn">hide</span>();
+
+<span class="com">// VANILLA JS MODERN</span>
+document.<span class="fn">querySelectorAll</span>(<span class="str">'.caixa'</span>).<span class="fn">forEach</span>(el =&gt; {
+  el.style.display = <span class="str">'none'</span>;
+});
+</pre>
+<pre>
+<span class="com">// AJAX en JQUERY vs VANILLA</span>
+<span class="fn">$</span>.<span class="fn">ajax</span>({ url: <span class="str">'api/dades'</span> });
+<span class="fn">fetch</span>(<span class="str">'api/dades'</span>);
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: SPAs -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="content-inner">
+                    <h2 class="slide-title">5. L'Era dels Frameworks Reactius (SPAs)</h2>
+                    <div class="two-column">
+                        <div>
+                            <h3>El canvi de paradigma</h3>
+                            <p>Abans, buscàvem elements a l'HTML i els modificàvem manualment (Manipulació Imperativa).</p>
+                            <p>Ara, utilitzem l'enllaç de dades (<strong>Data Binding</strong>) orientat a components i reactivitat.</p>
+                            
+                            <h3>Single Page Applications (SPA)</h3>
+                            <p>Webs que carreguen l'HTML inicial un sol cop. El JS s'encarrega de redibuixar components sense recarregar la pàgina mai més.</p>
+                        </div>
+                        <div>
+                            <div class="info-box" style="height: 100%;">
+                                <h3>Lògica Reactiva (Conceptes)</h3>
+                                <p>Només defineixes l'estat (les dades), i l'HTML s'actualitza automàticament on toqui.</p>
+<pre>
+<span class="com">&lt;!-- Exemple conceptual Vue.js --&gt;</span>
+&lt;<span class="kw">div</span>&gt;
+  &lt;<span class="kw">h1</span>&gt;Hola {{ nomUsuari }}&lt;/<span class="kw">h1</span>&gt;
+
+  <span class="com">&lt;!-- L'input modifica 'nomUsuari' en temps real --&gt;</span>
+  &lt;<span class="kw">input</span> <span class="fn">v-model</span>=<span class="str">"nomUsuari"</span> /&gt;
+&lt;/<span class="kw">div</span>&gt;
+</pre>
+                                <p style="font-size: 0.95rem; margin-top:10px;">Ja no cal afegir EventListeners manuals ni fer <code>innerHTML</code>!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: Comparativa -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="content-inner">
+                    <h2 class="slide-title">6. Comparativa Frameworks Web</h2>
+                    <table style="font-size: 0.95rem;">
+                        <thead>
+                            <tr>
+                                <th style="width: 15%;">Framework</th>
+                                <th style="width: 25%;">Punts Forts</th>
+                                <th style="width: 25%;">Punts Febles</th>
+                                <th style="width: 35%;">Notes Importants</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>React</strong><br><span style="font-size:12px; color:#94a3b8;">Meta</span></td>
+                                <td><span class="badge pro">Ecosistema Massiu</span><br><span class="badge pro">Alta Demanda Laboral</span></td>
+                                <td><span class="badge con">Corba d'aprenentatge</span><br><span class="badge con">Sintaxi JSX</span></td>
+                                <td>Ús estricte del "Virtual DOM". Tot és JS (l'HTML va dins de funcions JS en format JSX).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Vue.js</strong><br><span style="font-size:12px; color:#94a3b8;">Comunitat</span></td>
+                                <td><span class="badge pro">Intuïtiu i Fàcil</span><br><span class="badge pro">Molt ràpid</span></td>
+                                <td><span class="badge con">Ecosistema menor (EU/US)</span></td>
+                                <td>Manté estructura clàssica (HTML, CSS, JS separats). Estàndard de facto en entorns Laravel.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Angular</strong><br><span style="font-size:12px; color:#94a3b8;">Google</span></td>
+                                <td><span class="badge pro">Robust (Enterprise)</span><br><span class="badge pro">Opcions Integrades</span></td>
+                                <td><span class="badge con">Extremadament complex</span><br><span class="badge con">Pesat (Boilerplate)</span></td>
+                                <td>Imposa TypeScript i una estructura molt rígida i orientada a objectes. Ideal per aplicacions gegants.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Svelte</strong><br><span style="font-size:12px; color:#94a3b8;">Comunitat</span></td>
+                                <td><span class="badge pro">Zero Virtual DOM</span><br><span class="badge pro">Rendiment Suprem</span></td>
+                                <td><span class="badge con">Comunitat jove</span></td>
+                                <td>No viatja la llibreria al client! Compila el codi Svelte a Vanilla JS pur ultra optimitzat.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: Q&A -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="content-inner center-layout">
+                    <i class="fa-solid fa-code" style="font-size: 100px; color: var(--accent-primary); margin-bottom: 30px;"></i>
+                    <h1 style="font-size: 4rem;">Preguntes?</h1>
+                    <p style="font-size: 1.5rem; color: var(--text-muted); margin-top: 20px;">Fi de la presentació sobre l'Ecosistema JavaScript.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- NAVEGACIÓ -->
+    <div class="controls">
+        <button class="btn-nav" id="btn-prev" onclick="prevSlide()" aria-label="Anterior"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="counter" id="slide-counter">1 / 8</div>
+        <button class="btn-nav" id="btn-next" onclick="nextSlide()" aria-label="Següent"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+
+    <!-- LOGICA DE LA PRESENTACIÓ -->
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const counterElement = document.getElementById('slide-counter');
+        const btnPrev = document.getElementById('btn-prev');
+        const btnNext = document.getElementById('btn-next');
+
+        function updatePresentation() {
+            // Actualitza l'estat actiu de les diapositives
+            slides.forEach((slide, index) => {
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                } else {
+                    slide.classList.remove('active');
+                }
+            });
+
+            // Actualitza comptador i botons
+            counterElement.textContent = `${currentSlide + 1} / ${slides.length}`;
+            btnPrev.disabled = currentSlide === 0;
+            btnNext.disabled = currentSlide === slides.length - 1;
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                updatePresentation();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updatePresentation();
+            }
+        }
+
+        // Navegació amb teclat
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'Enter') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+
+        // Inicialització
+        updatePresentation();
+    </script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+/* Estilos para la página de confirmación (server.php) */
+
+.container-confirmacio {
+    max-width: 900px;
+    margin: 50px auto;
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+.header-confirmacio {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.success-icon {
+    font-size: 80px;
+    color: #5cb85c;
+}
+
+.error-icon {
+    font-size: 80px;
+    color: #d9534f;
+}
+
+.info-reserva {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+    margin-top: 30px;
+}
+
+.info-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.info-item:last-child {
+    border-bottom: none;
+}
+
+.info-label {
+    font-weight: bold;
+    color: #2c3e50;
+    display: inline-block;
+    width: 200px;
+}
+
+.info-value {
+    color: #34495e;
+}
+
+.alert-custom {
+    margin-top: 20px;
+}
+
+.btn-tornar {
+    margin-top: 30px;
+}
+
+.codi-reserva {
+    background: #3498db;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 24px;
+    margin: 20px 0;
+    font-weight: bold;
+}
+
+.recent-reservations {
+    margin-top: 25px;
+}
+
+.info-total {
+    background: #e8f5e9;
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.info-total-label {
+    font-size: 18px;
+}
+
+.info-total-value {
+    font-size: 24px;
+    color: #2ecc71;
+    font-weight: bold;
+}

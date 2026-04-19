@@ -1,0 +1,2293 @@
+<!DOCTYPE html>
+
+<html lang="ca">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>HTML i CSS: Fonaments del Desenvolupament Web</title>
+<script src="https://statics.moonshot.cn/kimi-ppt/html-gen/static/tailwindcss@4_0805.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Chiron+Hei+HK:wght@400;700&amp;family=Quattrocento+Sans:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet"/>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.0/dist/echarts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style type="text/tailwindcss">
+        @layer utilities {
+            .ppt-slide {
+                @apply relative w-[1280px] h-[720px] mx-auto p-[40px] box-border overflow-hidden mb-[40px];
+            }
+        }
+    </style>
+<style>
+        body {
+            color: #E0E2E6;
+            font-family: 'Quattrocento Sans', sans-serif;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Chiron Hei HK', 'Quattrocento Sans', sans-serif;
+        }
+        .code-block {
+            font-family: 'Courier New', monospace;
+            background: #2D313A;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #D4A26A;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 py-8">
+<!-- Slide 1: Cover -->
+<div class="ppt-slide !bg-[#1A1D23]" type="cover">
+<img alt="" class="absolute inset-0 w-full h-full object-cover opacity-60" src="cover_image.png"/>
+<div class="absolute inset-0 bg-gradient-to-br from-[#1A1D23]/95 via-[#1A1D23]/85 to-transparent"></div>
+<div class="relative z-10 h-full flex flex-col justify-center items-start">
+<div class="inline-block px-5 py-2 bg-[#D4A26A]/20 border-l-4 border-[#D4A26A] mb-8">
+<p class="text-lg font-bold tracking-widest text-[#D4A26A]">COMPUTACIÓ ORIENTADA AL WEB</p>
+</div>
+<h1 class="text-8xl font-bold text-[#E0E2E6] mb-8 leading-none">HTML i CSS</h1>
+<p class="text-4xl text-[#8A9BA8] font-light mb-16 leading-tight max-w-3xl">Fonaments del Desenvolupament Web</p>
+<div class="flex items-center gap-6 text-xl text-[#8A9BA8]">
+<div class="flex items-center gap-3">
+<i class="fas fa-clock text-[#D4A26A] text-2xl"></i>
+<span>Durada: 1 hora</span>
+</div>
+<div class="w-px h-8 bg-[#5C7A96]"></div>
+<div class="flex items-center gap-3">
+<i class="fas fa-code text-[#D4A26A] text-2xl"></i>
+<span>Nivell: Introducció</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Slide 2: Table of Contents -->
+<div class="ppt-slide !bg-[#1A1D23] flex flex-col" type="table_of_contents">
+<div class="mb-4">
+<p class="text-sm font-bold tracking-wider text-[#D4A26A] mb-1">ESTRUCTURA DEL CURS</p>
+<h2 class="text-4xl font-bold text-[#E0E2E6]">Continguts</h2>
+</div>
+<div class="grid grid-cols-2 gap-x-4 gap-y-2 flex-grow content-center">
+<div class="flex items-start gap-3 p-3 bg-[#2D313A]/50 rounded-lg border-l-4 border-[#5C7A96]">
+<div class="w-10 h-10 rounded-full bg-[#5C7A96] flex items-center justify-center text-white font-bold text-lg shrink-0">01</div>
+<div>
+<h3 class="text-lg font-bold text-[#E0E2E6] mb-0">Introducció a HTML</h3>
+<p class="text-sm text-[#8A9BA8]">Què és HTML, estructura bàsica i tags fonamentals</p>
+</div>
+</div>
+<div class="flex items-start gap-3 p-3 bg-[#2D313A]/50 rounded-lg border-l-4 border-[#5C7A96]">
+<div class="w-10 h-10 rounded-full bg-[#5C7A96] flex items-center justify-center text-white font-bold text-lg shrink-0">02</div>
+<div>
+<h3 class="text-lg font-bold text-[#E0E2E6] mb-0">HTML Semàntic</h3>
+<p class="text-sm text-[#8A9BA8]">Etiquetes semàntiques HTML5 i estructura de pàgina</p>
+</div>
+</div>
+<div class="flex items-start gap-3 p-3 bg-[#2D313A]/50 rounded-lg border-l-4 border-[#5C7A96]">
+<div class="w-10 h-10 rounded-full bg-[#5C7A96] flex items-center justify-center text-white font-bold text-lg shrink-0">03</div>
+<div>
+<h3 class="text-lg font-bold text-[#E0E2E6] mb-0">Formularis i Multimedia</h3>
+<p class="text-sm text-[#8A9BA8]">Formularis HTML, imatges, vídeo i àudio</p>
+</div>
+</div>
+<div class="flex items-start gap-3 p-3 bg-[#2D313A]/50 rounded-lg border-l-4 border-[#5C7A96]">
+<div class="w-10 h-10 rounded-full bg-[#5C7A96] flex items-center justify-center text-white font-bold text-lg shrink-0">04</div>
+<div>
+<h3 class="text-lg font-bold text-[#E0E2E6] mb-0">Introducció a CSS</h3>
+<p class="text-sm text-[#8A9BA8]">Què és CSS, sintaxi, selectors i especificitat</p>
+</div>
+</div>
+<div class="flex items-start gap-3 p-3 bg-[#2D313A]/50 rounded-lg border-l-4 border-[#5C7A96]">
+<div class="w-10 h-10 rounded-full bg-[#5C7A96] flex items-center justify-center text-white font-bold text-lg shrink-0">05</div>
+<div>
+<h3 class="text-lg font-bold text-[#E0E2E6] mb-0">Model de Caixa i Propietats</h3>
+<p class="text-sm text-[#8A9BA8]">Box model, colors, fons i tipografia</p>
+</div>
+</div>
+<div class="flex items-start gap-3 p-3 bg-[#2D313A]/50 rounded-lg border-l-4 border-[#5C7A96]">
+<div class="w-10 h-10 rounded-full bg-[#5C7A96] flex items-center justify-center text-white font-bold text-lg shrink-0">06</div>
+<div>
+<h3 class="text-lg font-bold text-[#E0E2E6] mb-0">Layout amb Flexbox i Grid</h3>
+<p class="text-sm text-[#8A9BA8]">Sistemes moderns per crear layouts complexos</p>
+</div>
+</div>
+<div class="flex items-start gap-3 p-3 bg-[#2D313A]/50 rounded-lg border-l-4 border-[#5C7A96]">
+<div class="w-10 h-10 rounded-full bg-[#5C7A96] flex items-center justify-center text-white font-bold text-lg shrink-0">07</div>
+<div>
+<h3 class="text-lg font-bold text-[#E0E2E6] mb-0">Disseny Responsiu</h3>
+<p class="text-sm text-[#8A9BA8]">Media queries i unitats relatives</p>
+</div>
+</div>
+<div class="flex items-start gap-3 p-3 bg-[#2D313A]/50 rounded-lg border-l-4 border-[#5C7A96]">
+<div class="w-10 h-10 rounded-full bg-[#5C7A96] flex items-center justify-center text-white font-bold text-lg shrink-0">08</div>
+<div>
+<h3 class="text-lg font-bold text-[#E0E2E6] mb-0">Millors Pràctiques</h3>
+<p class="text-sm text-[#8A9BA8]">Organització, accessibilitat i SEO</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Slide 3: Chapter 1 -->
+<div class="ppt-slide !bg-[#1A1D23]" type="chapter">
+<img alt="" class="absolute inset-0 w-full h-full object-cover opacity-50" src="chapter1_image.png"/>
+<div class="absolute inset-0 bg-gradient-to-r from-[#1A1D23] via-[#1A1D23]/90 to-[#1A1D23]/60"></div>
+<div class="relative z-10 h-full flex flex-col justify-center">
+<div class="inline-block px-5 py-2 bg-[#D4A26A]/20 border-l-4 border-[#D4A26A] mb-8 w-fit">
+<p class="text-2xl font-bold tracking-widest text-[#D4A26A]">CAPÍTOL 01</p>
+</div>
+<h2 class="text-7xl font-bold text-[#E0E2E6] mb-8 leading-tight max-w-4xl">Introducció a HTML</h2>
+<p class="text-3xl text-[#8A9BA8] leading-relaxed max-w-3xl">El llenguatge d'etiquetatge que dóna estructura al contingut web</p>
+</div>
+</div>
+<!-- Slide 4: Què és HTML? -->
+<div class="ppt-slide !bg-[#1A1D23]" type="content">
+<div class="mb-8">
+<p class="text-base font-bold tracking-wider text-[#D4A26A] mb-2">FONAMENTS</p>
+<h2 class="text-5xl font-bold text-[#E0E2E6]">Què és HTML?</h2>
+</div>
+<div class="grid grid-cols-2 gap-8">
+<div class="space-y-6">
+<div>
+<h3 class="text-2xl font-bold text-[#E0E2E6] mb-4 flex items-center gap-3">
+<i class="fas fa-code text-[#D4A26A]"></i>
+                        HyperText Markup Language
+                    </h3>
+<p class="text-lg text-[#8A9BA8] leading-relaxed mb-4"><strong class="text-[#E0E2E6]">HTML és el llenguatge d'etiquetatge estàndard</strong> per crear pàgines web. Defineix l'estructura i el contingut d'una pàgina utilitzant etiquetes (tags) que el navegador interpreta per mostrar la informació.</p>
+<div class="bg-[#D4A26A]/10 border-l-4 border-[#D4A26A] p-4 rounded">
+<p class="text-base text-[#E0E2E6]"><i class="fas fa-lightbulb text-[#D4A26A] mr-2"></i><strong>Important:</strong> HTML no és un llenguatge de programació, sinó d'etiquetatge. No té lògica ni algoritmes, només descriu l'estructura.</p>
+</div>
+</div>
+<div>
+<h3 class="text-2xl font-bold text-[#E0E2E6] mb-4 flex items-center gap-3">
+<i class="fas fa-history text-[#D4A26A]"></i>
+                        Breu Història
+                    </h3>
+<div class="space-y-2 text-base text-[#8A9BA8]">
+<div class="flex items-start gap-3">
+<span class="text-[#D4A26A] font-bold shrink-0">1991:</span>
+<span>Tim Berners-Lee crea HTML</span>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-[#D4A26A] font-bold shrink-0">1999:</span>
+<span>HTML 4.01 es converteix en estàndard</span>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-[#D4A26A] font-bold shrink-0">2014:</span>
+<span>HTML5 amb etiquetes semàntiques</span>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-[#D4A26A] font-bold shrink-0">Actualitat:</span>
+<span>HTML5 és l'estàndard universal</span>
+</div>
+</div>
+</div>
+</div>
+<div class="space-y-6">
+<div class="bg-[#2D313A] p-6 rounded-lg border border-[#5C7A96]/30">
+<h3 class="text-2xl font-bold text-[#E0E2E6] mb-5">Característiques Clau</h3>
+<div class="space-y-4">
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-full bg-[#5C7A96] flex items-center justify-center text-white font-bold shrink-0">1</div>
+<div>
+<h4 class="text-lg font-bold text-[#E0E2E6] mb-1">Etiquetes (Tags)</h4>
+<p class="text-base text-[#8A9BA8]">Elements que envolten el contingut per donar-li significat</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-full bg-[#5C7A96] flex items-center justify-center text-white font-bold shrink-0">2</div>
+<div>
+<h4 class="text-lg font-bold text-[#E0E2E6] mb-1">Atributs</h4>
+<p class="text-base text-[#8A9BA8]">Proporcionen informació addicional sobre les etiquetes</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-full bg-[#5C7A96] flex items-center justify-center text-white font-bold shrink-0">3</div>
+<div>
+<h4 class="text-lg font-bold text-[#E0E2E6] mb-1">Estructura Jeràrquica</h4>
+<p class="text-base text-[#8A9BA8]">Els elements s'imbrincan formant un arbre DOM</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-full bg-[#5C7A96] flex items-center justify-center text-white font-bold shrink-0">4</div>
+<div>
+<h4 class="text-lg font-bold text-[#E0E2E6] mb-1">Independència de Plataforma</h4>
+<p class="text-base text-[#8A9BA8]">Funciona a qualsevol navegador i dispositiu</p>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-[#D4A26A]/10 border border-[#D4A26A]/30 p-5 rounded-lg">
+<h4 class="text-lg font-bold text-[#E0E2E6] mb-3">Com funciona?</h4>
+<p class="text-base text-[#8A9BA8] leading-relaxed">L'usuari sol·licita una pàgina → El servidor envia l'HTML → El navegador l'interpreta i renderitza → Es mostra el contingut estructurat</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Slide 5: Estructura Bàsica -->
+<div class="ppt-slide !bg-[#1A1D23]" type="content">
+<div class="mb-4">
+<p class="text-base font-bold tracking-wider text-[#D4A26A] mb-2">ESTRUCTURA</p>
+<h2 class="text-4xl font-bold text-[#E0E2E6]">Estructura Bàsica d'un Document HTML</h2>
+</div>
+<div class="grid grid-cols-5 gap-4">
+<div class="col-span-3">
+<div class="code-block text-base leading-relaxed h-full flex flex-col">
+<div class="flex items-center justify-between mb-3">
+<span class="text-[#D4A26A] font-bold">index.html</span>
+<div class="flex gap-2">
+<div class="w-3 h-3 rounded-full bg-red-500"></div>
+<div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+<div class="w-3 h-3 rounded-full bg-green-500"></div>
+</div>
+</div>
+<pre class="text-[#E0E2E6] flex-grow"><span class="text-[#8A9BA8]">&lt;!DOCTYPE html&gt;</span>
+<span class="text-[#D4A26A]">&lt;html</span> <span class="text-[#5C7A96]">lang</span>=<span class="text-[#8A9BA8]">"ca"</span><span class="text-[#D4A26A]">&gt;</span>
+<span class="text-[#D4A26A]">&lt;head&gt;</span>
+    <span class="text-[#D4A26A]">&lt;meta</span> <span class="text-[#5C7A96]">charset</span>=<span class="text-[#8A9BA8]">"UTF-8"</span><span class="text-[#D4A26A]">&gt;</span>
+    <span class="text-[#D4A26A]">&lt;meta</span> <span class="text-[#5C7A96]">name</span>=<span class="text-[#8A9BA8]">"viewport"</span>
+          <span class="text-[#5C7A96]">content</span>=<span class="text-[#8A9BA8]">"width=device-width, initial-scale=1.0"</span><span class="text-[#D4A26A]">&gt;</span>
+    <span class="text-[#D4A26A]">&lt;title&gt;</span>Títol de la Pàgina<span class="text-[#D4A26A]">&lt;/title&gt;</span>
+    <span class="text-[#D4A26A]">&lt;link</span> <span class="text-[#5C7A96]">rel</span>=<span class="text-[#8A9BA8]">"stylesheet"</span> <span class="text-[#5C7A96]">href</span>=<span class="text-[#8A9BA8]">"styles.css"</span><span class="text-[#D4A26A]">&gt;</span>
+<span class="text-[#D4A26A]">&lt;/head&gt;</span>
+<span class="text-[#D4A26A]">&lt;body&gt;</span>
+    <span class="text-[#D4A26A]">&lt;header&gt;</span>
+        <span class="text-[#D4A26A]">&lt;h1&gt;</span>Benvinguts<span class="text-[#D4A26A]">&lt;/h1&gt;</span>
+    <span class="text-[#D4A26A]">&lt;/header&gt;</span>
+    <span class="text-[#D4A26A]">&lt;main&gt;</span>
+        <span class="text-[#D4A26A]">&lt;p&gt;</span>Contingut principal<span class="text-[#D4A26A]">&lt;/p&gt;</span>
+    <span class="text-[#D4A26A]">&lt;/main&gt;</span>
+    <span class="text-[#D4A26A]">&lt;footer&gt;</span>
+        <span class="text-[#D4A26A]">&lt;p&gt;</span>© 2024<span class="text-[#D4A26A]">&lt;/p&gt;</span>
+    <span class="text-[#D4A26A]">&lt;/footer&gt;</span>
+<span class="text-[#D4A26A]">&lt;/body&gt;</span>
+<span class="text-[#D4A26A]">&lt;/html&gt;</span></pre>
+</div>
+</div>
+<div class="col-span-2 space-y-2">
+<div class="bg-[#2D313A] p-3 rounded-lg border-l-4 border-[#D4A26A]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1 flex items-center gap-2">
+<i class="fas fa-file-code text-[#D4A26A]"></i>
+                        &lt;!DOCTYPE html&gt;
+                    </h3>
+<p class="text-sm text-[#8A9BA8] leading-relaxed">Declara que és un document HTML5. Sempre ha de ser la primera línia.</p>
+</div>
+<div class="bg-[#2D313A] p-3 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1 flex items-center gap-2">
+<i class="fas fa-globe text-[#5C7A96]"></i>
+                        &lt;html&gt;
+                    </h3>
+<p class="text-sm text-[#8A9BA8] leading-relaxed">Element arrel que conté tot el document. L'atribut lang defineix l'idioma.</p>
+</div>
+<div class="bg-[#2D313A] p-3 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1 flex items-center gap-2">
+<i class="fas fa-cog text-[#5C7A96]"></i>
+                        &lt;head&gt;
+                    </h3>
+<p class="text-sm text-[#8A9BA8] leading-relaxed">Conté metadades: charset, viewport, títol, enllaços a CSS i scripts.</p>
+</div>
+<div class="bg-[#2D313A] p-3 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1 flex items-center gap-2">
+<i class="fas fa-eye text-[#5C7A96]"></i>
+                        &lt;body&gt;
+                    </h3>
+<p class="text-sm text-[#8A9BA8] leading-relaxed">Conté tot el contingut visible: text, imatges, enllaços, formularis...</p>
+</div>
+<div class="bg-[#D4A26A]/10 border border-[#D4A26A]/30 p-2 rounded-lg">
+<h4 class="text-sm font-bold text-[#E0E2E6] mb-1">Metadades Importants</h4>
+<ul class="text-xs text-[#8A9BA8] space-y-0">
+<li><strong class="text-[#E0E2E6]">charset:</strong> Codificació UTF-8</li>
+<li><strong class="text-[#E0E2E6]">viewport:</strong> Adaptació mòbil</li>
+<li><strong class="text-[#E0E2E6]">title:</strong> Títol de la pestanya</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- Slide 6: Etiquetes Fonamentals -->
+<div class="ppt-slide !bg-[#1A1D23]" type="content">
+<div class="mb-2">
+<p class="text-sm font-bold tracking-wider text-[#D4A26A] mb-1">TAGS ESSENCIALS</p>
+<h2 class="text-3xl font-bold text-[#E0E2E6]">Etiquetes HTML Fonamentals</h2>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<div class="space-y-2">
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#D4A26A]">
+<div class="flex items-center justify-between mb-1">
+<h3 class="text-lg font-bold text-[#E0E2E6]">Títols: &lt;h1&gt; - &lt;h6&gt;</h3>
+<span class="px-2 py-0.5 bg-[#D4A26A]/20 text-[#D4A26A] rounded text-xs font-bold">Bloc</span>
+</div>
+<p class="text-sm text-[#8A9BA8] mb-1">Defineixen títols i subtítols amb diferents nivells d'importància.</p>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#D4A26A]">&lt;h1&gt;</span>Títol Principal<span class="text-[#D4A26A]">&lt;/h1&gt;</span>
+<span class="text-[#D4A26A]">&lt;h2&gt;</span>Subtítol<span class="text-[#D4A26A]">&lt;/h2&gt;</span>
+<span class="text-[#D4A26A]">&lt;h3&gt;</span>Secció<span class="text-[#D4A26A]">&lt;/h3&gt;</span></pre>
+</div>
+<p class="text-xs text-[#8A9BA8] mt-1"><i class="fas fa-exclamation-triangle text-[#D4A26A] mr-1"></i>Només un &lt;h1&gt; per pàgina per SEO</p>
+</div>
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<div class="flex items-center justify-between mb-1">
+<h3 class="text-lg font-bold text-[#E0E2E6]">Paràgrafs: &lt;p&gt;</h3>
+<span class="px-2 py-0.5 bg-[#5C7A96]/20 text-[#5C7A96] rounded text-xs font-bold">Bloc</span>
+</div>
+<p class="text-sm text-[#8A9BA8] mb-1">Defineixen blocs de text. Els navegadors afegeixen espai entre paràgrafs.</p>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#D4A26A]">&lt;p&gt;</span>Aquest és un paràgraf<span class="text-[#D4A26A]">&lt;/p&gt;</span>
+<span class="text-[#D4A26A]">&lt;p&gt;</span>Un altre paràgraf<span class="text-[#D4A26A]">&lt;/p&gt;</span></pre>
+</div>
+</div>
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<div class="flex items-center justify-between mb-1">
+<h3 class="text-lg font-bold text-[#E0E2E6]">Llistes: &lt;ul&gt;, &lt;ol&gt;, &lt;li&gt;</h3>
+<span class="px-2 py-0.5 bg-[#5C7A96]/20 text-[#5C7A96] rounded text-xs font-bold">Bloc</span>
+</div>
+<p class="text-sm text-[#8A9BA8] mb-1">&lt;ul&gt; per llistes desordenades, &lt;ol&gt; per ordenades.</p>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#D4A26A]">&lt;ul&gt;</span>
+  <span class="text-[#D4A26A]">&lt;li&gt;</span>Element 1<span class="text-[#D4A26A]">&lt;/li&gt;</span>
+  <span class="text-[#D4A26A]">&lt;li&gt;</span>Element 2<span class="text-[#D4A26A]">&lt;/li&gt;</span>
+<span class="text-[#D4A26A]">&lt;/ul&gt;</span></pre>
+</div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#D4A26A]">
+<div class="flex items-center justify-between mb-1">
+<h3 class="text-lg font-bold text-[#E0E2E6]">Enllaços: &lt;a&gt;</h3>
+<span class="px-2 py-0.5 bg-[#D4A26A]/20 text-[#D4A26A] rounded text-xs font-bold">Inline</span>
+</div>
+<p class="text-sm text-[#8A9BA8] mb-1">Creen enllaços a altres pàgines. L'atribut href és obligatori.</p>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#D4A26A]">&lt;a</span> <span class="text-[#5C7A96]">href</span>=<span class="text-[#8A9BA8]">"https://exemple.com"</span><span class="text-[#D4A26A]">&gt;</span>Visita<span class="text-[#D4A26A]">&lt;/a&gt;</span>
+<span class="text-[#D4A26A]">&lt;a</span> <span class="text-[#5C7A96]">href</span>=<span class="text-[#8A9BA8]">"#seccio"</span><span class="text-[#D4A26A]">&gt;</span>Anar a secció<span class="text-[#D4A26A]">&lt;/a&gt;</span>
+<span class="text-[#D4A26A]">&lt;a</span> <span class="text-[#5C7A96]">target</span>=<span class="text-[#8A9BA8]">"_blank"</span><span class="text-[#D4A26A]">&gt;</span>Nova pestanya<span class="text-[#D4A26A]">&lt;/a&gt;</span></pre>
+</div>
+<p class="text-xs text-[#8A9BA8] mt-1"><strong>Atributs:</strong> href, target, title, download</p>
+</div>
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<div class="flex items-center justify-between mb-1">
+<h3 class="text-lg font-bold text-[#E0E2E6]">Imatges: &lt;img&gt;</h3>
+<span class="px-2 py-0.5 bg-[#5C7A96]/20 text-[#5C7A96] rounded text-xs font-bold">Inline</span>
+</div>
+<p class="text-sm text-[#8A9BA8] mb-1">Etiqueta buida. src i alt són obligatoris.</p>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#D4A26A]">&lt;img</span> <span class="text-[#5C7A96]">src</span>=<span class="text-[#8A9BA8]">"foto.jpg"</span>
+     <span class="text-[#5C7A96]">alt</span>=<span class="text-[#8A9BA8]">"Descripció"</span>
+     <span class="text-[#5C7A96]">width</span>=<span class="text-[#8A9BA8]">"300"</span><span class="text-[#D4A26A]">&gt;</span></pre>
+</div>
+<p class="text-xs text-[#8A9BA8] mt-1"><strong>Atributs:</strong> src, alt, width/height</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Slide 7: Chapter 2 -->
+<div class="ppt-slide !bg-[#1A1D23]" type="chapter">
+<img alt="" class="absolute inset-0 w-full h-full object-cover opacity-50" src="chapter2_image.png"/>
+<div class="absolute inset-0 bg-gradient-to-r from-[#1A1D23] via-[#1A1D23]/90 to-[#1A1D23]/60"></div>
+<div class="relative z-10 h-full flex flex-col justify-center">
+<div class="inline-block px-5 py-2 bg-[#D4A26A]/20 border-l-4 border-[#D4A26A] mb-8 w-fit">
+<p class="text-2xl font-bold tracking-widest text-[#D4A26A]">CAPÍTOL 02</p>
+</div>
+<h2 class="text-7xl font-bold text-[#E0E2E6] mb-8 leading-tight max-w-4xl">HTML Semàntic</h2>
+<p class="text-3xl text-[#8A9BA8] leading-relaxed max-w-3xl">Donar significat a l'estructura per millorar l'accessibilitat i SEO</p>
+</div>
+</div>
+<!-- Slide 8: Etiquetes Semàntiques -->
+<div class="ppt-slide !bg-[#1A1D23]" type="content">
+<div class="mb-2">
+<p class="text-sm font-bold tracking-wider text-[#D4A26A] mb-1">HTML5 MODERN</p>
+<h2 class="text-3xl font-bold text-[#E0E2E6]">Etiquetes Semàntiques HTML5</h2>
+</div>
+<div class="grid grid-cols-3 gap-2">
+<div class="space-y-2">
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#D4A26A]">
+<h3 class="text-sm font-bold text-[#E0E2E6] mb-1 flex items-center gap-1">
+<span class="px-1.5 py-0.5 bg-[#D4A26A]/20 text-[#D4A26A] rounded text-xs font-mono">&lt;header&gt;</span>
+</h3>
+<p class="text-xs text-[#8A9BA8] mb-1">Capçalera d'una pàgina o secció.</p>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#D4A26A]">&lt;header&gt;</span>
+  <span class="text-[#D4A26A]">&lt;h1&gt;</span>Logo<span class="text-[#D4A26A]">&lt;/h1&gt;</span>
+  <span class="text-[#D4A26A]">&lt;nav&gt;</span>...<span class="text-[#D4A26A]">&lt;/nav&gt;</span>
+<span class="text-[#D4A26A]">&lt;/header&gt;</span></pre>
+</div>
+</div>
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-sm font-bold text-[#E0E2E6] mb-1 flex items-center gap-1">
+<span class="px-1.5 py-0.5 bg-[#5C7A96]/20 text-[#5C7A96] rounded text-xs font-mono">&lt;nav&gt;</span>
+</h3>
+<p class="text-xs text-[#8A9BA8] mb-1">Enllaços de navegació principals.</p>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#D4A26A]">&lt;nav&gt;</span>
+  <span class="text-[#D4A26A]">&lt;a</span> <span class="text-[#5C7A96]">href</span>=<span class="text-[#8A9BA8]">"/"</span><span class="text-[#D4A26A]">&gt;</span>Inici<span class="text-[#D4A26A]">&lt;/a&gt;</span>
+<span class="text-[#D4A26A]">&lt;/nav&gt;</span></pre>
+</div>
+</div>
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-sm font-bold text-[#E0E2E6] mb-1 flex items-center gap-1">
+<span class="px-1.5 py-0.5 bg-[#5C7A96]/20 text-[#5C7A96] rounded text-xs font-mono">&lt;main&gt;</span>
+</h3>
+<p class="text-xs text-[#8A9BA8] mb-1">Contingut principal. Només un per document.</p>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#D4A26A]">&lt;main&gt;</span>
+  <span class="text-[#D4A26A]">&lt;h1&gt;</span>Títol<span class="text-[#D4A26A]">&lt;/h1&gt;</span>
+<span class="text-[#D4A26A]">&lt;/main&gt;</span></pre>
+</div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-sm font-bold text-[#E0E2E6] mb-1 flex items-center gap-1">
+<span class="px-1.5 py-0.5 bg-[#5C7A96]/20 text-[#5C7A96] rounded text-xs font-mono">&lt;section&gt;</span>
+</h3>
+<p class="text-xs text-[#8A9BA8] mb-1">Secció temàtica amb títol.</p>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#D4A26A]">&lt;section&gt;</span>
+  <span class="text-[#D4A26A]">&lt;h2&gt;</span>Serveis<span class="text-[#D4A26A]">&lt;/h2&gt;</span>
+<span class="text-[#D4A26A]">&lt;/section&gt;</span></pre>
+</div>
+</div>
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#D4A26A]">
+<h3 class="text-sm font-bold text-[#E0E2E6] mb-1 flex items-center gap-1">
+<span class="px-1.5 py-0.5 bg-[#D4A26A]/20 text-[#D4A26A] rounded text-xs font-mono">&lt;article&gt;</span>
+</h3>
+<p class="text-xs text-[#8A9BA8] mb-1">Contingut autònom (post, notícia).</p>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#D4A26A]">&lt;article&gt;</span>
+  <span class="text-[#D4A26A]">&lt;h2&gt;</span>Títol<span class="text-[#D4A26A]">&lt;/h2&gt;</span>
+  <span class="text-[#D4A26A]">&lt;p&gt;</span>Text...<span class="text-[#D4A26A]">&lt;/p&gt;</span>
+<span class="text-[#D4A26A]">&lt;/article&gt;</span></pre>
+</div>
+</div>
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-sm font-bold text-[#E0E2E6] mb-1 flex items-center gap-1">
+<span class="px-1.5 py-0.5 bg-[#5C7A96]/20 text-[#5C7A96] rounded text-xs font-mono">&lt;aside&gt;</span>
+</h3>
+<p class="text-xs text-[#8A9BA8] mb-1">Contingut secundari (sidebar).</p>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#D4A26A]">&lt;aside&gt;</span>
+  <span class="text-[#D4A26A]">&lt;h3&gt;</span>Relacionat<span class="text-[#D4A26A]">&lt;/h3&gt;</span>
+<span class="text-[#D4A26A]">&lt;/aside&gt;</span></pre>
+</div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-sm font-bold text-[#E0E2E6] mb-1 flex items-center gap-1">
+<span class="px-1.5 py-0.5 bg-[#5C7A96]/20 text-[#5C7A96] rounded text-xs font-mono">&lt;footer&gt;</span>
+</h3>
+<p class="text-xs text-[#8A9BA8] mb-1">Peu de pàgina o secció.</p>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#D4A26A]">&lt;footer&gt;</span>
+  <span class="text-[#D4A26A]">&lt;p&gt;</span>© 2024<span class="text-[#D4A26A]">&lt;/p&gt;</span>
+<span class="text-[#D4A26A]">&lt;/footer&gt;</span></pre>
+</div>
+</div>
+<div class="bg-[#D4A26A]/10 border border-[#D4A26A]/30 p-2 rounded-lg">
+<h3 class="text-sm font-bold text-[#E0E2E6] mb-2 flex items-center gap-1">
+<i class="fas fa-lightbulb text-[#D4A26A]"></i>
+                        Beneficis
+                    </h3>
+<ul class="space-y-1 text-xs text-[#8A9BA8]">
+<li class="flex items-start gap-1">
+<i class="fas fa-check text-[#D4A26A] mt-0.5 shrink-0"></i>
+<span><strong class="text-[#E0E2E6]">SEO:</strong> Millor per motors de cerca</span>
+</li>
+<li class="flex items-start gap-1">
+<i class="fas fa-check text-[#D4A26A] mt-0.5 shrink-0"></i>
+<span><strong class="text-[#E0E2E6]">Accessibilitat:</strong> Lectors de pantalla</span>
+</li>
+<li class="flex items-start gap-1">
+<i class="fas fa-check text-[#D4A26A] mt-0.5 shrink-0"></i>
+<span><strong class="text-[#E0E2E6]">Mantenible:</strong> Codi més llegible</span>
+</li>
+</ul>
+</div>
+<div class="bg-[#2D313A] p-2 rounded-lg">
+<h4 class="text-xs font-bold text-[#E0E2E6] mb-1">Quan usar &lt;div&gt;?</h4>
+<p class="text-xs text-[#8A9BA8]">Per agrupar elements per CSS quan cap etiqueta semàntica té sentit.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Slide 9: Estructura Semàntica -->
+<div class="ppt-slide !bg-[#1A1D23]" type="content">
+<div class="mb-2">
+<p class="text-sm font-bold tracking-wider text-[#D4A26A] mb-1">EXEMPLE PRÀCTIC</p>
+<h2 class="text-3xl font-bold text-[#E0E2E6]">Estructura Semàntica d'una Pàgina</h2>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<div class="code-block text-sm leading-relaxed">
+<div class="flex items-center justify-between mb-2">
+<span class="text-[#D4A26A] font-bold text-sm">estructura.html</span>
+<div class="flex gap-1">
+<div class="w-2 h-2 rounded-full bg-red-500"></div>
+<div class="w-2 h-2 rounded-full bg-yellow-500"></div>
+<div class="w-2 h-2 rounded-full bg-green-500"></div>
+</div>
+</div>
+<pre class="text-[#E0E2E6]"><span class="text-[#D4A26A]">&lt;body&gt;</span>
+  <span class="text-[#D4A26A]">&lt;header&gt;</span>
+    <span class="text-[#D4A26A]">&lt;h1&gt;</span>El Meu Blog<span class="text-[#D4A26A]">&lt;/h1&gt;</span>
+    <span class="text-[#D4A26A]">&lt;nav&gt;</span>
+      <span class="text-[#D4A26A]">&lt;a</span> <span class="text-[#5C7A96]">href</span>=<span class="text-[#8A9BA8]">"/"</span><span class="text-[#D4A26A]">&gt;</span>Inici<span class="text-[#D4A26A]">&lt;/a&gt;</span>
+      <span class="text-[#D4A26A]">&lt;a</span> <span class="text-[#5C7A96]">href</span>=<span class="text-[#8A9BA8]">"/articles"</span><span class="text-[#D4A26A]">&gt;</span>Articles<span class="text-[#D4A26A]">&lt;/a&gt;</span>
+    <span class="text-[#D4A26A]">&lt;/nav&gt;</span>
+  <span class="text-[#D4A26A]">&lt;/header&gt;</span>
+  <span class="text-[#D4A26A]">&lt;main&gt;</span>
+    <span class="text-[#D4A26A]">&lt;section&gt;</span>
+      <span class="text-[#D4A26A]">&lt;h2&gt;</span>Últims Articles<span class="text-[#D4A26A]">&lt;/h2&gt;</span>
+      <span class="text-[#D4A26A]">&lt;article&gt;</span>
+        <span class="text-[#D4A26A]">&lt;h3&gt;</span>Article 1<span class="text-[#D4A26A]">&lt;/h3&gt;</span>
+        <span class="text-[#D4A26A]">&lt;p&gt;</span>Resum...<span class="text-[#D4A26A]">&lt;/p&gt;</span>
+      <span class="text-[#D4A26A]">&lt;/article&gt;</span>
+    <span class="text-[#D4A26A]">&lt;/section&gt;</span>
+  <span class="text-[#D4A26A]">&lt;/main&gt;</span>
+  <span class="text-[#D4A26A]">&lt;aside&gt;</span>
+    <span class="text-[#D4A26A]">&lt;h3&gt;</span>Categories<span class="text-[#D4A26A]">&lt;/h3&gt;</span>
+    <span class="text-[#D4A26A]">&lt;ul&gt;</span>...<span class="text-[#D4A26A]">&lt;/ul&gt;</span>
+  <span class="text-[#D4A26A]">&lt;/aside&gt;</span>
+  <span class="text-[#D4A26A]">&lt;footer&gt;</span>
+    <span class="text-[#D4A26A]">&lt;p&gt;</span>© 2024<span class="text-[#D4A26A]">&lt;/p&gt;</span>
+  <span class="text-[#D4A26A]">&lt;/footer&gt;</span>
+<span class="text-[#D4A26A]">&lt;/body&gt;</span></pre>
+</div>
+<div class="space-y-2">
+<div class="bg-[#2D313A] p-3 rounded-lg border border-[#5C7A96]/30">
+<h3 class="text-lg font-bold text-[#E0E2E6] mb-2">Jerarquia Visual</h3>
+<div class="space-y-1">
+<div class="flex items-center gap-2 p-2 bg-[#D4A26A]/20 rounded border-l-4 border-[#D4A26A]">
+<div class="w-6 h-6 rounded bg-[#D4A26A] flex items-center justify-center text-white font-bold text-xs">H</div>
+<span class="text-sm text-[#E0E2E6]">&lt;header&gt; - Capçalera</span>
+</div>
+<div class="flex items-center gap-2 p-2 bg-[#5C7A96]/20 rounded border-l-4 border-[#5C7A96] ml-3">
+<div class="w-6 h-6 rounded bg-[#5C7A96] flex items-center justify-center text-white font-bold text-xs">N</div>
+<span class="text-sm text-[#E0E2E6]">&lt;nav&gt; - Navegació</span>
+</div>
+<div class="flex items-center gap-2 p-2 bg-[#5C7A96]/20 rounded border-l-4 border-[#5C7A96]">
+<div class="w-6 h-6 rounded bg-[#5C7A96] flex items-center justify-center text-white font-bold text-xs">M</div>
+<span class="text-sm text-[#E0E2E6]">&lt;main&gt; - Principal</span>
+</div>
+<div class="flex items-center gap-2 p-2 bg-[#5C7A96]/20 rounded border-l-4 border-[#5C7A96] ml-3">
+<div class="w-6 h-6 rounded bg-[#5C7A96] flex items-center justify-center text-white font-bold text-xs">S</div>
+<span class="text-sm text-[#E0E2E6]">&lt;section&gt; - Secció</span>
+</div>
+<div class="flex items-center gap-2 p-2 bg-[#D4A26A]/20 rounded border-l-4 border-[#D4A26A] ml-6">
+<div class="w-6 h-6 rounded bg-[#D4A26A] flex items-center justify-center text-white font-bold text-xs">A</div>
+<span class="text-sm text-[#E0E2E6]">&lt;article&gt; - Article</span>
+</div>
+<div class="flex items-center gap-2 p-2 bg-[#5C7A96]/20 rounded border-l-4 border-[#5C7A96] ml-3">
+<div class="w-6 h-6 rounded bg-[#5C7A96] flex items-center justify-center text-white font-bold text-xs">As</div>
+<span class="text-sm text-[#E0E2E6]">&lt;aside&gt; - Sidebar</span>
+</div>
+<div class="flex items-center gap-2 p-2 bg-[#5C7A96]/20 rounded border-l-4 border-[#5C7A96]">
+<div class="w-6 h-6 rounded bg-[#5C7A96] flex items-center justify-center text-white font-bold text-xs">F</div>
+<span class="text-sm text-[#E0E2E6]">&lt;footer&gt; - Peu</span>
+</div>
+</div>
+</div>
+<div class="bg-[#D4A26A]/10 border border-[#D4A26A]/30 p-2 rounded-lg">
+<h4 class="text-sm font-bold text-[#E0E2E6] mb-1">Consells</h4>
+<ul class="space-y-0 text-xs text-[#8A9BA8]">
+<li><i class="fas fa-arrow-right text-[#D4A26A] mr-1"></i>Un sol &lt;main&gt; per pàgina</li>
+<li><i class="fas fa-arrow-right text-[#D4A26A] mr-1"></i>Header/footer múltiples OK</li>
+<li><i class="fas fa-arrow-right text-[#D4A26A] mr-1"></i>Article pot tenir header/footer</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- Slide 10: Chapter 3 -->
+<div class="ppt-slide !bg-[#1A1D23]" type="chapter">
+<img alt="" class="absolute inset-0 w-full h-full object-cover opacity-50" src="chapter3_image.png"/>
+<div class="absolute inset-0 bg-gradient-to-r from-[#1A1D23] via-[#1A1D23]/90 to-[#1A1D23]/60"></div>
+<div class="relative z-10 h-full flex flex-col justify-center">
+<div class="inline-block px-5 py-2 bg-[#D4A26A]/20 border-l-4 border-[#D4A26A] mb-8 w-fit">
+<p class="text-2xl font-bold tracking-widest text-[#D4A26A]">CAPÍTOL 03</p>
+</div>
+<h2 class="text-7xl font-bold text-[#E0E2E6] mb-8 leading-tight max-w-4xl">Formularis i Multimedia</h2>
+<p class="text-3xl text-[#8A9BA8] leading-relaxed max-w-3xl">Interactuar amb l'usuari i enriquir el contingut</p>
+</div>
+</div>
+<!-- Slide 11: Formularis HTML -->
+<div class="ppt-slide !bg-[#1A1D23]" type="content">
+<div class="mb-2">
+<p class="text-sm font-bold tracking-wider text-[#D4A26A] mb-1">INTERACTIVITAT</p>
+<h2 class="text-3xl font-bold text-[#E0E2E6]">Formularis HTML</h2>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<div class="space-y-2">
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#D4A26A]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-2">Tipus d'Input</h3>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#8A9BA8]">&lt;!-- Text --&gt;</span>
+<span class="text-[#D4A26A]">&lt;input</span> <span class="text-[#5C7A96]">type</span>=<span class="text-[#8A9BA8]">"text"</span>
+       <span class="text-[#5C7A96]">name</span>=<span class="text-[#8A9BA8]">"nom"</span>
+       <span class="text-[#5C7A96]">placeholder</span>=<span class="text-[#8A9BA8]">"El teu nom"</span><span class="text-[#D4A26A]">&gt;</span>
+
+<span class="text-[#8A9BA8]">&lt;!-- Email --&gt;</span>
+<span class="text-[#D4A26A]">&lt;input</span> <span class="text-[#5C7A96]">type</span>=<span class="text-[#8A9BA8]">"email"</span>
+       <span class="text-[#5C7A96]">required</span><span class="text-[#D4A26A]">&gt;</span>
+
+<span class="text-[#8A9BA8]">&lt;!-- Password --&gt;</span>
+<span class="text-[#D4A26A]">&lt;input</span> <span class="text-[#5C7A96]">type</span>=<span class="text-[#8A9BA8]">"password"</span><span class="text-[#D4A26A]">&gt;</span>
+
+<span class="text-[#8A9BA8]">&lt;!-- Número --&gt;</span>
+<span class="text-[#D4A26A]">&lt;input</span> <span class="text-[#5C7A96]">type</span>=<span class="text-[#8A9BA8]">"number"</span>
+       <span class="text-[#5C7A96]">min</span>=<span class="text-[#8A9BA8]">"0"</span> <span class="text-[#5C7A96]">max</span>=<span class="text-[#8A9BA8]">"100"</span><span class="text-[#D4A26A]">&gt;</span></pre>
+</div>
+</div>
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-2">Checkbox i Radio</h3>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#8A9BA8]">&lt;!-- Checkbox --&gt;</span>
+<span class="text-[#D4A26A]">&lt;input</span> <span class="text-[#5C7A96]">type</span>=<span class="text-[#8A9BA8]">"checkbox"</span>
+       <span class="text-[#5C7A96]">name</span>=<span class="text-[#8A9BA8]">"interessos"</span>
+       <span class="text-[#5C7A96]">value</span>=<span class="text-[#8A9BA8]">"html"</span><span class="text-[#D4A26A]">&gt;</span> HTML
+<span class="text-[#D4A26A]">&lt;input</span> <span class="text-[#5C7A96]">type</span>=<span class="text-[#8A9BA8]">"checkbox"</span>
+       <span class="text-[#5C7A96]">value</span>=<span class="text-[#8A9BA8]">"css"</span><span class="text-[#D4A26A]">&gt;</span> CSS
+
+<span class="text-[#8A9BA8]">&lt;!-- Radio --&gt;</span>
+<span class="text-[#D4A26A]">&lt;input</span> <span class="text-[#5C7A96]">type</span>=<span class="text-[#8A9BA8]">"radio"</span>
+       <span class="text-[#5C7A96]">name</span>=<span class="text-[#8A9BA8]">"nivell"</span>
+       <span class="text-[#5C7A96]">value</span>=<span class="text-[#8A9BA8]">"principiant"</span><span class="text-[#D4A26A]">&gt;</span> Principiant
+<span class="text-[#D4A26A]">&lt;input</span> <span class="text-[#5C7A96]">type</span>=<span class="text-[#8A9BA8]">"radio"</span>
+       <span class="text-[#5C7A96]">value</span>=<span class="text-[#8A9BA8]">"avancat"</span><span class="text-[#D4A26A]">&gt;</span> Avançat</pre>
+</div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-2">Formulari Complet</h3>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#D4A26A]">&lt;form</span> <span class="text-[#5C7A96]">action</span>=<span class="text-[#8A9BA8]">"/enviar"</span>
+      <span class="text-[#5C7A96]">method</span>=<span class="text-[#8A9BA8]">"POST"</span><span class="text-[#D4A26A]">&gt;</span>
+  <span class="text-[#D4A26A]">&lt;label</span> <span class="text-[#5C7A96]">for</span>=<span class="text-[#8A9BA8]">"nom"</span><span class="text-[#D4A26A]">&gt;</span>Nom:<span class="text-[#D4A26A]">&lt;/label&gt;</span>
+  <span class="text-[#D4A26A]">&lt;input</span> <span class="text-[#5C7A96]">type</span>=<span class="text-[#8A9BA8]">"text"</span>
+         <span class="text-[#5C7A96]">id</span>=<span class="text-[#8A9BA8]">"nom"</span>
+         <span class="text-[#5C7A96]">required</span><span class="text-[#D4A26A]">&gt;</span>
+  <span class="text-[#D4A26A]">&lt;label</span> <span class="text-[#5C7A96]">for</span>=<span class="text-[#8A9BA8]">"msg"</span><span class="text-[#D4A26A]">&gt;</span>Missatge:<span class="text-[#D4A26A]">&lt;/label&gt;</span>
+  <span class="text-[#D4A26A]">&lt;textarea</span> <span class="text-[#5C7A96]">id</span>=<span class="text-[#8A9BA8]">"msg"</span>
+            <span class="text-[#5C7A96]">rows</span>=<span class="text-[#8A9BA8]">"4"</span><span class="text-[#D4A26A]">&gt;&lt;/textarea&gt;</span>
+  <span class="text-[#D4A26A]">&lt;label</span> <span class="text-[#5C7A96]">for</span>=<span class="text-[#8A9BA8]">"pais"</span><span class="text-[#D4A26A]">&gt;</span>País:<span class="text-[#D4A26A]">&lt;/label&gt;</span>
+  <span class="text-[#D4A26A]">&lt;select</span> <span class="text-[#5C7A96]">id</span>=<span class="text-[#8A9BA8]">"pais"</span><span class="text-[#D4A26A]">&gt;</span>
+    <span class="text-[#D4A26A]">&lt;option</span> <span class="text-[#5C7A96]">value</span>=<span class="text-[#8A9BA8]">"es"</span><span class="text-[#D4A26A]">&gt;</span>Espanya<span class="text-[#D4A26A]">&lt;/option&gt;</span>
+    <span class="text-[#D4A26A]">&lt;option</span> <span class="text-[#5C7A96]">value</span>=<span class="text-[#8A9BA8]">"fr"</span><span class="text-[#D4A26A]">&gt;</span>França<span class="text-[#D4A26A]">&lt;/option&gt;</span>
+  <span class="text-[#D4A26A]">&lt;/select&gt;</span>
+  <span class="text-[#D4A26A]">&lt;button</span> <span class="text-[#5C7A96]">type</span>=<span class="text-[#8A9BA8]">"submit"</span><span class="text-[#D4A26A]">&gt;</span>Enviar<span class="text-[#D4A26A]">&lt;/button&gt;</span>
+<span class="text-[#D4A26A]">&lt;/form&gt;</span></pre>
+</div>
+</div>
+<div class="bg-[#D4A26A]/10 border border-[#D4A26A]/30 p-2 rounded-lg">
+<h4 class="text-sm font-bold text-[#E0E2E6] mb-1">Atributs Importants</h4>
+<div class="grid grid-cols-2 gap-1 text-xs text-[#8A9BA8]">
+<div><strong class="text-[#E0E2E6]">action:</strong> URL destí</div>
+<div><strong class="text-[#E0E2E6]">method:</strong> GET/POST</div>
+<div><strong class="text-[#E0E2E6]">name:</strong> Nom del camp</div>
+<div><strong class="text-[#E0E2E6]">required:</strong> Obligatori</div>
+</div>
+</div>
+<div class="bg-[#2D313A] p-2 rounded-lg">
+<h4 class="text-sm font-bold text-[#E0E2E6] mb-1">Altres Tipus</h4>
+<div class="flex flex-wrap gap-1">
+<span class="px-2 py-0.5 bg-[#5C7A96]/20 text-[#5C7A96] rounded-full text-xs">date</span>
+<span class="px-2 py-0.5 bg-[#5C7A96]/20 text-[#5C7A96] rounded-full text-xs">tel</span>
+<span class="px-2 py-0.5 bg-[#5C7A96]/20 text-[#5C7A96] rounded-full text-xs">url</span>
+<span class="px-2 py-0.5 bg-[#5C7A96]/20 text-[#5C7A96] rounded-full text-xs">color</span>
+<span class="px-2 py-0.5 bg-[#5C7A96]/20 text-[#5C7A96] rounded-full text-xs">file</span>
+<span class="px-2 py-0.5 bg-[#5C7A96]/20 text-[#5C7A96] rounded-full text-xs">range</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Slide 12: Multimedia -->
+<div class="ppt-slide !bg-[#1A1D23]" type="content">
+<div class="mb-2">
+<p class="text-sm font-bold tracking-wider text-[#D4A26A] mb-1">ENRRIQUIMENT</p>
+<h2 class="text-3xl font-bold text-[#E0E2E6]">Imatges, Vídeo i Àudio</h2>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<div class="space-y-2">
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#D4A26A]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-2 flex items-center gap-2">
+<i class="fas fa-image text-[#D4A26A]"></i>
+                        Imatges
+                    </h3>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#8A9BA8]">&lt;!-- Bàsica --&gt;</span>
+<span class="text-[#D4A26A]">&lt;img</span> <span class="text-[#5C7A96]">src</span>=<span class="text-[#8A9BA8]">"foto.jpg"</span>
+     <span class="text-[#5C7A96]">alt</span>=<span class="text-[#8A9BA8]">"Descripció"</span><span class="text-[#D4A26A]">&gt;</span>
+
+<span class="text-[#8A9BA8]">&lt;!-- Amb dimensions --&gt;</span>
+<span class="text-[#D4A26A]">&lt;img</span> <span class="text-[#5C7A96]">src</span>=<span class="text-[#8A9BA8]">"foto.jpg"</span>
+     <span class="text-[#5C7A96]">alt</span>=<span class="text-[#8A9BA8]">"Paisatge"</span>
+     <span class="text-[#5C7A96]">width</span>=<span class="text-[#8A9BA8]">"600"</span>
+     <span class="text-[#5C7A96]">height</span>=<span class="text-[#8A9BA8]">"400"</span><span class="text-[#D4A26A]">&gt;</span>
+
+<span class="text-[#8A9BA8]">&lt;!-- Responsiva --&gt;</span>
+<span class="text-[#D4A26A]">&lt;picture&gt;</span>
+  <span class="text-[#D4A26A]">&lt;source</span> <span class="text-[#5C7A96]">media</span>=<span class="text-[#8A9BA8]">"(min-width: 800px)"</span>
+          <span class="text-[#5C7A96]">srcset</span>=<span class="text-[#8A9BA8]">"gran.jpg"</span><span class="text-[#D4A26A]">&gt;</span>
+  <span class="text-[#D4A26A]">&lt;img</span> <span class="text-[#5C7A96]">src</span>=<span class="text-[#8A9BA8]">"petita.jpg"</span>
+       <span class="text-[#5C7A96]">alt</span>=<span class="text-[#8A9BA8]">"Descripció"</span><span class="text-[#D4A26A]">&gt;</span>
+<span class="text-[#D4A26A]">&lt;/picture&gt;</span></pre>
+</div>
+<p class="text-xs text-[#E0E2E6] mt-1"><i class="fas fa-info-circle text-[#D4A26A] mr-1"></i><strong>alt és obligatori</strong> per accessibilitat</p>
+</div>
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-2 flex items-center gap-2">
+<i class="fas fa-music text-[#5C7A96]"></i>
+                        Àudio
+                    </h3>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#D4A26A]">&lt;audio</span> <span class="text-[#5C7A96]">controls</span><span class="text-[#D4A26A]">&gt;</span>
+  <span class="text-[#D4A26A]">&lt;source</span> <span class="text-[#5C7A96]">src</span>=<span class="text-[#8A9BA8]">"audio.mp3"</span>
+          <span class="text-[#5C7A96]">type</span>=<span class="text-[#8A9BA8]">"audio/mpeg"</span><span class="text-[#D4A26A]">&gt;</span>
+  <span class="text-[#D4A26A]">&lt;source</span> <span class="text-[#5C7A96]">src</span>=<span class="text-[#8A9BA8]">"audio.ogg"</span>
+          <span class="text-[#5C7A96]">type</span>=<span class="text-[#8A9BA8]">"audio/ogg"</span><span class="text-[#D4A26A]">&gt;</span>
+  El teu navegador no suporta l'audio.
+<span class="text-[#D4A26A]">&lt;/audio&gt;</span></pre>
+</div>
+<div class="mt-1 flex gap-1">
+<span class="px-2 py-0.5 bg-[#5C7A96]/20 text-[#5C7A96] rounded text-xs">controls</span>
+<span class="px-2 py-0.5 bg-[#5C7A96]/20 text-[#5C7A96] rounded text-xs">autoplay</span>
+<span class="px-2 py-0.5 bg-[#5C7A96]/20 text-[#5C7A96] rounded text-xs">loop</span>
+</div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#D4A26A]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-2 flex items-center gap-2">
+<i class="fas fa-video text-[#D4A26A]"></i>
+                        Vídeo
+                    </h3>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#D4A26A]">&lt;video</span> <span class="text-[#5C7A96]">width</span>=<span class="text-[#8A9BA8]">"640"</span> <span class="text-[#5C7A96]">height</span>=<span class="text-[#8A9BA8]">"360"</span>
+       <span class="text-[#5C7A96]">controls</span>
+       <span class="text-[#5C7A96]">poster</span>=<span class="text-[#8A9BA8]">"miniatura.jpg"</span><span class="text-[#D4A26A]">&gt;</span>
+  <span class="text-[#D4A26A]">&lt;source</span> <span class="text-[#5C7A96]">src</span>=<span class="text-[#8A9BA8]">"video.mp4"</span>
+          <span class="text-[#5C7A96]">type</span>=<span class="text-[#8A9BA8]">"video/mp4"</span><span class="text-[#D4A26A]">&gt;</span>
+  <span class="text-[#D4A26A]">&lt;source</span> <span class="text-[#5C7A96]">src</span>=<span class="text-[#8A9BA8]">"video.webm"</span>
+          <span class="text-[#5C7A96]">type</span>=<span class="text-[#8A9BA8]">"video/webm"</span><span class="text-[#D4A26A]">&gt;</span>
+  <span class="text-[#D4A26A]">&lt;track</span> <span class="text-[#5C7A96]">kind</span>=<span class="text-[#8A9BA8]">"subtitles"</span>
+         <span class="text-[#5C7A96]">src</span>=<span class="text-[#8A9BA8]">"subtitols.vtt"</span>
+         <span class="text-[#5C7A96]">srclang</span>=<span class="text-[#8A9BA8]">"ca"</span><span class="text-[#D4A26A]">&gt;</span>
+  El teu navegador no suporta el vídeo.
+<span class="text-[#D4A26A]">&lt;/video&gt;</span></pre>
+</div>
+<div class="grid grid-cols-2 gap-1 text-xs mt-1">
+<div class="bg-[#5C7A96]/10 p-1 rounded">
+<strong class="text-[#E0E2E6]">controls:</strong> <span class="text-[#8A9BA8]">Controls</span>
+</div>
+<div class="bg-[#5C7A96]/10 p-1 rounded">
+<strong class="text-[#E0E2E6]">poster:</strong> <span class="text-[#8A9BA8]">Miniatura</span>
+</div>
+<div class="bg-[#5C7A96]/10 p-1 rounded">
+<strong class="text-[#E0E2E6]">autoplay:</strong> <span class="text-[#8A9BA8]">Auto</span>
+</div>
+<div class="bg-[#5C7A96]/10 p-1 rounded">
+<strong class="text-[#E0E2E6]">loop:</strong> <span class="text-[#8A9BA8]">Bucle</span>
+</div>
+</div>
+</div>
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-2 flex items-center gap-2">
+<i class="fas fa-window-restore text-[#5C7A96]"></i>
+                        Iframes
+                    </h3>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#8A9BA8]">&lt;!-- Contingut extern --&gt;</span>
+<span class="text-[#D4A26A]">&lt;iframe</span> <span class="text-[#5C7A96]">src</span>=<span class="text-[#8A9BA8]">"https://maps.google.com/..."</span>
+        <span class="text-[#5C7A96]">width</span>=<span class="text-[#8A9BA8]">"600"</span>
+        <span class="text-[#5C7A96]">height</span>=<span class="text-[#8A9BA8]">"450"</span>
+        <span class="text-[#5C7A96]">title</span>=<span class="text-[#8A9BA8]">"Mapa"</span><span class="text-[#D4A26A]">&gt;</span>
+<span class="text-[#D4A26A]">&lt;/iframe&gt;</span>
+
+<span class="text-[#8A9BA8]">&lt;!-- YouTube --&gt;</span>
+<span class="text-[#D4A26A]">&lt;iframe</span> <span class="text-[#5C7A96]">src</span>=<span class="text-[#8A9BA8]">"https://youtube.com/embed/..."</span>
+        <span class="text-[#5C7A96]">allowfullscreen</span><span class="text-[#D4A26A]">&gt;</span>
+<span class="text-[#D4A26A]">&lt;/iframe&gt;</span></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Slide 13: Chapter 4 -->
+<div class="ppt-slide !bg-[#1A1D23]" type="chapter">
+<img alt="" class="absolute inset-0 w-full h-full object-cover opacity-50" src="chapter4_image.png"/>
+<div class="absolute inset-0 bg-gradient-to-r from-[#1A1D23] via-[#1A1D23]/90 to-[#1A1D23]/60"></div>
+<div class="relative z-10 h-full flex flex-col justify-center">
+<div class="inline-block px-5 py-2 bg-[#D4A26A]/20 border-l-4 border-[#D4A26A] mb-8 w-fit">
+<p class="text-2xl font-bold tracking-widest text-[#D4A26A]">CAPÍTOL 04</p>
+</div>
+<h2 class="text-7xl font-bold text-[#E0E2E6] mb-8 leading-tight max-w-4xl">Introducció a CSS</h2>
+<p class="text-3xl text-[#8A9BA8] leading-relaxed max-w-3xl">Estilitzar i donar vida a les pàgines web</p>
+</div>
+</div>
+<!-- Slide 14: Què és CSS? -->
+<div class="ppt-slide !bg-[#1A1D23]" type="content">
+<div class="mb-4">
+<p class="text-base font-bold tracking-wider text-[#D4A26A] mb-2">FONAMENTS CSS</p>
+<h2 class="text-4xl font-bold text-[#E0E2E6]">Què és CSS?</h2>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-4">
+<div>
+<h3 class="text-2xl font-bold text-[#E0E2E6] mb-3 flex items-center gap-3">
+<i class="fas fa-palette text-[#D4A26A]"></i>
+                        Cascading Style Sheets
+                    </h3>
+<p class="text-lg text-[#8A9BA8] leading-relaxed mb-3"><strong class="text-[#E0E2E6]">CSS és el llenguatge que controla l'aparença visual</strong> de les pàgines web. Defineix colors, tipografies, espaçats, layouts i efectes visuals.</p>
+<div class="bg-[#D4A26A]/10 border-l-4 border-[#D4A26A] p-3 rounded">
+<p class="text-base text-[#E0E2E6]"><i class="fas fa-lightbulb text-[#D4A26A] mr-2"></i><strong>Separació de responsabilitats:</strong> HTML per l'estructura, CSS per l'aparença</p>
+</div>
+</div>
+<div class="bg-[#2D313A] p-4 rounded-lg border border-[#5C7A96]/30">
+<h3 class="text-xl font-bold text-[#E0E2E6] mb-3">Tres Formes d'Aplicar CSS</h3>
+<div class="space-y-3">
+<div class="flex items-start gap-3 p-3 bg-[#5C7A96]/10 rounded">
+<div class="w-8 h-8 rounded-full bg-[#5C7A96] flex items-center justify-center text-white font-bold text-sm shrink-0">1</div>
+<div>
+<h4 class="text-base font-bold text-[#E0E2E6]">Inline (evitar)</h4>
+<p class="text-sm text-[#8A9BA8]">Dins l'atribut style de l'element</p>
+</div>
+</div>
+<div class="flex items-start gap-3 p-3 bg-[#5C7A96]/10 rounded">
+<div class="w-8 h-8 rounded-full bg-[#5C7A96] flex items-center justify-center text-white font-bold text-sm shrink-0">2</div>
+<div>
+<h4 class="text-base font-bold text-[#E0E2E6]">Intern</h4>
+<p class="text-sm text-[#8A9BA8]">Dins &lt;style&gt; al &lt;head&gt;</p>
+</div>
+</div>
+<div class="flex items-start gap-3 p-3 bg-[#D4A26A]/20 rounded border border-[#D4A26A]/30">
+<div class="w-8 h-8 rounded-full bg-[#D4A26A] flex items-center justify-center text-white font-bold text-sm shrink-0">3</div>
+<div>
+<h4 class="text-base font-bold text-[#E0E2E6]">Extern (recomanat)</h4>
+<p class="text-sm text-[#8A9BA8]">Arxiu .css separat amb &lt;link&gt;</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<div class="code-block text-base leading-relaxed">
+<div class="flex items-center justify-between mb-3">
+<span class="text-[#D4A26A] font-bold">styles.css</span>
+<div class="flex gap-2">
+<div class="w-3 h-3 rounded-full bg-red-500"></div>
+<div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+<div class="w-3 h-3 rounded-full bg-green-500"></div>
+</div>
+</div>
+<pre class="text-[#E0E2E6]"><span class="text-[#8A9BA8]">/* Selecciona tots els paràgrafs */</span>
+<span class="text-[#D4A26A]">p</span> {
+  <span class="text-[#5C7A96]">color</span>: <span class="text-[#8A9BA8]">#333</span>;
+  <span class="text-[#5C7A96]">font-size</span>: <span class="text-[#8A9BA8]">16px</span>;
+  <span class="text-[#5C7A96]">line-height</span>: <span class="text-[#8A9BA8]">1.5</span>;
+}
+
+<span class="text-[#8A9BA8]">/* Selecciona elements amb classe */</span>
+<span class="text-[#D4A26A]">.destacat</span> {
+  <span class="text-[#5C7A96]">background-color</span>: <span class="text-[#8A9BA8]">yellow</span>;
+  <span class="text-[#5C7A96]">font-weight</span>: <span class="text-[#8A9BA8]">bold</span>;
+}
+
+<span class="text-[#8A9BA8]">/* Selecciona element amb ID */</span>
+<span class="text-[#D4A26A]">#capcalera</span> {
+  <span class="text-[#5C7A96]">background</span>: <span class="text-[#8A9BA8]">#333</span>;
+  <span class="text-[#5C7A96]">color</span>: <span class="text-[#8A9BA8]">white</span>;
+}</pre>
+</div>
+<div class="bg-[#2D313A] p-4 rounded-lg border border-[#5C7A96]/30">
+<h3 class="text-xl font-bold text-[#E0E2E6] mb-3">Avantatges CSS Extern</h3>
+<ul class="space-y-2 text-base text-[#8A9BA8]">
+<li class="flex items-start gap-2">
+<i class="fas fa-check text-[#D4A26A] mt-1 shrink-0"></i>
+<span><strong class="text-[#E0E2E6]">Reutilitzable:</strong> Un arxiu per múltiples pàgines</span>
+</li>
+<li class="flex items-start gap-2">
+<i class="fas fa-check text-[#D4A26A] mt-1 shrink-0"></i>
+<span><strong class="text-[#E0E2E6]">Mantenible:</strong> Canvis en un sol lloc</span>
+</li>
+<li class="flex items-start gap-2">
+<i class="fas fa-check text-[#D4A26A] mt-1 shrink-0"></i>
+<span><strong class="text-[#E0E2E6]">Rendiment:</strong> Es cacheja al navegador</span>
+</li>
+<li class="flex items-start gap-2">
+<i class="fas fa-check text-[#D4A26A] mt-1 shrink-0"></i>
+<span><strong class="text-[#E0E2E6]">Separació:</strong> HTML net i semàntic</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- Slide 15: Sintaxi CSS -->
+<div class="ppt-slide !bg-[#1A1D23]" type="content">
+<div class="mb-4">
+<p class="text-base font-bold tracking-wider text-[#D4A26A] mb-2">ESTRUCTURA</p>
+<h2 class="text-4xl font-bold text-[#E0E2E6]">Sintaxi i Estructura CSS</h2>
+</div>
+<div class="grid grid-cols-5 gap-4">
+<div class="col-span-3">
+<div class="code-block text-base leading-relaxed h-full">
+<div class="flex items-center justify-between mb-3">
+<span class="text-[#D4A26A] font-bold">sintaxi.css</span>
+<div class="flex gap-2">
+<div class="w-3 h-3 rounded-full bg-red-500"></div>
+<div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+<div class="w-3 h-3 rounded-full bg-green-500"></div>
+</div>
+</div>
+<pre class="text-[#E0E2E6]"><span class="text-[#8A9BA8]">/*
+ * Comentari de múltiples línies
+ * Descriu el propòsit del codi
+ */</span>
+
+<span class="text-[#8A9BA8]">/* Selector d'element */</span>
+<span class="text-[#D4A26A]">h1</span> {
+  <span class="text-[#5C7A96]">color</span>: <span class="text-[#8A9BA8]">blue</span>;
+  <span class="text-[#5C7A96]">font-size</span>: <span class="text-[#8A9BA8]">2em</span>;
+}
+
+<span class="text-[#8A9BA8]">/* Selector de classe */</span>
+<span class="text-[#D4A26A]">.btn</span> {
+  <span class="text-[#5C7A96]">background</span>: <span class="text-[#8A9BA8]">#007bff</span>;
+  <span class="text-[#5C7A96]">color</span>: <span class="text-[#8A9BA8]">white</span>;
+  <span class="text-[#5C7A96]">padding</span>: <span class="text-[#8A9BA8]">10px 20px</span>;
+  <span class="text-[#5C7A96]">border-radius</span>: <span class="text-[#8A9BA8]">4px</span>;
+}
+
+<span class="text-[#8A9BA8]">/* Selector d'ID */</span>
+<span class="text-[#D4A26A]">#navegacio</span> {
+  <span class="text-[#5C7A96]">display</span>: <span class="text-[#8A9BA8]">flex</span>;
+  <span class="text-[#5C7A96]">gap</span>: <span class="text-[#8A9BA8]">20px</span>;
+}
+
+<span class="text-[#8A9BA8]">/* Selector combinat */</span>
+<span class="text-[#D4A26A]">article p</span> {
+  <span class="text-[#5C7A96]">text-align</span>: <span class="text-[#8A9BA8]">justify</span>;
+}
+
+<span class="text-[#8A9BA8]">/* Múltiples selectors */</span>
+<span class="text-[#D4A26A]">h1, h2, h3</span> {
+  <span class="text-[#5C7A96]">font-family</span>: <span class="text-[#8A9BA8]">Arial, sans-serif</span>;
+}</pre>
+</div>
+</div>
+<div class="col-span-2 space-y-3">
+<div class="bg-[#2D313A] p-4 rounded-lg border-l-4 border-[#D4A26A]">
+<h3 class="text-xl font-bold text-[#E0E2E6] mb-4">Anatomia d'una Regla</h3>
+<div class="bg-[#1A1D23] p-4 rounded font-mono text-base">
+<div class="mb-2">
+<span class="text-[#D4A26A]">selector</span> <span class="text-[#E0E2E6]">{</span>
+</div>
+<div class="ml-4 mb-2">
+<span class="text-[#5C7A96]">propietat</span><span class="text-[#E0E2E6]">:</span> <span class="text-[#8A9BA8]">valor</span><span class="text-[#E0E2E6]">;</span>
+</div>
+<div class="text-[#E0E2E6]">}</div>
+</div>
+<div class="mt-4 space-y-2 text-base text-[#8A9BA8]">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-[#D4A26A]"></span>
+<span><strong class="text-[#E0E2E6]">Selector:</strong> Què estilitzar</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-[#5C7A96]"></span>
+<span><strong class="text-[#E0E2E6]">Propietat:</strong> Quin aspecte</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-[#8A9BA8]"></span>
+<span><strong class="text-[#E0E2E6]">Valor:</strong> Com aplicar-ho</span>
+</div>
+</div>
+</div>
+<div class="bg-[#2D313A] p-4 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-lg font-bold text-[#E0E2E6] mb-3">Regles Importants</h3>
+<ul class="space-y-2 text-base text-[#8A9BA8]">
+<li><i class="fas fa-caret-right text-[#D4A26A] mr-2"></i>Cases insensitive (no importa majúscules)</li>
+<li><i class="fas fa-caret-right text-[#D4A26A] mr-2"></i>Punts i comes obligatoris</li>
+<li><i class="fas fa-caret-right text-[#D4A26A] mr-2"></i>Clausules ben tancades</li>
+<li><i class="fas fa-caret-right text-[#D4A26A] mr-2"></i>Comentaris amb /* */</li>
+</ul>
+</div>
+<div class="bg-[#D4A26A]/10 border border-[#D4A26A]/30 p-3 rounded-lg">
+<h4 class="text-base font-bold text-[#E0E2E6] mb-2">Consells d'Organització</h4>
+<p class="text-sm text-[#8A9BA8]">Agrupa per components, utilitza comentaris per seccions, mantén indentació consistent</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Slide 16: Selectors Fonamentals -->
+<div class="ppt-slide !bg-[#1A1D23]" type="content">
+<div class="mb-2">
+<p class="text-base font-bold tracking-wider text-[#D4A26A] mb-2">SELECTORS</p>
+<h2 class="text-4xl font-bold text-[#E0E2E6]">Selectors CSS Fonamentals</h2>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<div class="space-y-2">
+<div class="bg-[#2D313A] p-3 rounded-lg border-l-4 border-[#D4A26A]">
+<h3 class="text-xl font-bold text-[#E0E2E6] mb-2">Selector d'Element</h3>
+<p class="text-base text-[#8A9BA8] mb-2">Selecciona tots els elements d'un tipus</p>
+<div class="code-block text-sm">
+<pre class="text-[#E0E2E6]"><span class="text-[#8A9BA8]">/* Tots els paràgrafs */</span>
+<span class="text-[#D4A26A]">p</span> {
+  <span class="text-[#5C7A96]">color</span>: <span class="text-[#8A9BA8]">blue</span>;
+}
+
+<span class="text-[#8A9BA8]">/* Tots els enllaços */</span>
+<span class="text-[#D4A26A]">a</span> {
+  <span class="text-[#5C7A96]">text-decoration</span>: <span class="text-[#8A9BA8]">none</span>;
+}</pre>
+</div>
+</div>
+<div class="bg-[#2D313A] p-3 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-xl font-bold text-[#E0E2E6] mb-2">Selector de Classe</h3>
+<p class="text-base text-[#8A9BA8] mb-2">Selecciona elements amb un atribut class específic. Comença amb punt.</p>
+<div class="code-block text-sm">
+<pre class="text-[#E0E2E6]"><span class="text-[#8A9BA8]">/* HTML: &lt;p class="destacat"&gt; */</span>
+<span class="text-[#D4A26A]">.destacat</span> {
+  <span class="text-[#5C7A96]">background</span>: <span class="text-[#8A9BA8]">yellow</span>;
+  <span class="text-[#5C7A96]">font-weight</span>: <span class="text-[#8A9BA8]">bold</span>;
+}
+
+<span class="text-[#8A9BA8]">/* Múltiples classes */</span>
+<span class="text-[#D4A26A]">.btn.principal</span> {
+  <span class="text-[#5C7A96]">background</span>: <span class="text-[#8A9BA8]">blue</span>;
+}</pre>
+</div>
+</div>
+<div class="bg-[#2D313A] p-3 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-xl font-bold text-[#E0E2E6] mb-2">Selector d'ID</h3>
+<p class="text-base text-[#8A9BA8] mb-2">Selecciona un element únic amb atribut id. Comença amb #.</p>
+<div class="code-block text-sm">
+<pre class="text-[#E0E2E6]"><span class="text-[#8A9BA8]">/* HTML: &lt;div id="capcalera"&gt; */</span>
+<span class="text-[#D4A26A]">#capcalera</span> {
+  <span class="text-[#5C7A96]">background</span>: <span class="text-[#8A9BA8]">#333</span>;
+  <span class="text-[#5C7A96]">color</span>: <span class="text-[#8A9BA8]">white</span>;
+}</pre>
+</div>
+<div class="mt-2 bg-[#D4A26A]/10 p-2 rounded">
+<p class="text-sm text-[#E0E2E6]"><i class="fas fa-exclamation-triangle text-[#D4A26A] mr-2"></i>ID ha de ser únic per pàgina</p>
+</div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="bg-[#2D313A] p-3 rounded-lg border-l-4 border-[#D4A26A]">
+<h3 class="text-xl font-bold text-[#E0E2E6] mb-2">Selector Universal</h3>
+<p class="text-base text-[#8A9BA8] mb-2">Selecciona tots els elements. Útil per resets.</p>
+<div class="code-block text-sm">
+<pre class="text-[#E0E2E6]"><span class="text-[#8A9BA8]">/* Tots els elements */</span>
+<span class="text-[#D4A26A]">*</span> {
+  <span class="text-[#5C7A96]">margin</span>: <span class="text-[#8A9BA8]">0</span>;
+  <span class="text-[#5C7A96]">padding</span>: <span class="text-[#8A9BA8]">0</span>;
+  <span class="text-[#5C7A96]">box-sizing</span>: <span class="text-[#8A9BA8]">border-box</span>;
+}</pre>
+</div>
+</div>
+<div class="bg-[#2D313A] p-3 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-xl font-bold text-[#E0E2E6] mb-2">Selector de Descendència</h3>
+<p class="text-base text-[#8A9BA8] mb-2">Selecciona elements dins d'altres elements (espai)</p>
+<div class="code-block text-sm">
+<pre class="text-[#E0E2E6]"><span class="text-[#8A9BA8]">/* Tots els &lt;p&gt; dins &lt;article&gt; */</span>
+<span class="text-[#D4A26A]">article p</span> {
+  <span class="text-[#5C7A96]">line-height</span>: <span class="text-[#8A9BA8]">1.8</span>;
+}
+
+<span class="text-[#8A9BA8]">/* Tots els &lt;li&gt; dins &lt;nav&gt; */</span>
+<span class="text-[#D4A26A]">nav li</span> {
+  <span class="text-[#5C7A96]">display</span>: <span class="text-[#8A9BA8]">inline-block</span>;
+}</pre>
+</div>
+</div>
+<div class="bg-[#2D313A] p-3 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-xl font-bold text-[#E0E2E6] mb-2">Selector de Fill Directe</h3>
+<p class="text-base text-[#8A9BA8] mb-2">Selecciona només fills directes (&gt;)</p>
+<div class="code-block text-sm">
+<pre class="text-[#E0E2E6]"><span class="text-[#8A9BA8]">/* Només &lt;li&gt; directes de &lt;ul&gt; */</span>
+<span class="text-[#D4A26A]">ul &gt; li</span> {
+  <span class="text-[#5C7A96]">list-style</span>: <span class="text-[#8A9BA8]">none</span>;
+}
+
+<span class="text-[#8A9BA8]">/* Només &lt;p&gt; directes de &lt;div&gt; */</span>
+<span class="text-[#D4A26A]">div &gt; p</span> {
+  <span class="text-[#5C7A96]">margin-bottom</span>: <span class="text-[#8A9BA8]">1em</span>;
+}</pre>
+</div>
+</div>
+<div class="bg-[#D4A26A]/10 border border-[#D4A26A]/30 p-3 rounded-lg">
+<h4 class="text-base font-bold text-[#E0E2E6] mb-2">Combinació de Selectors</h4>
+<div class="code-block text-sm">
+<pre class="text-[#E0E2E6]"><span class="text-[#D4A26A]">div.content &gt; p.intro</span> {
+  <span class="text-[#5C7A96]">font-style</span>: <span class="text-[#8A9BA8]">italic</span>;
+}</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Slide 17: Selectors Avançats -->
+<div class="ppt-slide !bg-[#1A1D23]" type="content">
+<div class="mb-2">
+<p class="text-sm font-bold tracking-wider text-[#D4A26A] mb-1">SELECTORS AVANÇATS</p>
+<h2 class="text-3xl font-bold text-[#E0E2E6]">Selectors Avançats i Pseudo-classes</h2>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<div class="space-y-2">
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#D4A26A]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Selectors d'Atribut</h3>
+<p class="text-xs text-[#8A9BA8] mb-1">Selecciona elements basats en els seus atributs</p>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#8A9BA8]">/* Atribut existeix */</span>
+<span class="text-[#D4A26A]">[disabled]</span> { <span class="text-[#5C7A96]">opacity</span>: <span class="text-[#8A9BA8]">0.5</span>; }
+
+<span class="text-[#8A9BA8]">/* Valor exacte */</span>
+<span class="text-[#D4A26A]">[type="text"]</span> { <span class="text-[#5C7A96]">border</span>: <span class="text-[#8A9BA8]">1px solid #ccc</span>; }
+
+<span class="text-[#8A9BA8]">/* Comença amb... */</span>
+<span class="text-[#D4A26A]">[href^="https"]</span> { <span class="text-[#5C7A96]">color</span>: <span class="text-[#8A9BA8]">green</span>; }
+
+<span class="text-[#8A9BA8]">/* Acaba amb... */</span>
+<span class="text-[#D4A26A]">[href$=".pdf"]</span> { <span class="text-[#5C7A96]">background</span>: <span class="text-[#8A9BA8]">url(icon)</span>; }
+
+<span class="text-[#8A9BA8]">/* Conté... */</span>
+<span class="text-[#D4A26A]">[class*="btn-"]</span> { <span class="text-[#5C7A96]">display</span>: <span class="text-[#8A9BA8]">inline-block</span>; }</pre>
+</div>
+</div>
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Pseudo-classes d'Estats</h3>
+<p class="text-xs text-[#8A9BA8] mb-1">Responen a l'estat o interacció</p>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#8A9BA8]">/* Enllaç no visitat */</span>
+<span class="text-[#D4A26A]">a:link</span> { <span class="text-[#5C7A96]">color</span>: <span class="text-[#8A9BA8]">blue</span>; }
+
+<span class="text-[#8A9BA8]">/* Enllaç visitat */</span>
+<span class="text-[#D4A26A]">a:visited</span> { <span class="text-[#5C7A96]">color</span>: <span class="text-[#8A9BA8]">purple</span>; }
+
+<span class="text-[#8A9BA8]">/* Ratolí a sobre */</span>
+<span class="text-[#D4A26A]">a:hover</span> { <span class="text-[#5C7A96]">text-decoration</span>: <span class="text-[#8A9BA8]">underline</span>; }
+
+<span class="text-[#8A9BA8]">/* Element actiu */</span>
+<span class="text-[#D4A26A]">button:active</span> { <span class="text-[#5C7A96]">transform</span>: <span class="text-[#8A9BA8]">scale(0.98)</span>; }
+
+<span class="text-[#8A9BA8]">/* Amb focus */</span>
+<span class="text-[#D4A26A]">input:focus</span> { <span class="text-[#5C7A96]">border-color</span>: <span class="text-[#8A9BA8]">blue</span>; }</pre>
+</div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Pseudo-classes Estructurals</h3>
+<p class="text-xs text-[#8A9BA8] mb-1">Seleccionen elements per posició</p>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#8A9BA8]">/* Primer fill */</span>
+<span class="text-[#D4A26A]">li:first-child</span> { <span class="text-[#5C7A96]">font-weight</span>: <span class="text-[#8A9BA8]">bold</span>; }
+
+<span class="text-[#8A9BA8]">/* Últim fill */</span>
+<span class="text-[#D4A26A]">li:last-child</span> { <span class="text-[#5C7A96]">border-bottom</span>: <span class="text-[#8A9BA8]">none</span>; }
+
+<span class="text-[#8A9BA8]">/* N-èsim fill */</span>
+<span class="text-[#D4A26A]">li:nth-child(2n)</span> { <span class="text-[#5C7A96]">background</span>: <span class="text-[#8A9BA8]">#f5f5f5</span>; }
+
+<span class="text-[#8A9BA8]">/* Des del final */</span>
+<span class="text-[#D4A26A]">li:nth-last-child(3)</span> { <span class="text-[#5C7A96]">color</span>: <span class="text-[#8A9BA8]">red</span>; }
+
+<span class="text-[#8A9BA8]">/* Fill únic */</span>
+<span class="text-[#D4A26A]">p:only-child</span> { <span class="text-[#5C7A96]">margin</span>: <span class="text-[#8A9BA8]">0</span>; }</pre>
+</div>
+</div>
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Altres Pseudo-classes</h3>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#8A9BA8]">/* Element buit */</span>
+<span class="text-[#D4A26A]">div:empty</span> { <span class="text-[#5C7A96]">display</span>: <span class="text-[#8A9BA8]">none</span>; }
+
+<span class="text-[#8A9BA8]">/* Checkbox marcat */</span>
+<span class="text-[#D4A26A]">input:checked</span> { <span class="text-[#5C7A96]">background</span>: <span class="text-[#8A9BA8]">blue</span>; }
+
+<span class="text-[#8A9BA8]">/* Input deshabilitat */</span>
+<span class="text-[#D4A26A]">input:disabled</span> { <span class="text-[#5C7A96]">background</span>: <span class="text-[#8A9BA8]">#eee</span>; }</pre>
+</div>
+</div>
+<div class="bg-[#D4A26A]/10 border border-[#D4A26A]/30 p-2 rounded-lg">
+<h4 class="text-sm font-bold text-[#E0E2E6] mb-1">Fórmules nth-child</h4>
+<div class="grid grid-cols-2 gap-1 text-xs text-[#8A9BA8]">
+<div><code class="text-[#D4A26A]">:nth-child(3)</code> - 3r</div>
+<div><code class="text-[#D4A26A]">:nth-child(2n)</code> - Parells</div>
+<div><code class="text-[#D4A26A]">:nth-child(odd)</code> - Imparells</div>
+<div><code class="text-[#D4A26A]">:nth-child(3n+1)</code> - Cada 3</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Slide 18: Especificitat i Cascada -->
+<div class="ppt-slide !bg-[#1A1D23]" type="content">
+<div class="mb-2">
+<p class="text-sm font-bold tracking-wider text-[#D4A26A] mb-1">CONFLICTES</p>
+<h2 class="text-3xl font-bold text-[#E0E2E6]">Especificitat i Cascada</h2>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<div class="space-y-2">
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#D4A26A]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">La Cascada (Cascading)</h3>
+<p class="text-xs text-[#8A9BA8] mb-1">CSS determina quins estils s'apliquen quan hi ha conflictes:</p>
+<div class="space-y-1 text-xs text-[#8A9BA8]">
+<div class="flex items-start gap-2 p-1 bg-[#5C7A96]/10 rounded">
+<span class="text-[#D4A26A] font-bold shrink-0">1.</span>
+<span><strong class="text-[#E0E2E6]">Origen:</strong> Navegador → Usuari → Autor</span>
+</div>
+<div class="flex items-start gap-2 p-1 bg-[#5C7A96]/10 rounded">
+<span class="text-[#D4A26A] font-bold shrink-0">2.</span>
+<span><strong class="text-[#E0E2E6]">Especificitat:</strong> Quina regla és més específica</span>
+</div>
+<div class="flex items-start gap-2 p-1 bg-[#5C7A96]/10 rounded">
+<span class="text-[#D4A26A] font-bold shrink-0">3.</span>
+<span><strong class="text-[#E0E2E6]">Ordre:</strong> L'última regla guanya</span>
+</div>
+</div>
+</div>
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Càlcul d'Especificitat</h3>
+<p class="text-xs text-[#8A9BA8] mb-1">Puntuació: (a, b, c, d) on major és més específic</p>
+<div class="space-y-1">
+<div class="flex items-center justify-between p-1 bg-[#5C7A96]/10 rounded">
+<span class="text-xs text-[#E0E2E6]">Inline style</span>
+<span class="px-2 py-0.5 bg-[#D4A26A] text-white rounded font-bold text-xs">1,0,0,0</span>
+</div>
+<div class="flex items-center justify-between p-1 bg-[#5C7A96]/10 rounded">
+<span class="text-xs text-[#E0E2E6]">ID (#header)</span>
+<span class="px-2 py-0.5 bg-[#5C7A96] text-white rounded font-bold text-xs">0,1,0,0</span>
+</div>
+<div class="flex items-center justify-between p-1 bg-[#5C7A96]/10 rounded">
+<span class="text-xs text-[#E0E2E6]">Classe/Atribut</span>
+<span class="px-2 py-0.5 bg-[#5C7A96] text-white rounded font-bold text-xs">0,0,1,0</span>
+</div>
+<div class="flex items-center justify-between p-1 bg-[#5C7A96]/10 rounded">
+<span class="text-xs text-[#E0E2E6]">Element</span>
+<span class="px-2 py-0.5 bg-[#5C7A96] text-white rounded font-bold text-xs">0,0,0,1</span>
+</div>
+</div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="code-block text-sm leading-relaxed">
+<div class="flex items-center justify-between mb-2">
+<span class="text-[#D4A26A] font-bold text-xs">exemple.css</span>
+<div class="flex gap-1">
+<div class="w-2 h-2 rounded-full bg-red-500"></div>
+<div class="w-2 h-2 rounded-full bg-yellow-500"></div>
+<div class="w-2 h-2 rounded-full bg-green-500"></div>
+</div>
+</div>
+<pre class="text-[#E0E2E6]"><span class="text-[#8A9BA8]">/* 0,0,0,1 */</span>
+<span class="text-[#D4A26A]">p</span> { <span class="text-[#5C7A96]">color</span>: <span class="text-[#8A9BA8]">blue</span>; }
+
+<span class="text-[#8A9BA8]">/* 0,0,1,0 (guanya) */</span>
+<span class="text-[#D4A26A]">.destacat</span> { <span class="text-[#5C7A96]">color</span>: <span class="text-[#8A9BA8]">green</span>; }
+
+<span class="text-[#8A9BA8]">/* 0,1,0,0 (guanya) */</span>
+<span class="text-[#D4A26A]">#titol</span> { <span class="text-[#5C7A96]">color</span>: <span class="text-[#8A9BA8]">red</span>; }
+
+<span class="text-[#8A9BA8]">/* 0,0,1,1 */</span>
+<span class="text-[#D4A26A]">p.destacat</span> { <span class="text-[#5C7A96]">color</span>: <span class="text-[#8A9BA8]">orange</span>; }
+
+<span class="text-[#8A9BA8]">/* 0,1,1,2 */</span>
+<span class="text-[#D4A26A]">article#principal p.destacat</span> {
+  <span class="text-[#5C7A96]">color</span>: <span class="text-[#8A9BA8]">purple</span>;
+}</pre>
+</div>
+<div class="bg-[#D4A26A]/10 border border-[#D4A26A]/30 p-2 rounded-lg">
+<h4 class="text-sm font-bold text-[#E0E2E6] mb-1">!important (Evitar)</h4>
+<div class="code-block text-xs mb-1">
+<pre class="text-[#E0E2E6]"><span class="text-[#D4A26A]">p</span> { <span class="text-[#5C7A96]">color</span>: <span class="text-[#8A9BA8]">blue</span> <span class="text-[#D4A26A]">!important</span>; }</pre>
+</div>
+<p class="text-xs text-[#8A9BA8]"><i class="fas fa-exclamation-triangle text-[#D4A26A] mr-1"></i>Ús excessiu crea codi difícil de mantenir</p>
+</div>
+<div class="bg-[#2D313A] p-2 rounded-lg border border-[#5C7A96]/30">
+<h4 class="text-sm font-bold text-[#E0E2E6] mb-1">Millors Pràctiques</h4>
+<ul class="space-y-0 text-xs text-[#8A9BA8]">
+<li><i class="fas fa-check text-[#D4A26A] mr-1"></i>Mantenir especificitat baixa</li>
+<li><i class="fas fa-check text-[#D4A26A] mr-1"></i>Evitar IDs per estilitzar</li>
+<li><i class="fas fa-check text-[#D4A26A] mr-1"></i>Utilitzar classes reutilitzables</li>
+<li><i class="fas fa-check text-[#D4A26A] mr-1"></i>No dependre de !important</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- Slide 19: Chapter 5 -->
+<div class="ppt-slide !bg-[#1A1D23]" type="chapter">
+<img alt="" class="absolute inset-0 w-full h-full object-cover opacity-50" src="chapter5_image.png"/>
+<div class="absolute inset-0 bg-gradient-to-r from-[#1A1D23] via-[#1A1D23]/90 to-[#1A1D23]/60"></div>
+<div class="relative z-10 h-full flex flex-col justify-center">
+<div class="inline-block px-5 py-2 bg-[#D4A26A]/20 border-l-4 border-[#D4A26A] mb-8 w-fit">
+<p class="text-2xl font-bold tracking-widest text-[#D4A26A]">CAPÍTOL 05</p>
+</div>
+<h2 class="text-7xl font-bold text-[#E0E2E6] mb-8 leading-tight max-w-4xl">Model de Caixa i Propietats</h2>
+<p class="text-3xl text-[#8A9BA8] leading-relaxed max-w-3xl">Entendre com els elements ocupen espai a la pàgina</p>
+</div>
+</div>
+<!-- Slide 20: Box Model -->
+<div class="ppt-slide !bg-[#1A1D23]" type="content">
+<div class="mb-2">
+<p class="text-sm font-bold tracking-wider text-[#D4A26A] mb-1">BOX MODEL</p>
+<h2 class="text-3xl font-bold text-[#E0E2E6]">El Model de Caixa (Box Model)</h2>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<div>
+<div class="bg-[#2D313A] p-3 rounded-lg border border-[#5C7A96]/30 mb-2">
+<div class="bg-[#D4A26A]/30 p-3 rounded-lg text-center mb-1">
+<span class="text-sm font-bold text-[#E0E2E6]">MARGIN</span>
+<div class="bg-[#5C7A96]/40 p-3 rounded-lg mt-1">
+<span class="text-sm font-bold text-[#E0E2E6]">BORDER</span>
+<div class="bg-[#5C7A96]/60 p-2 rounded-lg mt-1">
+<span class="text-sm font-bold text-[#E0E2E6]">PADDING</span>
+<div class="bg-[#5C7A96] p-3 rounded-lg mt-1">
+<span class="text-base font-bold text-[#E0E2E6]">CONTENT</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex items-center gap-2 p-1 bg-[#5C7A96]/10 rounded">
+<div class="w-3 h-3 rounded bg-[#5C7A96]"></div>
+<span class="text-xs text-[#E0E2E6]"><strong>Content:</strong> Contingut</span>
+</div>
+<div class="flex items-center gap-2 p-1 bg-[#5C7A96]/20 rounded">
+<div class="w-3 h-3 rounded bg-[#5C7A96]/60"></div>
+<span class="text-xs text-[#E0E2E6]"><strong>Padding:</strong> Espai intern</span>
+</div>
+<div class="flex items-center gap-2 p-1 bg-[#5C7A96]/30 rounded">
+<div class="w-3 h-3 rounded bg-[#5C7A96]/40"></div>
+<span class="text-xs text-[#E0E2E6]"><strong>Border:</strong> Vora</span>
+</div>
+<div class="flex items-center gap-2 p-1 bg-[#D4A26A]/20 rounded">
+<div class="w-3 h-3 rounded bg-[#D4A26A]/30"></div>
+<span class="text-xs text-[#E0E2E6]"><strong>Margin:</strong> Espai extern</span>
+</div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="code-block text-sm leading-relaxed">
+<div class="flex items-center justify-between mb-2">
+<span class="text-[#D4A26A] font-bold text-xs">box-model.css</span>
+<div class="flex gap-1">
+<div class="w-2 h-2 rounded-full bg-red-500"></div>
+<div class="w-2 h-2 rounded-full bg-yellow-500"></div>
+<div class="w-2 h-2 rounded-full bg-green-500"></div>
+</div>
+</div>
+<pre class="text-[#E0E2E6]"><span class="text-[#D4A26A]">.caixa</span> {
+  <span class="text-[#5C7A96]">width</span>: <span class="text-[#8A9BA8]">300px</span>;
+  <span class="text-[#5C7A96]">height</span>: <span class="text-[#8A9BA8]">200px</span>;
+  <span class="text-[#5C7A96]">padding</span>: <span class="text-[#8A9BA8]">20px</span>;
+  <span class="text-[#5C7A96]">border</span>: <span class="text-[#8A9BA8]">2px solid #333</span>;
+  <span class="text-[#5C7A96]">margin</span>: <span class="text-[#8A9BA8]">30px</span>;
+  <span class="text-[#8A9BA8]">/* o margin: 0 auto per centrar */</span>
+}</pre>
+</div>
+<div class="bg-[#D4A26A]/10 border border-[#D4A26A]/30 p-2 rounded-lg">
+<h4 class="text-sm font-bold text-[#E0E2E6] mb-1">Box-sizing</h4>
+<div class="code-block text-xs mb-1">
+<pre class="text-[#E0E2E6]"><span class="text-[#8A9BA8]">/* Amb border-box, width inclou padding i border */</span>
+<span class="text-[#D4A26A]">*</span> { <span class="text-[#5C7A96]">box-sizing</span>: <span class="text-[#8A9BA8]">border-box</span>; }</pre>
+</div>
+<p class="text-xs text-[#8A9BA8]"><i class="fas fa-lightbulb text-[#D4A26A] mr-1"></i>Recomanat per a tots els elements</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Slide 21: Colors i Fons -->
+<div class="ppt-slide !bg-[#1A1D23]" type="content">
+<div class="mb-2">
+<p class="text-sm font-bold tracking-wider text-[#D4A26A] mb-1">ESTILS VISUALS</p>
+<h2 class="text-3xl font-bold text-[#E0E2E6]">Colors i Fons</h2>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<div class="space-y-2">
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#D4A26A]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Formats de Color</h3>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#8A9BA8]">/* Noms */</span>
+<span class="text-[#5C7A96]">color</span>: <span class="text-[#8A9BA8]">red</span>;
+<span class="text-[#5C7A96]">color</span>: <span class="text-[#8A9BA8]">blue</span>;
+
+<span class="text-[#8A9BA8]">/* Hexadecimal */</span>
+<span class="text-[#5C7A96]">color</span>: <span class="text-[#8A9BA8]">#ff0000</span>;
+<span class="text-[#5C7A96]">color</span>: <span class="text-[#8A9BA8]">#00f</span>;
+<span class="text-[#5C7A96]">color</span>: <span class="text-[#8A9BA8]">#1a1d23</span>;
+
+<span class="text-[#8A9BA8]">/* RGB */</span>
+<span class="text-[#5C7A96]">color</span>: <span class="text-[#8A9BA8]">rgb(255, 0, 0)</span>;
+<span class="text-[#5C7A96]">color</span>: <span class="text-[#8A9BA8]">rgba(255, 0, 0, 0.5)</span>;
+
+<span class="text-[#8A9BA8]">/* HSL */</span>
+<span class="text-[#5C7A96]">color</span>: <span class="text-[#8A9BA8]">hsl(0, 100%, 50%)</span>;
+<span class="text-[#5C7A96]">color</span>: <span class="text-[#8A9BA8]">hsla(0, 100%, 50%, 0.5)</span>;</pre>
+</div>
+</div>
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Propietats de Fons</h3>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#D4A26A]">.element</span> {
+  <span class="text-[#5C7A96]">background-color</span>: <span class="text-[#8A9BA8]">#f5f5f5</span>;
+  <span class="text-[#5C7A96]">background-image</span>: <span class="text-[#8A9BA8]">url('fons.jpg')</span>;
+  <span class="text-[#5C7A96]">background-repeat</span>: <span class="text-[#8A9BA8]">no-repeat</span>;
+  <span class="text-[#5C7A96]">background-position</span>: <span class="text-[#8A9BA8]">center</span>;
+  <span class="text-[#5C7A96]">background-size</span>: <span class="text-[#8A9BA8]">cover</span>;
+}</pre>
+</div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Gradient de Fons</h3>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#8A9BA8]">/* Lineal */</span>
+<span class="text-[#5C7A96]">background</span>: <span class="text-[#8A9BA8]">linear-gradient(to right, red, blue)</span>;
+
+<span class="text-[#8A9BA8]">/* Amb angle */</span>
+<span class="text-[#5C7A96]">background</span>: <span class="text-[#8A9BA8]">linear-gradient(45deg, #ff6b6b, #4ecdc4)</span>;
+
+<span class="text-[#8A9BA8]">/* Múltiples colors */</span>
+<span class="text-[#5C7A96]">background</span>: <span class="text-[#8A9BA8]">linear-gradient(to bottom, 
+  #1a1d23, #5c7a96 50%, #d4a26a)</span>;
+
+<span class="text-[#8A9BA8]">/* Radial */</span>
+<span class="text-[#5C7A96]">background</span>: <span class="text-[#8A9BA8]">radial-gradient(circle, #fff, #ccc)</span>;</pre>
+</div>
+</div>
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Exemples</h3>
+<div class="space-y-1">
+<div class="p-2 bg-gradient-to-r from-[#D4A26A] to-[#5C7A96] rounded">
+<p class="text-sm font-bold text-white">Gradient</p>
+</div>
+<div class="p-2 bg-[#5C7A96]/20 border-2 border-[#5C7A96] rounded">
+<p class="text-sm text-[#E0E2E6]">Amb vora</p>
+</div>
+<div class="p-2 bg-[#D4A26A]/20 rounded">
+<p class="text-sm text-[#E0E2E6]">Semitransparent</p>
+</div>
+</div>
+</div>
+<div class="bg-[#D4A26A]/10 border border-[#D4A26A]/30 p-2 rounded-lg">
+<h4 class="text-sm font-bold text-[#E0E2E6] mb-1">Eines</h4>
+<p class="text-xs text-[#8A9BA8]">Color Picker, Coolors.co, Adobe Color</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Slide 22: Tipografia -->
+<div class="ppt-slide !bg-[#1A1D23]" type="content">
+<div class="mb-2">
+<p class="text-sm font-bold tracking-wider text-[#D4A26A] mb-1">TEXT</p>
+<h2 class="text-3xl font-bold text-[#E0E2E6]">Tipografia i Text</h2>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<div class="space-y-2">
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#D4A26A]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Propietats de Font</h3>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#D4A26A]">body</span> {
+  <span class="text-[#5C7A96]">font-family</span>: <span class="text-[#8A9BA8]">'Arial', sans-serif</span>;
+  <span class="text-[#5C7A96]">font-size</span>: <span class="text-[#8A9BA8]">16px</span>;
+  <span class="text-[#5C7A96]">font-weight</span>: <span class="text-[#8A9BA8]">400</span>; <span class="text-[#8A9BA8]">/* normal */</span>
+  <span class="text-[#5C7A96]">font-weight</span>: <span class="text-[#8A9BA8]">700</span>; <span class="text-[#8A9BA8]">/* bold */</span>
+  <span class="text-[#5C7A96]">font-style</span>: <span class="text-[#8A9BA8]">italic</span>;
+  <span class="text-[#5C7A96]">line-height</span>: <span class="text-[#8A9BA8]">1.5</span>;
+}</pre>
+</div>
+</div>
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Google Fonts</h3>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#8A9BA8]">&lt;!-- Al &lt;head&gt; --&gt;</span>
+<span class="text-[#D4A26A]">&lt;link</span> <span class="text-[#5C7A96]">href</span>=<span class="text-[#8A9BA8]">"https://fonts.googleapis.com/css2? 
+  family=Roboto:wght@400;700&amp;display=swap"</span>
+      <span class="text-[#5C7A96]">rel</span>=<span class="text-[#8A9BA8]">"stylesheet"</span><span class="text-[#D4A26A]">&gt;</span>
+
+<span class="text-[#8A9BA8]">/* Al CSS */</span>
+<span class="text-[#D4A26A]">body</span> {
+  <span class="text-[#5C7A96]">font-family</span>: <span class="text-[#8A9BA8]">'Roboto', sans-serif</span>;
+}</pre>
+</div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Alineació i Decoració</h3>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#D4A26A]">.text</span> {
+  <span class="text-[#8A9BA8]">/* Alineació */</span>
+  <span class="text-[#5C7A96]">text-align</span>: <span class="text-[#8A9BA8]">left</span>;
+  <span class="text-[#5C7A96]">text-align</span>: <span class="text-[#8A9BA8]">center</span>;
+  <span class="text-[#5C7A96]">text-align</span>: <span class="text-[#8A9BA8]">right</span>;
+  <span class="text-[#5C7A96]">text-align</span>: <span class="text-[#8A9BA8]">justify</span>;
+  
+  <span class="text-[#8A9BA8]">/* Decoració */</span>
+  <span class="text-[#5C7A96]">text-decoration</span>: <span class="text-[#8A9BA8]">none</span>;
+  <span class="text-[#5C7A96]">text-decoration</span>: <span class="text-[#8A9BA8]">underline</span>;
+  
+  <span class="text-[#8A9BA8]">/* Transformació */</span>
+  <span class="text-[#5C7A96]">text-transform</span>: <span class="text-[#8A9BA8]">uppercase</span>;
+  
+  <span class="text-[#8A9BA8]">/* Ombra */</span>
+  <span class="text-[#5C7A96]">text-shadow</span>: <span class="text-[#8A9BA8]">2px 2px 4px rgba(0,0,0,0.3)</span>;
+}</pre>
+</div>
+</div>
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Exemples</h3>
+<div class="space-y-1">
+<div class="p-1 bg-[#1A1D23] rounded">
+<p class="text-sm text-[#E0E2E6] text-left">Esquerra</p>
+</div>
+<div class="p-1 bg-[#1A1D23] rounded">
+<p class="text-sm text-[#E0E2E6] text-center">Centrat</p>
+</div>
+<div class="p-1 bg-[#1A1D23] rounded">
+<p class="text-sm text-[#E0E2E6] text-right">Dreta</p>
+</div>
+<div class="p-1 bg-[#1A1D23] rounded">
+<p class="text-sm text-[#E0E2E6] underline">Subratllat</p>
+</div>
+<div class="p-1 bg-[#1A1D23] rounded">
+<p class="text-sm text-[#E0E2E6] uppercase">MAJÚSCULES</p>
+</div>
+</div>
+</div>
+<div class="bg-[#D4A26A]/10 border border-[#D4A26A]/30 p-2 rounded-lg">
+<h4 class="text-sm font-bold text-[#E0E2E6] mb-1">Consells</h4>
+<ul class="space-y-0 text-xs text-[#8A9BA8]">
+<li><i class="fas fa-check text-[#D4A26A] mr-1"></i>2-3 fonts per pàgina</li>
+<li><i class="fas fa-check text-[#D4A26A] mr-1"></i>Line-height 1.5-1.8</li>
+<li><i class="fas fa-check text-[#D4A26A] mr-1"></i>Mida mínima 16px</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- Slide 23: Chapter 6 -->
+<div class="ppt-slide !bg-[#1A1D23]" type="chapter">
+<img alt="" class="absolute inset-0 w-full h-full object-cover opacity-50" src="chapter6_image.png"/>
+<div class="absolute inset-0 bg-gradient-to-r from-[#1A1D23] via-[#1A1D23]/90 to-[#1A1D23]/60"></div>
+<div class="relative z-10 h-full flex flex-col justify-center">
+<div class="inline-block px-5 py-2 bg-[#D4A26A]/20 border-l-4 border-[#D4A26A] mb-8 w-fit">
+<p class="text-2xl font-bold tracking-widest text-[#D4A26A]">CAPÍTOL 06</p>
+</div>
+<h2 class="text-7xl font-bold text-[#E0E2E6] mb-8 leading-tight max-w-4xl">Layout amb Flexbox i Grid</h2>
+<p class="text-3xl text-[#8A9BA8] leading-relaxed max-w-3xl">Sistemes moderns per crear layouts complexos</p>
+</div>
+</div>
+<!-- Slide 24: Flexbox -->
+<div class="ppt-slide !bg-[#1A1D23]" type="content">
+<div class="mb-2">
+<p class="text-sm font-bold tracking-wider text-[#D4A26A] mb-1">FLEXBOX</p>
+<h2 class="text-3xl font-bold text-[#E0E2E6]">Flexbox: Conceptes Bàsics</h2>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<div class="space-y-2">
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#D4A26A]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Què és Flexbox?</h3>
+<p class="text-xs text-[#8A9BA8] mb-1">Sistema unidimensional per distribuir elements.</p>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#D4A26A]">.contenidor</span> { <span class="text-[#5C7A96]">display</span>: <span class="text-[#8A9BA8]">flex</span>; }</pre>
+</div>
+</div>
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Direcció i Ajust</h3>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#D4A26A]">.contenidor</span> {
+  <span class="text-[#5C7A96]">flex-direction</span>: <span class="text-[#8A9BA8]">row</span>; <span class="text-[#8A9BA8]">/* column */</span>
+  <span class="text-[#5C7A96]">flex-wrap</span>: <span class="text-[#8A9BA8]">wrap</span>;
+  <span class="text-[#5C7A96]">flex-flow</span>: <span class="text-[#8A9BA8]">row wrap</span>;
+}</pre>
+</div>
+</div>
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Alineació</h3>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#D4A26A]">.contenidor</span> {
+  <span class="text-[#8A9BA8]">/* Horitzontal */</span>
+  <span class="text-[#5C7A96]">justify-content</span>: <span class="text-[#8A9BA8]">center</span>;
+  <span class="text-[#5C7A96]">justify-content</span>: <span class="text-[#8A9BA8]">space-between</span>;
+  <span class="text-[#8A9BA8]">/* Vertical */</span>
+  <span class="text-[#5C7A96]">align-items</span>: <span class="text-[#8A9BA8]">center</span>;
+  <span class="text-[#5C7A96]">align-items</span>: <span class="text-[#8A9BA8]">flex-start</span>;
+}</pre>
+</div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Espaiat i Fills</h3>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#D4A26A]">.contenidor</span> {
+  <span class="text-[#5C7A96]">gap</span>: <span class="text-[#8A9BA8]">20px</span>;
+}
+
+<span class="text-[#D4A26A]">.fill</span> {
+  <span class="text-[#5C7A96]">flex-grow</span>: <span class="text-[#8A9BA8]">1</span>;
+  <span class="text-[#5C7A96]">flex-shrink</span>: <span class="text-[#8A9BA8]">0</span>;
+  <span class="text-[#5C7A96]">flex-basis</span>: <span class="text-[#8A9BA8]">200px</span>;
+  <span class="text-[#8A9BA8]">/* Shorthand */</span>
+  <span class="text-[#5C7A96]">flex</span>: <span class="text-[#8A9BA8]">1 0 200px</span>;
+}</pre>
+</div>
+</div>
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#D4A26A]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Centrat Perfecte</h3>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#D4A26A]">.centrat</span> {
+  <span class="text-[#5C7A96]">display</span>: <span class="text-[#8A9BA8]">flex</span>;
+  <span class="text-[#5C7A96]">justify-content</span>: <span class="text-[#8A9BA8]">center</span>;
+  <span class="text-[#5C7A96]">align-items</span>: <span class="text-[#8A9BA8]">center</span>;
+  <span class="text-[#5C7A96]">min-height</span>: <span class="text-[#8A9BA8]">100vh</span>;
+}</pre>
+</div>
+<div class="mt-2 p-2 bg-[#5C7A96]/20 rounded flex items-center justify-center" style="height: 60px;">
+<div class="px-3 py-1 bg-[#D4A26A] rounded text-white font-bold text-sm">Centrat!</div>
+</div>
+</div>
+<div class="bg-[#D4A26A]/10 border border-[#D4A26A]/30 p-2 rounded-lg">
+<h4 class="text-sm font-bold text-[#E0E2E6] mb-1">Joc Flexbox</h4>
+<p class="text-xs text-[#8A9BA8]">flexboxfroggy.com</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Slide 25: CSS Grid -->
+<div class="ppt-slide !bg-[#1A1D23]" type="content">
+<div class="mb-2">
+<p class="text-sm font-bold tracking-wider text-[#D4A26A] mb-1">GRID</p>
+<h2 class="text-3xl font-bold text-[#E0E2E6]">CSS Grid: Layouts Bidimensionals</h2>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<div class="space-y-2">
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#D4A26A]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Què és CSS Grid?</h3>
+<p class="text-xs text-[#8A9BA8] mb-1">Sistema bidimensional amb files i columnes.</p>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#D4A26A]">.contenidor</span> { <span class="text-[#5C7A96]">display</span>: <span class="text-[#8A9BA8]">grid</span>; }</pre>
+</div>
+</div>
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Definir el Grid</h3>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#D4A26A]">.contenidor</span> {
+  <span class="text-[#5C7A96]">grid-template-columns</span>: <span class="text-[#8A9BA8]">1fr 2fr 1fr</span>;
+  <span class="text-[#5C7A96]">grid-template-columns</span>: <span class="text-[#8A9BA8]">repeat(3, 1fr)</span>;
+  <span class="text-[#5C7A96]">grid-template-rows</span>: <span class="text-[#8A9BA8]">100px auto 100px</span>;
+  <span class="text-[#5C7A96]">gap</span>: <span class="text-[#8A9BA8]">20px</span>;
+}</pre>
+</div>
+</div>
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Posicionament</h3>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#D4A26A]">.element</span> {
+  <span class="text-[#5C7A96]">grid-column</span>: <span class="text-[#8A9BA8]">1 / 3</span>;
+  <span class="text-[#5C7A96]">grid-column</span>: <span class="text-[#8A9BA8]">span 2</span>;
+  <span class="text-[#5C7A96]">grid-row</span>: <span class="text-[#8A9BA8]">2 / 4</span>;
+  <span class="text-[#5C7A96]">grid-area</span>: <span class="text-[#8A9BA8]">1 / 1 / 3 / 3</span>;
+}</pre>
+</div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Àrees de Grid</h3>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#D4A26A]">.contenidor</span> {
+  <span class="text-[#5C7A96]">grid-template-areas</span>:
+    <span class="text-[#8A9BA8]">"header header header"</span>
+    <span class="text-[#8A9BA8]">"sidebar main main"</span>
+    <span class="text-[#8A9BA8]">"footer footer footer"</span>;
+  <span class="text-[#5C7A96]">grid-template-columns</span>: <span class="text-[#8A9BA8]">200px 1fr 1fr</span>;
+}
+
+<span class="text-[#D4A26A]">.header</span> { <span class="text-[#5C7A96]">grid-area</span>: <span class="text-[#8A9BA8]">header</span>; }
+<span class="text-[#D4A26A]">.sidebar</span> { <span class="text-[#5C7A96]">grid-area</span>: <span class="text-[#8A9BA8]">sidebar</span>; }
+<span class="text-[#D4A26A]">.main</span> { <span class="text-[#5C7A96]">grid-area</span>: <span class="text-[#8A9BA8]">main</span>; }
+<span class="text-[#D4A26A]">.footer</span> { <span class="text-[#5C7A96]">grid-area</span>: <span class="text-[#8A9BA8]">footer</span>; }</pre>
+</div>
+<div class="mt-2 grid grid-cols-3 gap-1 text-center text-xs" style="height: 80px;">
+<div class="col-span-3 bg-[#D4A26A]/30 p-1 rounded flex items-center justify-center text-[#E0E2E6] font-bold">header</div>
+<div class="bg-[#5C7A96]/30 p-1 rounded flex items-center justify-center text-[#E0E2E6] font-bold">sidebar</div>
+<div class="col-span-2 bg-[#5C7A96]/30 p-1 rounded flex items-center justify-center text-[#E0E2E6] font-bold">main</div>
+<div class="col-span-3 bg-[#D4A26A]/30 p-1 rounded flex items-center justify-center text-[#E0E2E6] font-bold">footer</div>
+</div>
+</div>
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#D4A26A]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Grid Responsiu</h3>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#D4A26A]">.contenidor</span> {
+  <span class="text-[#5C7A96]">grid-template-columns</span>: <span class="text-[#8A9BA8]">repeat(auto-fit, minmax(250px, 1fr))</span>;
+  <span class="text-[#5C7A96]">gap</span>: <span class="text-[#8A9BA8]">20px</span>;
+}</pre>
+</div>
+<p class="text-xs text-[#8A9BA8] mt-1">Crea columnes amb mínim 250px</p>
+</div>
+<div class="bg-[#D4A26A]/10 border border-[#D4A26A]/30 p-2 rounded-lg">
+<h4 class="text-sm font-bold text-[#E0E2E6] mb-1">Joc Grid</h4>
+<p class="text-xs text-[#8A9BA8]">cssgridgarden.com</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Slide 26: Flexbox vs Grid -->
+<div class="ppt-slide !bg-[#1A1D23]" type="content">
+<div class="mb-2">
+<p class="text-sm font-bold tracking-wider text-[#D4A26A] mb-1">COMPARATIVA</p>
+<h2 class="text-3xl font-bold text-[#E0E2E6]">Flexbox vs Grid: Quan Utilitzar Cada Un</h2>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<div class="space-y-2">
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#D4A26A]">
+<div class="flex items-center gap-2 mb-2">
+<i class="fas fa-arrows-alt-h text-[#D4A26A] text-xl"></i>
+<h3 class="text-xl font-bold text-[#E0E2E6]">Flexbox</h3>
+</div>
+<p class="text-xs text-[#8A9BA8] mb-2"><strong class="text-[#E0E2E6]">Unidimensional:</strong> Fila O columna</p>
+<div class="space-y-1">
+<div class="bg-[#5C7A96]/10 p-2 rounded">
+<h4 class="text-sm font-bold text-[#E0E2E6] mb-1">Ús Recomanat</h4>
+<ul class="space-y-0 text-xs text-[#8A9BA8]">
+<li><i class="fas fa-check text-[#D4A26A] mr-1"></i>Navegacions</li>
+<li><i class="fas fa-check text-[#D4A26A] mr-1"></i>Centrat</li>
+<li><i class="fas fa-check text-[#D4A26A] mr-1"></i>Distribució</li>
+<li><i class="fas fa-check text-[#D4A26A] mr-1"></i>Components</li>
+</ul>
+</div>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#D4A26A]">nav</span> {
+  <span class="text-[#5C7A96]">display</span>: <span class="text-[#8A9BA8]">flex</span>;
+  <span class="text-[#5C7A96]">justify-content</span>: <span class="text-[#8A9BA8]">space-between</span>;
+}</pre>
+</div>
+</div>
+</div>
+<div class="bg-[#D4A26A]/10 border border-[#D4A26A]/30 p-2 rounded-lg">
+<h4 class="text-sm font-bold text-[#E0E2E6] mb-1">Punts Forts</h4>
+<ul class="space-y-0 text-xs text-[#8A9BA8]">
+<li><i class="fas fa-plus text-[#D4A26A] mr-1"></i>Alineació</li>
+<li><i class="fas fa-plus text-[#D4A26A] mr-1"></i>Distribució</li>
+<li><i class="fas fa-plus text-[#D4A26A] mr-1"></i>Reordenació</li>
+</ul>
+</div>
+</div>
+<div class="space-y-2">
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<div class="flex items-center gap-2 mb-2">
+<i class="fas fa-th text-[#5C7A96] text-xl"></i>
+<h3 class="text-xl font-bold text-[#E0E2E6]">CSS Grid</h3>
+</div>
+<p class="text-xs text-[#8A9BA8] mb-2"><strong class="text-[#E0E2E6]">Bidimensional:</strong> Files I columnes</p>
+<div class="space-y-1">
+<div class="bg-[#5C7A96]/10 p-2 rounded">
+<h4 class="text-sm font-bold text-[#E0E2E6] mb-1">Ús Recomanat</h4>
+<ul class="space-y-0 text-xs text-[#8A9BA8]">
+<li><i class="fas fa-check text-[#5C7A96] mr-1"></i>Layouts de pàgina</li>
+<li><i class="fas fa-check text-[#5C7A96] mr-1"></i>Galeries</li>
+<li><i class="fas fa-check text-[#5C7A96] mr-1"></i>Dashboards</li>
+<li><i class="fas fa-check text-[#5C7A96] mr-1"></i>Layouts 2D</li>
+</ul>
+</div>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#D4A26A]">.layout</span> {
+  <span class="text-[#5C7A96]">display</span>: <span class="text-[#8A9BA8]">grid</span>;
+  <span class="text-[#5C7A96]">grid-template</span>: <span class="text-[#8A9BA8]">"header header" auto
+    "sidebar main" 1fr
+    "footer footer" auto / 200px 1fr</span>;
+}</pre>
+</div>
+</div>
+</div>
+<div class="bg-[#5C7A96]/10 border border-[#5C7A96]/30 p-2 rounded-lg">
+<h4 class="text-sm font-bold text-[#E0E2E6] mb-1">Punts Forts</h4>
+<ul class="space-y-0 text-xs text-[#8A9BA8]">
+<li><i class="fas fa-plus text-[#5C7A96] mr-1"></i>Control 2D</li>
+<li><i class="fas fa-plus text-[#5C7A96] mr-1"></i>Àrees amb nom</li>
+<li><i class="fas fa-plus text-[#5C7A96] mr-1"></i>Responsiu</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="mt-2 bg-[#D4A26A]/10 border border-[#D4A26A]/30 p-2 rounded-lg">
+<p class="text-sm text-[#E0E2E6] text-center"><i class="fas fa-lightbulb text-[#D4A26A] mr-1"></i><strong>Combinació:</strong> Grid per layout, Flexbox per alinear contingut</p>
+</div>
+</div>
+<!-- Slide 27: Chapter 7 -->
+<div class="ppt-slide !bg-[#1A1D23]" type="chapter">
+<img alt="" class="absolute inset-0 w-full h-full object-cover opacity-50" src="chapter7_image.png"/>
+<div class="absolute inset-0 bg-gradient-to-r from-[#1A1D23] via-[#1A1D23]/90 to-[#1A1D23]/60"></div>
+<div class="relative z-10 h-full flex flex-col justify-center">
+<div class="inline-block px-5 py-2 bg-[#D4A26A]/20 border-l-4 border-[#D4A26A] mb-8 w-fit">
+<p class="text-2xl font-bold tracking-widest text-[#D4A26A]">CAPÍTOL 07</p>
+</div>
+<h2 class="text-7xl font-bold text-[#E0E2E6] mb-8 leading-tight max-w-4xl">Disseny Responsiu</h2>
+<p class="text-3xl text-[#8A9BA8] leading-relaxed max-w-3xl">Adaptar les pàgines a qualsevol dispositiu</p>
+</div>
+</div>
+<!-- Slide 28: Media Queries -->
+<div class="ppt-slide !bg-[#1A1D23]" type="content">
+<div class="mb-2">
+<p class="text-sm font-bold tracking-wider text-[#D4A26A] mb-1">RESPONSIVE</p>
+<h2 class="text-3xl font-bold text-[#E0E2E6]">Media Queries</h2>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<div class="space-y-2">
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#D4A26A]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Sintaxi Bàsica</h3>
+<p class="text-xs text-[#8A9BA8] mb-1">Les media queries permeten aplicar estils segons les característiques del dispositiu.</p>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#8A9BA8]">/* Sintaxi bàsica */</span>
+<span class="text-[#D4A26A]">@media</span> (condició) {
+  <span class="text-[#8A9BA8]">/* Estils */</span>
+}
+
+<span class="text-[#8A9BA8]">/* Exemples */</span>
+<span class="text-[#D4A26A]">@media</span> (<span class="text-[#5C7A96]">max-width</span>: <span class="text-[#8A9BA8]">768px</span>) {
+  <span class="text-[#8A9BA8]">/* Per mòbils */</span>
+}
+
+<span class="text-[#D4A26A]">@media</span> (<span class="text-[#5C7A96]">min-width</span>: <span class="text-[#8A9BA8]">769px</span>) <span class="text-[#D4A26A]">and</span> (<span class="text-[#5C7A96]">max-width</span>: <span class="text-[#8A9BA8]">1024px</span>) {
+  <span class="text-[#8A9BA8]">/* Per tauletes */</span>
+}</pre>
+</div>
+</div>
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Breakpoints Comuns</h3>
+<div class="space-y-1">
+<div class="flex items-center justify-between p-1 bg-[#5C7A96]/10 rounded">
+<span class="text-xs text-[#E0E2E6]">Mòbil petit</span>
+<span class="px-2 py-0.5 bg-[#5C7A96] text-white rounded text-xs font-mono">max-width: 320px</span>
+</div>
+<div class="flex items-center justify-between p-1 bg-[#5C7A96]/10 rounded">
+<span class="text-xs text-[#E0E2E6]">Mòbil</span>
+<span class="px-2 py-0.5 bg-[#5C7A96] text-white rounded text-xs font-mono">max-width: 480px</span>
+</div>
+<div class="flex items-center justify-between p-1 bg-[#5C7A96]/10 rounded">
+<span class="text-xs text-[#E0E2E6]">Tauleta</span>
+<span class="px-2 py-0.5 bg-[#5C7A96] text-white rounded text-xs font-mono">max-width: 768px</span>
+</div>
+<div class="flex items-center justify-between p-1 bg-[#5C7A96]/10 rounded">
+<span class="text-xs text-[#E0E2E6]">Escriptori petit</span>
+<span class="px-2 py-0.5 bg-[#5C7A96] text-white rounded text-xs font-mono">max-width: 1024px</span>
+</div>
+<div class="flex items-center justify-between p-1 bg-[#5C7A96]/10 rounded">
+<span class="text-xs text-[#E0E2E6]">Escriptori</span>
+<span class="px-2 py-0.5 bg-[#5C7A96] text-white rounded text-xs font-mono">min-width: 1025px</span>
+</div>
+</div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Mobile-First vs Desktop-First</h3>
+<div class="space-y-2">
+<div class="bg-[#D4A26A]/20 p-2 rounded border border-[#D4A26A]/30">
+<h4 class="text-sm font-bold text-[#E0E2E6] mb-1">Mobile-First (Recomanat)</h4>
+<p class="text-xs text-[#8A9BA8] mb-1">Comença per mòbil i afegeix estils per a pantalles més grans</p>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#8A9BA8]">/* Estils base (mòbil) */</span>
+<span class="text-[#D4A26A]">.contenidor</span> {
+  <span class="text-[#5C7A96]">width</span>: <span class="text-[#8A9BA8]">100%</span>;
+  <span class="text-[#5C7A96]">padding</span>: <span class="text-[#8A9BA8]">10px</span>;
+}
+
+<span class="text-[#8A9BA8]">/* Tablet */</span>
+<span class="text-[#D4A26A]">@media</span> (<span class="text-[#5C7A96]">min-width</span>: <span class="text-[#8A9BA8]">768px</span>) {
+  <span class="text-[#D4A26A]">.contenidor</span> {
+    <span class="text-[#5C7A96]">width</span>: <span class="text-[#8A9BA8]">750px</span>;
+    <span class="text-[#5C7A96]">margin</span>: <span class="text-[#8A9BA8]">0 auto</span>;
+  }
+}</pre>
+</div>
+</div>
+<div class="bg-[#5C7A96]/10 p-2 rounded">
+<h4 class="text-sm font-bold text-[#E0E2E6] mb-1">Desktop-First</h4>
+<p class="text-xs text-[#8A9BA8]">Comença per escriptori i sobreescriu per a pantalles petites</p>
+</div>
+</div>
+</div>
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#D4A26A]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Exemple Pràctic</h3>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#8A9BA8]">/* Navegació responsiva */</span>
+<span class="text-[#D4A26A]">nav</span> {
+  <span class="text-[#5C7A96]">display</span>: <span class="text-[#8A9BA8]">flex</span>;
+  <span class="text-[#5C7A96]">flex-direction</span>: <span class="text-[#8A9BA8]">column</span>;
+}
+
+<span class="text-[#D4A26A]">@media</span> (<span class="text-[#5C7A96]">min-width</span>: <span class="text-[#8A9BA8]">768px</span>) {
+  <span class="text-[#D4A26A]">nav</span> {
+    <span class="text-[#5C7A96]">flex-direction</span>: <span class="text-[#8A9BA8]">row</span>;
+    <span class="text-[#5C7A96]">justify-content</span>: <span class="text-[#8A9BA8]">space-between</span>;
+  }
+}</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Slide 29: Unitats Relatives -->
+<div class="ppt-slide !bg-[#1A1D23]" type="content">
+<div class="mb-2">
+<p class="text-sm font-bold tracking-wider text-[#D4A26A] mb-1">FLEXIBILITAT</p>
+<h2 class="text-3xl font-bold text-[#E0E2E6]">Unitats Relatives i Viewport</h2>
+</div>
+<div class="grid grid-cols-3 gap-2">
+<div class="space-y-2">
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#D4A26A]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Percentatge (%)</h3>
+<p class="text-xs text-[#8A9BA8] mb-1">Relatiu a l'element pare. Útil per widths i layouts fluids.</p>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#D4A26A]">.contenidor</span> {
+  <span class="text-[#5C7A96]">width</span>: <span class="text-[#8A9BA8]">80%</span>;
+  <span class="text-[#5C7A96]">margin</span>: <span class="text-[#8A9BA8]">0 auto</span>;
+}
+
+<span class="text-[#D4A26A]">.columna</span> {
+  <span class="text-[#5C7A96]">width</span>: <span class="text-[#8A9BA8]">50%</span>;
+}</pre>
+</div>
+</div>
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">em i rem</h3>
+<p class="text-xs text-[#8A9BA8] mb-1"><strong class="text-[#E0E2E6]">em:</strong> Relatiu a la mida de font del pare</p>
+<p class="text-xs text-[#8A9BA8] mb-1"><strong class="text-[#E0E2E6]">rem:</strong> Relatiu a la mida de font de l'arrel</p>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#D4A26A]">html</span> {
+  <span class="text-[#5C7A96]">font-size</span>: <span class="text-[#8A9BA8]">16px</span>;
+}
+
+<span class="text-[#D4A26A]">.element</span> {
+  <span class="text-[#5C7A96]">font-size</span>: <span class="text-[#8A9BA8]">1.5rem</span>;
+  <span class="text-[#5C7A96]">padding</span>: <span class="text-[#8A9BA8]">1em</span>;
+  <span class="text-[#5C7A96]">margin</span>: <span class="text-[#8A9BA8]">2rem</span>;
+}</pre>
+</div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Viewport Units</h3>
+<p class="text-xs text-[#8A9BA8] mb-1">Relatius a la mida de la finestra</p>
+<div class="space-y-1">
+<div class="bg-[#5C7A96]/10 p-2 rounded">
+<div class="flex items-center justify-between">
+<span class="text-sm text-[#E0E2E6] font-bold">vw</span>
+<span class="text-xs text-[#8A9BA8]">1% de l'amplada</span>
+</div>
+</div>
+<div class="bg-[#5C7A96]/10 p-2 rounded">
+<div class="flex items-center justify-between">
+<span class="text-sm text-[#E0E2E6] font-bold">vh</span>
+<span class="text-xs text-[#8A9BA8]">1% de l'alçada</span>
+</div>
+</div>
+<div class="bg-[#5C7A96]/10 p-2 rounded">
+<div class="flex items-center justify-between">
+<span class="text-sm text-[#E0E2E6] font-bold">vmin</span>
+<span class="text-xs text-[#8A9BA8]">1% del valor més petit</span>
+</div>
+</div>
+<div class="bg-[#5C7A96]/10 p-2 rounded">
+<div class="flex items-center justify-between">
+<span class="text-sm text-[#E0E2E6] font-bold">vmax</span>
+<span class="text-xs text-[#8A9BA8]">1% del valor més gran</span>
+</div>
+</div>
+</div>
+<div class="code-block text-xs mt-2">
+<pre class="text-[#E0E2E6]"><span class="text-[#D4A26A]">.hero</span> {
+  <span class="text-[#5C7A96]">height</span>: <span class="text-[#8A9BA8]">100vh</span>;
+  <span class="text-[#5C7A96]">width</span>: <span class="text-[#8A9BA8]">100vw</span>;
+}
+
+<span class="text-[#D4A26A]">.banner</span> {
+  <span class="text-[#5C7A96]">width</span>: <span class="text-[#8A9BA8]">50vw</span>;
+}</pre>
+</div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Unitats Fraccionàries</h3>
+<p class="text-xs text-[#8A9BA8] mb-1">Per CSS Grid. Fracciona l'espai disponible.</p>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#D4A26A]">.grid</span> {
+  <span class="text-[#5C7A96]">grid-template-columns</span>: <span class="text-[#8A9BA8]">1fr 2fr 1fr</span>;
+}
+
+<span class="text-[#D4A26A]">.grid-3</span> {
+  <span class="text-[#5C7A96]">grid-template-columns</span>: <span class="text-[#8A9BA8]">repeat(3, 1fr)</span>;
+}</pre>
+</div>
+</div>
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#D4A26A]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Quan Utilitzar Cada Un?</h3>
+<div class="space-y-1 text-xs text-[#8A9BA8]">
+<div class="flex items-start gap-1">
+<i class="fas fa-check text-[#D4A26A] mt-0.5 shrink-0"></i>
+<span><strong class="text-[#E0E2E6]">rem:</strong> Fonts, margins, paddings</span>
+</div>
+<div class="flex items-start gap-1">
+<i class="fas fa-check text-[#D4A26A] mt-0.5 shrink-0"></i>
+<span><strong class="text-[#E0E2E6]">em:</strong> Components escalables</span>
+</div>
+<div class="flex items-start gap-1">
+<i class="fas fa-check text-[#D4A26A] mt-0.5 shrink-0"></i>
+<span><strong class="text-[#E0E2E6]">%:</strong> Widths, layouts fluids</span>
+</div>
+<div class="flex items-start gap-1">
+<i class="fas fa-check text-[#D4A26A] mt-0.5 shrink-0"></i>
+<span><strong class="text-[#E0E2E6]">vw/vh:</strong> Hero sections</span>
+</div>
+<div class="flex items-start gap-1">
+<i class="fas fa-check text-[#D4A26A] mt-0.5 shrink-0"></i>
+<span><strong class="text-[#E0E2E6]">fr:</strong> Grid layouts</span>
+</div>
+</div>
+</div>
+<div class="bg-[#D4A26A]/10 border border-[#D4A26A]/30 p-2 rounded-lg">
+<h4 class="text-sm font-bold text-[#E0E2E6] mb-1">Consell</h4>
+<p class="text-xs text-[#8A9BA8]">Estableix font-size: 16px a html i usa rem per tot.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Slide 30: Chapter 8 -->
+<div class="ppt-slide !bg-[#1A1D23]" type="chapter">
+<img alt="" class="absolute inset-0 w-full h-full object-cover opacity-50" src="chapter8_image.png"/>
+<div class="absolute inset-0 bg-gradient-to-r from-[#1A1D23] via-[#1A1D23]/90 to-[#1A1D23]/60"></div>
+<div class="relative z-10 h-full flex flex-col justify-center">
+<div class="inline-block px-5 py-2 bg-[#D4A26A]/20 border-l-4 border-[#D4A26A] mb-8 w-fit">
+<p class="text-2xl font-bold tracking-widest text-[#D4A26A]">CAPÍTOL 08</p>
+</div>
+<h2 class="text-7xl font-bold text-[#E0E2E6] mb-8 leading-tight max-w-4xl">Millors Pràctiques</h2>
+<p class="text-3xl text-[#8A9BA8] leading-relaxed max-w-3xl">Escriure codi net, mantenible i accessible</p>
+</div>
+</div>
+<!-- Slide 31: Organització -->
+<div class="ppt-slide !bg-[#1A1D23]" type="content">
+<div class="mb-2">
+<p class="text-sm font-bold tracking-wider text-[#D4A26A] mb-1">CODI NET</p>
+<h2 class="text-3xl font-bold text-[#E0E2E6]">Organització i Estructura del Codi</h2>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<div class="space-y-2">
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#D4A26A]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Estructura Recomanada</h3>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#8A9BA8]">/* VARIABLES */</span>
+<span class="text-[#D4A26A]">:root</span> {
+  <span class="text-[#5C7A96]">--color-primari</span>: <span class="text-[#8A9BA8]">#5C7A96</span>;
+  <span class="text-[#5C7A96]">--color-secundari</span>: <span class="text-[#8A9BA8]">#D4A26A</span>;
+  <span class="text-[#5C7A96]">--font-base</span>: <span class="text-[#8A9BA8]">16px</span>;
+}
+
+<span class="text-[#8A9BA8]">/* RESETS I BASE */</span>
+<span class="text-[#D4A26A]">*</span> { <span class="text-[#5C7A96]">box-sizing</span>: <span class="text-[#8A9BA8]">border-box</span>; }
+
+<span class="text-[#D4A26A]">body</span> {
+  <span class="text-[#5C7A96]">font-family</span>: <span class="text-[#8A9BA8]">'Arial', sans-serif</span>;
+  <span class="text-[#5C7A96]">line-height</span>: <span class="text-[#8A9BA8]">1.5</span>;
+}
+
+<span class="text-[#8A9BA8]">/* LAYOUT */</span>
+<span class="text-[#D4A26A]">.contenidor</span> { ... }
+<span class="text-[#D4A26A]">.header</span> { ... }
+<span class="text-[#D4A26A]">.main</span> { ... }</pre>
+</div>
+</div>
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Nomenclatura de Classes</h3>
+<ul class="space-y-1 text-xs text-[#8A9BA8]">
+<li><i class="fas fa-check text-[#D4A26A] mr-1"></i>Descriptiu i significatiu</li>
+<li><i class="fas fa-check text-[#D4A26A] mr-1"></i>Kebab-case (classe-nom)</li>
+<li><i class="fas fa-check text-[#D4A26A] mr-1"></i>Evita noms genèrics</li>
+<li><i class="fas fa-check text-[#D4A26A] mr-1"></i>BEM: bloc__element--modificador</li>
+</ul>
+</div>
+</div>
+<div class="space-y-2">
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Consells d'Especificitat</h3>
+<div class="space-y-2">
+<div class="bg-[#D4A26A]/20 p-2 rounded border border-[#D4A26A]/30">
+<h4 class="text-sm font-bold text-[#E0E2E6] mb-1">Evitar !important</h4>
+<p class="text-xs text-[#8A9BA8]">Ús excessiu crea codi difícil de mantenir.</p>
+</div>
+<div class="bg-[#5C7A96]/10 p-2 rounded">
+<h4 class="text-sm font-bold text-[#E0E2E6] mb-1">Mantenir Baixa Especificitat</h4>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#8A9BA8]">/* Preferir */</span>
+<span class="text-[#D4A26A]">.btn</span> { }
+
+<span class="text-[#8A9BA8]">/* Evitar */</span>
+<span class="text-[#D4A26A]">div.container &gt; button.btn</span> { }</pre>
+</div>
+</div>
+<div class="bg-[#5C7A96]/10 p-2 rounded">
+<h4 class="text-sm font-bold text-[#E0E2E6] mb-1">No Depèn d'IDs</h4>
+<p class="text-xs text-[#8A9BA8]">IDs tenen alta especificitat.</p>
+</div>
+</div>
+</div>
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#D4A26A]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Comentaris</h3>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#8A9BA8]">/* Secció: Navegació
+ * Descripció: Estils del menú
+ * Nota: Utilitza Flexbox
+ */</span>
+<span class="text-[#D4A26A]">.nav</span> { ... }</pre>
+</div>
+</div>
+<div class="bg-[#D4A26A]/10 border border-[#D4A26A]/30 p-2 rounded-lg">
+<h4 class="text-sm font-bold text-[#E0E2E6] mb-1">Eines</h4>
+<p class="text-xs text-[#8A9BA8]">Prettier, Stylelint per formatar CSS</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Slide 32: Accessibilitat -->
+<div class="ppt-slide !bg-[#1A1D23]" type="content">
+<div class="mb-2">
+<p class="text-sm font-bold tracking-wider text-[#D4A26A] mb-1">A11Y</p>
+<h2 class="text-3xl font-bold text-[#E0E2E6]">Accessibilitat i SEO</h2>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<div class="space-y-2">
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#D4A26A]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Text Alternatiu</h3>
+<p class="text-xs text-[#8A9BA8] mb-1">Totes les imatges informatives han de tenir alt descriptiu.</p>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#8A9BA8]">&lt;!-- Correcte --&gt;</span>
+<span class="text-[#D4A26A]">&lt;img</span> <span class="text-[#5C7A96]">src</span>=<span class="text-[#8A9BA8]">"grafic.jpg"</span>
+     <span class="text-[#5C7A96]">alt</span>=<span class="text-[#8A9BA8]">"Gràfic de vendes"</span><span class="text-[#D4A26A]">&gt;</span>
+
+<span class="text-[#8A9BA8]">&lt;!-- Decorativa --&gt;</span>
+<span class="text-[#D4A26A]">&lt;img</span> <span class="text-[#5C7A96]">src</span>=<span class="text-[#8A9BA8]">"decoracio.jpg"</span>
+     <span class="text-[#5C7A96]">alt</span>=<span class="text-[#8A9BA8]">""</span><span class="text-[#D4A26A]">&gt;</span></pre>
+</div>
+</div>
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Contrast de Colors</h3>
+<p class="text-xs text-[#8A9BA8] mb-1">Assegura't que el text sigui llegible.</p>
+<div class="space-y-1">
+<div class="p-2 bg-white rounded">
+<p class="text-xs" style="color: #333;">Text fosc sobre clar (OK)</p>
+</div>
+<div class="p-2 bg-[#333] rounded">
+<p class="text-xs text-[#fff]">Text clar sobre fosc (OK)</p>
+</div>
+<div class="p-2 bg-[#888] rounded">
+<p class="text-xs" style="color: #777;">Gris sobre gris (Evitar)</p>
+</div>
+</div>
+<p class="text-xs text-[#8A9BA8] mt-1">Ràtio mínima: 4.5:1</p>
+</div>
+</div>
+<div class="space-y-2">
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Etiquetes Semàntiques</h3>
+<p class="text-xs text-[#8A9BA8] mb-1">Usa etiquetes HTML amb significat.</p>
+<div class="code-block text-xs">
+<pre class="text-[#E0E2E6]"><span class="text-[#8A9BA8]">&lt;!-- Correcte --&gt;</span>
+<span class="text-[#D4A26A]">&lt;nav&gt;</span>
+  <span class="text-[#D4A26A]">&lt;ul&gt;</span>
+    <span class="text-[#D4A26A]">&lt;li&gt;&lt;a</span> <span class="text-[#5C7A96]">href</span>=<span class="text-[#8A9BA8]">"/"</span><span class="text-[#D4A26A]">&gt;</span>Inici<span class="text-[#D4A26A]">&lt;/a&gt;&lt;/li&gt;</span>
+  <span class="text-[#D4A26A]">&lt;/ul&gt;</span>
+<span class="text-[#D4A26A]">&lt;/nav&gt;</span>
+
+<span class="text-[#8A9BA8]">&lt;!-- Evitar --&gt;</span>
+<span class="text-[#D4A26A]">&lt;div</span> <span class="text-[#5C7A96]">class</span>=<span class="text-[#8A9BA8]">"nav"</span><span class="text-[#D4A26A]">&gt;</span>...<span class="text-[#D4A26A]">&lt;/div&gt;</span></pre>
+</div>
+</div>
+<div class="bg-[#2D313A] p-2 rounded-lg border-l-4 border-[#5C7A96]">
+<h3 class="text-base font-bold text-[#E0E2E6] mb-1">Navegació per Teclat</h3>
+<p class="text-xs text-[#8A9BA8] mb-1">Elements interactius accessibles amb teclat.</p>
+<ul class="space-y-1 text-xs text-[#8A9BA8]">
+<li><i class="fas fa-check text-[#D4A26A] mr-1"></i>Tab per navegar</li>
+<li><i class="fas fa-check text-[#D4A26A] mr-1"></i>Enter/Space per activar</li>
+<li><i class="fas fa-check text-[#D4A26A] mr-1"></i>Focus visible</li>
+</ul>
+<div class="code-block text-xs mt-2">
+<pre class="text-[#E0E2E6]"><span class="text-[#8A9BA8]">/* Estil de focus visible */</span>
+<span class="text-[#D4A26A]">:focus</span> {
+  <span class="text-[#5C7A96]">outline</span>: <span class="text-[#8A9BA8]">2px solid #D4A26A</span>;
+}</pre>
+</div>
+</div>
+<div class="bg-[#D4A26A]/10 border border-[#D4A26A]/30 p-2 rounded-lg">
+<h4 class="text-sm font-bold text-[#E0E2E6] mb-1">Validació</h4>
+<p class="text-xs text-[#8A9BA8]">WAVE, axe DevTools, Lighthouse</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Slide 33: Final -->
+<div class="ppt-slide !bg-[#1A1D23]" type="final">
+<img alt="" class="absolute inset-0 w-full h-full object-cover opacity-40" src="final_image.png"/>
+<div class="absolute inset-0 bg-gradient-to-br from-[#1A1D23]/95 via-[#1A1D23]/90 to-[#1A1D23]/80"></div>
+<div class="relative z-10 h-full flex flex-col justify-center items-center text-center">
+<div class="inline-block px-5 py-2 bg-[#D4A26A]/20 border-l-4 border-[#D4A26A] mb-6">
+<p class="text-lg font-bold tracking-widest text-[#D4A26A]">CONTINUA APRENENT</p>
+</div>
+<h2 class="text-6xl font-bold text-[#E0E2E6] mb-6">Recursos i Pròxims Passos</h2>
+<div class="grid grid-cols-2 gap-6 max-w-5xl mb-8">
+<div class="bg-[#2D313A]/80 backdrop-blur p-5 rounded-lg border border-[#5C7A96]/30">
+<h3 class="text-2xl font-bold text-[#E0E2E6] mb-4 flex items-center gap-3 justify-center">
+<i class="fas fa-book text-[#D4A26A]"></i>
+                        Documentació
+                    </h3>
+<ul class="space-y-2 text-base text-[#8A9BA8] text-left">
+<li><i class="fas fa-external-link-alt text-[#D4A26A] mr-2"></i>MDN Web Docs (developer.mozilla.org)</li>
+<li><i class="fas fa-external-link-alt text-[#D4A26A] mr-2"></i>W3Schools (w3schools.com)</li>
+<li><i class="fas fa-external-link-alt text-[#D4A26A] mr-2"></i>Can I Use (caniuse.com)</li>
+</ul>
+</div>
+<div class="bg-[#2D313A]/80 backdrop-blur p-5 rounded-lg border border-[#5C7A96]/30">
+<h3 class="text-2xl font-bold text-[#E0E2E6] mb-4 flex items-center gap-3 justify-center">
+<i class="fas fa-graduation-cap text-[#D4A26A]"></i>
+                        Cursos i Pràctica
+                    </h3>
+<ul class="space-y-2 text-base text-[#8A9BA8] text-left">
+<li><i class="fas fa-external-link-alt text-[#D4A26A] mr-2"></i>freeCodeCamp (freecodecamp.org)</li>
+<li><i class="fas fa-external-link-alt text-[#D4A26A] mr-2"></i>CSS-Tricks (css-tricks.com)</li>
+<li><i class="fas fa-external-link-alt text-[#D4A26A] mr-2"></i>Frontend Mentor (frontendmentor.io)</li>
+</ul>
+</div>
+<div class="bg-[#2D313A]/80 backdrop-blur p-5 rounded-lg border border-[#5C7A96]/30">
+<h3 class="text-2xl font-bold text-[#E0E2E6] mb-4 flex items-center gap-3 justify-center">
+<i class="fas fa-tools text-[#D4A26A]"></i>
+                        Eines
+                    </h3>
+<ul class="space-y-2 text-base text-[#8A9BA8] text-left">
+<li><i class="fas fa-external-link-alt text-[#D4A26A] mr-2"></i>CodePen (codepen.io)</li>
+<li><i class="fas fa-external-link-alt text-[#D4A26A] mr-2"></i>Flexbox Froggy</li>
+<li><i class="fas fa-external-link-alt text-[#D4A26A] mr-2"></i>CSS Grid Garden</li>
+</ul>
+</div>
+<div class="bg-[#2D313A]/80 backdrop-blur p-5 rounded-lg border border-[#5C7A96]/30">
+<h3 class="text-2xl font-bold text-[#E0E2E6] mb-4 flex items-center gap-3 justify-center">
+<i class="fas fa-rocket text-[#D4A26A]"></i>
+                        Pròxims Passos
+                    </h3>
+<ul class="space-y-2 text-base text-[#8A9BA8] text-left">
+<li><i class="fas fa-arrow-right text-[#D4A26A] mr-2"></i>JavaScript</li>
+<li><i class="fas fa-arrow-right text-[#D4A26A] mr-2"></i>Frameworks (React, Vue)</li>
+<li><i class="fas fa-arrow-right text-[#D4A26A] mr-2"></i>Sass/SCSS</li>
+</ul>
+</div>
+</div>
+<div class="bg-[#D4A26A]/20 border border-[#D4A26A]/40 p-5 rounded-lg max-w-3xl">
+<p class="text-xl text-[#E0E2E6] leading-relaxed">"El millor manera d'aprendre és practicant. Crea projectes petits, experimenta i no tinguis por de cometre errors."</p>
+</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programació Client: JavaScript</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* CORE SETUP - ESTRICTE 1280x720 PROJECCIÓ */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            background-color: #0f172a;
+            display: grid;
+            gap: 40px;
+            grid-template-columns: 1fr;
+            min-height: 100vh;
+            padding: 40px 0;
+            place-items: center;
+        }
+
+        .slide-container {
+            background-color: #1e293b;
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            font-family: 'Inter', sans-serif;
+            height: 720px;
+            width: 1280px;
+            overflow: hidden;
+            padding: 50px 70px;
+            position: relative;
+            color: #f1f5f9;
+        }
+
+        /* DECORACIÓ SUBTIL JS (Groc) */
+        .slide-container::before {
+            content: ''; position: absolute; top: -200px; right: -200px; width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(234, 179, 8, 0.15) 0%, transparent 70%); z-index: 0; pointer-events: none;
+        }
+        .slide-container > * { position: relative; z-index: 1; }
+
+        /* TIPOGRAFIA */
+        h1 { font-size: 80px; font-weight: 800; line-height: 1.1; margin-bottom: 20px; text-align: center; }
+        h1 span { color: #facc15; text-shadow: 0 0 20px rgba(234, 179, 8, 0.3); }
+        
+        .slide-title {
+            font-size: 42px;
+            font-weight: 800;
+            border-left: 8px solid #facc15;
+            padding-left: 20px;
+            margin-bottom: 30px;
+            color: #f8fafc;
+            width: 100%;
+        }
+
+        p, li { font-size: 20px; line-height: 1.5; margin-bottom: 12px; color: #cbd5e1; }
+        ul { padding-left: 30px; margin-bottom: 20px; }
+        li::marker { color: #facc15; font-size: 1.2em; }
+        strong { color: #f8fafc; }
+
+        /* CODI CLAR I GRAN */
+        pre {
+            background-color: #0f172a;
+            border-left: 5px solid #facc15;
+            border-radius: 8px;
+            padding: 18px;
+            font-family: 'Fira Code', monospace;
+            font-size: 17px;
+            color: #e2e8f0;
+            margin-bottom: 15px;
+            box-shadow: inset 0 4px 6px rgba(0,0,0,0.3);
+            overflow-x: hidden;
+            white-space: pre-wrap;
+        }
+        code { font-family: 'Fira Code', monospace; color: #fde047; padding: 2px 6px; background: rgba(0,0,0,0.3); border-radius: 4px;}
+        pre code { padding: 0; background: transparent; }
+        .kw { color: #c678dd; } /* Keyword */
+        .str { color: #a6e22e; } /* String */
+        .fn { color: #66d9ef; } /* Function */
+        .var { color: #fd971f; } /* Variable */
+        .com { color: #75715e; font-style: italic; } /* Comment */
+
+        /* LAYOUTS */
+        .content-area { display: flex; flex-direction: column; flex-grow: 1; width: 100%; justify-content: flex-start; }
+        .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; height: 100%; align-items: start; }
+        .title-layout { align-items: center; display: flex; flex-direction: column; justify-content: center; text-align: center; height: 100%; }
+
+        /* TAULES NETES */
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; background: rgba(15, 23, 42, 0.6); border-radius: 8px; overflow: hidden; }
+        th, td { border-bottom: 1px solid #334155; padding: 10px 14px; text-align: left; font-size: 18px; }
+        th { background-color: rgba(234, 179, 8, 0.15); color: #f8fafc; font-weight: 800; }
+        tr:nth-child(even) { background-color: rgba(30, 41, 59, 0.4); }
+        
+        /* CAIXES DE DESTACAT */
+        .info-box { background: rgba(234, 179, 8, 0.1); border: 1px solid #facc15; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .alert-box { background: rgba(239, 68, 68, 0.1); border-left: 6px solid #ef4444; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+        .alert-box strong { color: #fca5a5; }
+        
+        /* SVGs Container */
+        .svg-container { background: #f8fafc; padding: 20px; border-radius: 12px; display: flex; justify-content: center; width: 100%; margin-top: 10px; box-shadow: inset 0 2px 10px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+
+<!-- Slide 1: Títol -->
+<div class="slide-container">
+    <div class="title-layout">
+        <i class="fa-brands fa-js" style="font-size: 160px; color: #facc15; margin-bottom: 30px;"></i>
+        <h1>Programació Client:<br><span>JavaScript</span></h1>
+        <p style="font-size: 28px; color: #94a3b8; margin-top: 20px;">Fonaments, DOM, Esdeveniments i Programació No Obstructiva</p>
+    </div>
+</div>
+
+<!-- Slide 2: Per què programació client? -->
+<div class="slide-container">
+    <h2 class="slide-title">1. Programació Client vs Servidor</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <h3><i class="fa-solid fa-laptop-code" style="color:#facc15;"></i> Client (JavaScript)</h3>
+                <p>S'executa al navegador de l'usuari.</p>
+                <ul>
+                    <li><strong>Eficiència i Rapidesa:</strong> Modifica la interfície (UI) a l'instant, sense necessitat de recarregar la pàgina ni contactar el servidor.</li>
+                    <li><strong>Interactivitat:</strong> Reacciona a esdeveniments de l'usuari (clics, moviments del ratolí, teclat).</li>
+                    <li><strong>Limitacions:</strong> No pot accedir directament a bases de dades o fitxers del servidor per motius de seguretat.</li>
+                </ul>
+            </div>
+            <div>
+                <h3><i class="fa-solid fa-server" style="color:#38bdf8;"></i> Servidor (PHP, Java, Python)</h3>
+                <p>S'executa a la màquina remota.</p>
+                <ul>
+                    <li><strong>Seguretat:</strong> El codi font no és visible per a l'usuari.</li>
+                    <li><strong>Dades persistents:</strong> Connexió directa a Bases de Dades SQL/NoSQL.</li>
+                    <li><strong>Lentitud relativa:</strong> Cada petició requereix un viatge a través de la xarxa (HTTP Request/Response).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 3: Incrustar JS -->
+<div class="slide-container">
+    <h2 class="slide-title">2. Inclusió de JavaScript a l'HTML</h2>
+    <div class="content-area">
+        <p>El codi JavaScript s'inclou dins de l'HTML mitjançant l'etiqueta <code>&lt;script&gt;</code>. Es pot posar dins del <code>&lt;head&gt;</code> o al final del <code>&lt;body&gt;</code>.</p>
+        <div class="two-column">
+            <div>
+                <h3>Mètode 1: Codi Intern</h3>
+                <p>Útil per a scripts molt curts o proves ràpides.</p>
+<pre>
+&lt;<span class="kw">html</span>&gt;
+&lt;<span class="kw">head</span>&gt;
+  &lt;<span class="kw">script</span>&gt;
+    <span class="fn">alert</span>(<span class="str">"Això s'executa en carregar!"</span>);
+  &lt;/<span class="kw">script</span>&gt;
+&lt;/<span class="kw">head</span>&gt;
+&lt;<span class="kw">body</span>&gt;...&lt;/<span class="kw">body</span>&gt;
+&lt;/<span class="kw">html</span>&gt;
+</pre>
+            </div>
+            <div>
+                <h3>Mètode 2: Fitxer Extern (Recomanat)</h3>
+                <p>Permet la reutilització i separa l'estructura del comportament.</p>
+<pre>
+&lt;<span class="kw">html</span>&gt;
+&lt;<span class="kw">head</span>&gt;
+  <span class="com">&lt;!-- Enllaç a un fitxer .js separat --&gt;</span>
+  &lt;<span class="kw">script</span> <span class="var">src</span>=<span class="str">"scripts/main.js"</span>&gt;&lt;/<span class="kw">script</span>&gt;
+&lt;/<span class="kw">head</span>&gt;
+&lt;<span class="kw">body</span>&gt;...&lt;/<span class="kw">body</span>&gt;
+&lt;/<span class="kw">html</span>&gt;
+</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 4: Variables i Tipus -->
+<div class="slide-container">
+    <h2 class="slide-title">3. Variables, Tipus i Sintaxi</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <h3>Declaració i Tipatge Dinàmic</h3>
+                <p>A JavaScript, no es defineix el tipus de dada explícitament (és <em>loosely typed</em>). Una mateixa variable pot canviar de tipus.</p>
+<pre>
+<span class="kw">var</span> edat = <span class="str">25</span>;       <span class="com">// Number</span>
+edat = <span class="str">"Vint-i-cinc"</span>; <span class="com">// Ara és un String</span>
+
+<span class="kw">var</span> preu = <span class="str">19.99</span>;    <span class="com">// Number (decimals)</span>
+<span class="kw">var</span> actiu = <span class="kw">true</span>;    <span class="com">// Boolean</span>
+</pre>
+                <div class="info-box" style="padding:15px; margin-top:10px;">
+                    <p style="margin:0; font-size:16px;"><em>Nota moderna:</em> Avui en dia s'utilitza <code>let</code> i <code>const</code> en comptes de <code>var</code> per tenir un millor control de l'àmbit (scope) de les variables.</p>
+                    <pre>
+<span class="kw">if</span> (<span class="kw">true</span>) {
+    <span class="kw">var</span> missatgeSecret = <span class="str">"Un secret!"</span>;
+    <span class="kw">let</span> passesTresor = <span class="str">12</span>;
+}
+<span class="com">// Es pot accedir malgrat estar fora de l'if!</span>
+<span class="kw">console.log</span>(missatgeSecret); 
+<span class="com">// ERROR!</span>
+<span class="kw">console.log</span>(passesTresor);</pre></div></div>
+            <div>
+                <h3>Estructures de Control</h3>
+                <p>La sintaxi per a bucles i condicionals és pràcticament idèntica a Java o C.</p>
+<pre>
+<span class="kw">var</span> suma = <span class="str">0</span>;
+<span class="kw">for</span> (<span class="kw">var</span> i = <span class="str">1</span>; i &lt;= <span class="str">10</span>; i++) {
+  <span class="kw">if</span> (i % <span class="str">2</span> !== <span class="str">0</span>) {
+    suma += i; <span class="com">// Suma els senars</span>
+  }
+}
+
+<span class="kw">while</span> (suma &lt; <span class="str">100</span>) {
+  suma *= <span class="str">2</span>;
+}
+</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 5: Strings i Numbers -->
+<div class="slide-container">
+    <h2 class="slide-title">4. Treballant amb Text (Strings)</h2>
+    <div class="content-area">
+        <p>Els Strings tenen múltiples mètodes integrats per facilitar la manipulació del text, així com la propietat <code>length</code>.</p>
+        <div class="two-column">
+            <div>
+                <h3>Mètodes d'String Comuns</h3>
+<pre>
+<span class="kw">let</span> nom = <span class="str">"  Connie Client  "</span>;
+
+<span class="com">// Netejar espais extrems</span>
+nom = nom.<span class="fn">trim</span>(); <span class="com">// "Connie Client"</span>
+
+<span class="com">// Longitud i caràcters</span>
+<span class="kw">const</span> lletres = nom.length; <span class="com">// 13</span>
+<span class="kw">const</span> primera = nom.<span class="fn">charAt</span>(<span class="str">0</span>); <span class="com">// "C"</span>
+<span class="kw">const</span> index = nom.<span class="fn">indexOf</span>(<span class="str">"Client"</span>); <span class="com">// 7</span>
+</pre>
+            </div>
+            <div>
+                <h3>Subcadenes i Majúscules</h3>
+<pre>
+<span class="kw">const</span> nom = <span class="str">"Connie Client"</span>;
+
+<span class="com">// Substring (inici, final) - El final no s'inclou</span>
+<span class="kw">const</span> cognom = nom.<span class="fn">substring</span>(<span class="str">7</span>, <span class="str">13</span>); 
+<span class="com">// Retorna "Client"</span>
+
+<span class="com">// Canvi de format</span>
+<span class="kw">const</span> maj = nom.<span class="fn">toUpperCase</span>(); 
+<span class="com">// "CONNIE CLIENT"</span>
+
+<span class="com">// Reemplaçar (substitueix la primera instància)</span>
+<span class="kw">const</span> nou = nom.<span class="fn">replace</span>(<span class="str">"Connie"</span>, <span class="str">"Super"</span>);
+</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 6: Math i Conversions -->
+<div class="slide-container">
+    <h2 class="slide-title">5. Nombres, Conversions i l'Objecte Math</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <h3>Conversions de Tipus (Casting)</h3>
+                <p>JS intenta convertir tipus automàticament (coerció), però sovint cal forçar-ho per evitar errors, especialment en llegir dades de formularis (que sempre són Strings).</p>
+<pre>
+<span class="com">// String a Número Enter</span>
+<span class="kw">const</span> n1 = <span class="fn">parseInt</span>(<span class="str">"42px"</span>); <span class="com">// Retorna 42</span>
+<span class="kw">const</span> err = <span class="fn">parseInt</span>(<span class="str">"Hola"</span>); <span class="com">// Retorna NaN</span>
+
+<span class="com">// String a Número Decimal</span>
+<span class="kw">const</span> n2 = <span class="fn">parseFloat</span>(<span class="str">"3.1415"</span>); 
+
+<span class="com">// Número a String</span>
+<span class="kw">const</span> str = <span class="str">""</span> + <span class="str">42</span>; <span class="com">// Forma ràpida: "42"</span>
+<span class="kw">const</span> str2 = (<span class="str">15</span>).<span class="fn">toString</span>();
+</pre>
+            </div>
+            <div>
+                <h3>L'Objecte Math</h3>
+                <p>Proporciona funcions matemàtiques avançades i constants.</p>
+<pre>
+<span class="com">// Arrodoniments</span>
+<span class="kw">const</span> a = Math.<span class="fn">round</span>(<span class="str">4.6</span>); <span class="com">// 5 (més proper)</span>
+<span class="kw">const</span> b = Math.<span class="fn">floor</span>(<span class="str">4.9</span>); <span class="com">// 4 (cap avall)</span>
+<span class="kw">const</span> c = Math.<span class="fn">ceil</span>(<span class="str">4.1</span>);  <span class="com">// 5 (cap amunt)</span>
+
+<span class="com">// Nombres aleatoris (0.0 fins a 0.999...)</span>
+<span class="kw">const</span> rand = Math.<span class="fn">random</span>();
+
+<span class="com">// Aleatori entre 1 i 10:</span>
+<span class="kw">const</span> dau = Math.<span class="fn">floor</span>(Math.<span class="fn">random</span>() * <span class="str">10</span>) + <span class="str">1</span>;
+</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 7: Arrays -->
+<div class="slide-container">
+    <h2 class="slide-title">6. Arrays i Col·leccions</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <h3>Creació i Mètodes Bàsics</h3>
+                <p>Els arrays a JS poden contenir elements de diferents tipus i la seva mida és dinàmica.</p>
+<pre>
+<span class="kw">const</span> llista = [<span class="str">"Pomes"</span>, <span class="str">"Peres"</span>];
+
+<span class="com">// Afegir i Treure del FINAL</span>
+llista.<span class="fn">push</span>(<span class="str">"Taronges"</span>); <span class="com">// ["Pomes", "Peres", "Taronges"]</span>
+<span class="kw">const</span> ultima = llista.<span class="fn">pop</span>(); <span class="com">// Treu "Taronges"</span>
+
+<span class="com">// Afegir i Treure del PRINCIPI</span>
+llista.<span class="fn">unshift</span>(<span class="str">"Kiwis"</span>); <span class="com">// ["Kiwis", "Pomes", "Peres"]</span>
+<span class="kw">const</span> primer = llista.<span class="fn">shift</span>(); <span class="com">// Treu "Kiwis"</span>
+</pre>
+            </div>
+            <div>
+                <h3>Transformacions i Recorreguts</h3>
+<pre>
+<span class="kw">const</span> frase = <span class="str">"A,B,C"</span>;
+
+<span class="com">// Separar un String en un Array</span>
+<span class="kw">const</span> elements = frase.<span class="fn">split</span>(<span class="str">","</span>); 
+<span class="com">// Retorna ['A', 'B', 'C']</span>
+
+<span class="com">// Unir un Array en un String</span>
+<span class="kw">const</span> nouText = elements.<span class="fn">join</span>(<span class="str">" - "</span>); 
+<span class="com">// Retorna "A - B - C"</span>
+
+<span class="com">// Recórrer l'array clàssicament</span>
+<span class="kw">for</span> (<span class="kw">let</span> i = <span class="str">0</span>; i &lt; elements.length; i++) {
+  console.<span class="fn">log</span>(elements[i]);
+}
+</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 8: Funcions -->
+<div class="slide-container">
+    <h2 class="slide-title">7. Funcions: Blocs de Codi Reutilitzables</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <h3>Definició de Funcions</h3>
+                <p>Es defineixen amb la paraula clau <code>function</code>. No cal especificar el tipus de retorn ni els tipus dels paràmetres.</p>
+<pre>
+<span class="kw">function</span> <span class="fn">calcularArea</span>(amplada, alcada) {
+  <span class="kw">const</span> area = amplada * alcada;
+  <span class="kw">return</span> area;
+}
+
+<span class="com">// Invocació de la funció</span>
+<span class="kw">const</span> resultat = <span class="fn">calcularArea</span>(<span class="str">5</span>, <span class="str">10</span>);
+<span class="fn">alert</span>(<span class="str">"L'àrea és: "</span> + resultat);
+</pre>
+            </div>
+            <div>
+                <h3>Àmbit de les variables (Scope)</h3>
+                <p>Les variables declarades <em>dins</em> d'una funció són locals i desapareixen quan la funció acaba.</p>
+<pre>
+<span class="kw">var</span> globalVar = <span class="str">"Sóc global"</span>;
+
+<span class="kw">function</span> <span class="fn">provaScope</span>() {
+  <span class="kw">var</span> localVar = <span class="str">"Sóc local"</span>;
+  console.<span class="fn">log</span>(globalVar); <span class="com">// Funciona</span>
+}
+
+<span class="fn">provaScope</span>();
+console.<span class="fn">log</span>(localVar); <span class="com">// ERROR! No existeix aquí</span>
+</pre>
+<div class="info-box" style="padding:15px; margin-top:10px;">
+                    <p style="margin:0; font-size:16px;"><em>Nota:</em> Fixeu-vos que <code>var</code> si que respecta l'àmbit en el cas de funcions. Amb tot, es recomana utilitzar <code>let</code> i <code>const</code>.</p>
+                    </div>
+            </div>            
+        </div>
+    </div>
+</div>
+
+<!-- Slide 9: Arbre DOM (SVG) -->
+<div class="slide-container">
+    <h2 class="slide-title">8. El Document Object Model (DOM)</h2>
+    <div class="content-area">
+        <p>Quan el navegador carrega una pàgina HTML, crea un <strong>model intern (arbre d'objectes)</strong> que representa cada etiqueta, atribut i text. JS pot manipular aquest arbre en viu.</p>
+        
+        <div class="svg-container">
+            <svg width="600" height="350" viewBox="0 0 600 350" xmlns="http://www.w3.org/2000/svg">
+                <style>
+                    .box { fill: #dbeafe; stroke: #3b82f6; stroke-width: 3; rx: 8; }
+                    .txt { font-family: monospace; font-size: 18px; font-weight: bold; fill: #0f172a; }
+                    .attr { fill: #fef08a; stroke: #eab308; stroke-width: 2; rx: 4; }
+                    .attr-txt { font-family: monospace; font-size: 14px; fill: #854d0e; }
+                    .line { stroke: #a855f7; stroke-width: 4; }
+                    .line-attr { stroke: #fbbf24; stroke-width: 2; stroke-dasharray: 4; }
+                </style>
+                <!-- Nodes -->
+                <rect x="250" y="20" width="100" height="50" class="box"/>
+                <text x="300" y="50" text-anchor="middle" class="txt">html</text>
+
+                <rect x="150" y="120" width="100" height="50" class="box"/>
+                <text x="200" y="150" text-anchor="middle" class="txt">head</text>
+
+                <rect x="350" y="120" width="100" height="50" class="box"/>
+                <text x="400" y="150" text-anchor="middle" class="txt">body</text>
+
+                <rect x="150" y="220" width="100" height="50" class="box"/>
+                <text x="200" y="250" text-anchor="middle" class="txt">title</text>
+
+                <rect x="280" y="220" width="100" height="50" class="box"/>
+                <text x="330" y="250" text-anchor="middle" class="txt">h1</text>
+                
+                <rect x="180" y="290" width="80" height="30" class="attr"/>
+                <text x="220" y="310" text-anchor="middle" class="attr-txt">id="titol"</text>
+
+                <rect x="420" y="220" width="100" height="50" class="box"/>
+                <text x="470" y="250" text-anchor="middle" class="txt">img</text>
+
+                <rect x="490" y="290" width="80" height="30" class="attr"/>
+                <text x="530" y="310" text-anchor="middle" class="attr-txt">src="..."</text>
+
+                <!-- Lines -->
+                <line x1="300" y1="70" x2="200" y2="120" class="line"/>
+                <line x1="300" y1="70" x2="400" y2="120" class="line"/>
+                <line x1="200" y1="170" x2="200" y2="220" class="line"/>
+                <line x1="400" y1="170" x2="330" y2="220" class="line"/>
+                <line x1="400" y1="170" x2="470" y2="220" class="line"/>
+                
+                <line x1="330" y1="270" x2="220" y2="290" class="line-attr"/>
+                <line x1="470" y1="270" x2="530" y2="290" class="line-attr"/>
+            </svg>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 10: Seleccionar elements -->
+<div class="slide-container">
+    <h2 class="slide-title">9. Seleccionar Elements del DOM</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <h3>El clàssic: getElementById</h3>
+                <p>La forma més ràpida i comuna de trobar un element únic (que té l'atribut <code>id=""</code> a l'HTML).</p>
+<pre>
+<span class="com">&lt;!-- HTML --&gt;</span>
+&lt;<span class="kw">div</span> <span class="var">id</span>=<span class="str">"missatge"</span>&gt;Hola&lt;/<span class="kw">div</span>&gt;
+
+<span class="com">// JavaScript</span>
+<span class="kw">const</span> divNode = document.<span class="fn">getElementById</span>(<span class="str">"missatge"</span>);
+</pre>
+            </div>
+            <div>
+                <h3>Mètodes Moderns: querySelector</h3>
+                <p>Permet seleccionar elements utilitzant la mateixa sintaxi que els selectors de CSS (classes, etiquetes, atributs).</p>
+<pre>
+<span class="com">// Troba el PRIMER element amb classe "error"</span>
+<span class="kw">const</span> errBox = document.<span class="fn">querySelector</span>(<span class="str">".error"</span>);
+
+<span class="com">// Troba TOTS els paràgrafs (retorna un array/llista)</span>
+<span class="kw">const</span> llistaP = document.<span class="fn">querySelectorAll</span>(<span class="str">"p"</span>);
+
+<span class="kw">for</span> (<span class="kw">let</span> i=<span class="str">0</span>; i &lt; llistaP.length; i++) {
+  llistaP[i].style.color = <span class="str">"blue"</span>;
+}
+</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 11: Modificar Propietats -->
+<div class="slide-container">
+    <h2 class="slide-title">10. Modificar Elements i Contingut</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <h3>Propietats HTML comuns</h3>
+                <p>Un cop tenim l'element, podem accedir i modificar els seus atributs HTML directament com a propietats de l'objecte.</p>
+                <table>
+                    <tr><th>Propietat JS</th><th>Atribut HTML equivalent</th></tr>
+                    <tr><td><code>node.src</code></td><td><code>&lt;img src="..."&gt;</code></td></tr>
+                    <tr><td><code>node.href</code></td><td><code>&lt;a href="..."&gt;</code></td></tr>
+                    <tr><td><code>node.value</code></td><td>El text d'un <code>&lt;input&gt;</code></td></tr>
+                    <tr><td><code>node.disabled</code></td><td><code>&lt;button disabled&gt;</code></td></tr>
+                    <tr><td><code>node.className</code></td><td><code>&lt;div class="..."&gt;</code></td></tr>
+                </table>
+            </div>
+            <div>
+                <h3>innerHTML</h3>
+                <p>La propietat més potent per canviar el text i l'estructura interna d'una etiqueta. Avalua el HTML que li passes.</p>
+<pre>
+<span class="kw">const</span> caixa = document.<span class="fn">getElementById</span>(<span class="str">"contingut"</span>);
+
+<span class="com">// Sobreescriure el contingut</span>
+caixa.innerHTML = <span class="str">"&lt;h2&gt;Títol Nou&lt;/h2&gt;"</span>;
+
+<span class="com">// Afegir al final (concatenar)</span>
+caixa.innerHTML += <span class="str">"&lt;p&gt;Afegit al final.&lt;/p&gt;"</span>;
+
+<span class="com">// Esborrar el contingut</span>
+caixa.innerHTML = <span class="str">""</span>;
+</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 12: DOM Styles i Errors -->
+<div class="slide-container">
+    <h2 class="slide-title">11. Modificar Estils (CSS via DOM)</h2>
+    <div class="content-area">
+        <p>JavaScript pot alterar l'atribut <code>style</code> en línia dels elements per canviar la seva presentació a l'instant.</p>
+        <div class="two-column">
+            <div>
+                <div class="alert-box">
+                    <p style="margin:0; font-size:18px;"><strong>VIGILA! Errors Molt Comuns:</strong></p>
+                    <ul style="margin-top:10px; font-size:16px;">
+                        <li>A JS no es poden usar guions (-). Els noms de propietats CSS es passen a <strong>camelCase</strong> (ex: <code>font-size</code> esdevé <code>fontSize</code>).</li>
+                        <li>Has d'afegir <strong>sempre</strong> la unitat de mesura (px, em, %) en format String.</li>
+                    </ul>
+                </div>
+<pre>
+<span class="kw">const</span> text = document.<span class="fn">getElementById</span>(<span class="str">"text"</span>);
+
+<span class="com">// MALAMENT ❌</span>
+text.style.background-color = <span class="str">"red"</span>;
+text.style.width = <span class="str">200</span>; <span class="com">// Falta unitat</span>
+
+<span class="com">// CORRECTE ✅</span>
+text.style.backgroundColor = <span class="str">"red"</span>;
+text.style.width = <span class="str">"200px"</span>;
+text.style.display = <span class="str">"none"</span>; <span class="com">// Ocultar</span>
+</pre>
+            </div>
+            <div>
+                <h3>L'alternativa neta: className</h3>
+                <p>En lloc de canviar dotzenes d'estils un per un en JS, es considera millor pràctica tenir una classe CSS predefinida i aplicar-la des de JS.</p>
+<pre>
+<span class="com">/* Al fitxer CSS */</span>
+.<span class="fn">destacat</span> {
+  <span class="kw">background-color</span>: yellow;
+  <span class="kw">font-weight</span>: bold;
+  <span class="kw">border</span>: 2px solid red;
+}
+</pre>
+<pre>
+<span class="com">// Al fitxer JS</span>
+<span class="kw">var</span> element = document.<span class="fn">getElementById</span>(<span class="str">"msg"</span>);
+element.className = <span class="str">"destacat"</span>;
+</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 13: Objectes Globals (BOM) -->
+<div class="slide-container">
+    <h2 class="slide-title">12. L'entorn del Navegador (BOM)</h2>
+    <div class="content-area">
+        <p>A part de l'Arbre HTML (DOM), JavaScript té accés al <strong>Browser Object Model</strong> per interactuar amb la finestra mateixa.</p>
+        <div class="table-layout">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Objecte Global</th>
+                        <th>Descripció i funcionalitats</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>window</strong></td>
+                        <td>L'arrel de tot. Representa la finestra/pestanya actual. Totes les variables globals i funcions (com <code>alert()</code>) pengen d'aquí. Controla la mida de la finestra i els <em>Timers</em>.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>document</strong></td>
+                        <td>Penga de <code>window</code>. Representa tot el codi HTML de la pàgina. És l'entrada al DOM.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>location</strong></td>
+                        <td>Conté informació sobre la URL actual. Assignar un valor a <code>window.location.href</code> provoca que el navegador salti a una altra web.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>navigator</strong></td>
+                        <td>Dades del programari del client (nom del navegador, versió, sistema operatiu, idioma de l'usuari).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>screen</strong></td>
+                        <td>Dades de la pantalla física de l'usuari (resolució d'amplada i alçada).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>history</strong></td>
+                        <td>Llista de pàgines visitades. És la base dels frameworks actuals. Fortament blindat per raons de seguretat (robatori historial o phishing).</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 14: Flux d'Esdeveniments SVG -->
+<div class="slide-container">
+    <h2 class="slide-title">13. Programació Orientada a Esdeveniments</h2>
+    <div class="content-area">
+        <p>En JS, els programes no s'executen de principi a fi i s'aturen. Funcionen com un bucle d'espera: <strong>reaccionen de manera asíncrona</strong> quan passa alguna cosa (un <em>Event</em>).</p>
+        
+        <div class="svg-container" style="margin-top: 30px; padding: 40px;">
+            <svg width="1000" height="250" viewBox="0 0 1000 250" xmlns="http://www.w3.org/2000/svg">
+                <style>
+                    .box { fill: #f8fafc; stroke: #334155; stroke-width: 2; rx: 6; }
+                    .txt { font-family: Inter, sans-serif; font-size: 20px; fill: #0f172a; font-weight:bold; }
+                    .desc { font-family: Inter, sans-serif; font-size: 16px; fill: #64748b; }
+                    .arrow { stroke: #0f172a; stroke-width: 3; marker-end: url(#arrow); }
+                    .star { fill: #fde047; stroke: #eab308; stroke-width: 3; }
+                </style>
+                <defs>
+                    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <path d="M0,0 L0,6 L9,3 z" fill="#0f172a"/>
+                    </marker>
+                </defs>
+
+                <!-- Step 1 -->
+                <rect x="50" y="80" width="160" height="60" class="box"/>
+                <text x="130" y="115" text-anchor="middle" class="txt">Usuari fa Clic</text>
+                <text x="130" y="170" text-anchor="middle" class="desc">1. Interacció</text>
+
+                <path d="M230,110 Q280,110 320,110" class="arrow" fill="none"/>
+
+                <!-- Step 2 -->
+                <path d="M400,20 L420,70 L470,60 L440,100 L490,130 L430,140 L440,190 L390,150 L340,190 L360,140 L300,120 L350,90 L330,40 L380,70 Z" class="star"/>
+                <text x="395" y="115" text-anchor="middle" class="txt">EVENT!</text>
+                <text x="395" y="215" text-anchor="middle" class="desc">2. El navegador genera l'objecte Event</text>
+
+                <path d="M490,110 Q540,110 580,110" class="arrow" fill="none"/>
+
+                <!-- Step 3 -->
+                <rect x="600" y="80" width="160" height="60" class="box"/>
+                <text x="680" y="115" text-anchor="middle" class="txt">Event Listener</text>
+                <text x="680" y="170" text-anchor="middle" class="desc">3. JS captura l'avís si estava a l'escolta</text>
+
+                <path d="M770,110 Q810,110 840,110" class="arrow" fill="none"/>
+
+                <!-- Step 4 -->
+                <rect x="850" y="60" width="140" height="90" class="box" fill="#fef08a"/>
+                <text x="920" y="100" text-anchor="middle" class="txt">Event Handler</text>
+                <text x="920" y="125" text-anchor="middle" class="desc" style="font-family:monospace; font-size:12px;">function f() { ... }</text>
+                <text x="920" y="180" text-anchor="middle" class="desc">4. S'executa la lògica</text>
+            </svg>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 15: Tipus d'Esdeveniments -->
+<div class="slide-container">
+    <h2 class="slide-title">14. Llista d'Esdeveniments Comuns</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <h3><i class="fa-solid fa-computer-mouse" style="color:#facc15;"></i> Ratolí (Mouse Events)</h3>
+                <table>
+                    <tr><th>Nom</th><th>Quan es dispara?</th></tr>
+                    <tr><td><code>click</code></td><td>L'usuari clica un element.</td></tr>
+                    <tr><td><code>dblclick</code></td><td>Clic ràpid dues vegades.</td></tr>
+                    <tr><td><code>mouseover/enter</code></td><td>El cursor entra a l'àrea de l'element.</td></tr>
+                    <tr><td><code>mouseout/leave</code></td><td>El cursor surt de l'element.</td></tr>
+                    <tr><td><code>mousemove</code></td><td>Constantment, mentre es mou el ratolí sobre l'element.</td></tr>
+                </table>
+            </div>
+            <div>
+                <h3><i class="fa-regular fa-keyboard" style="color:#facc15;"></i> Teclat i Finestra</h3>
+                <table>
+                    <tr><th>Nom</th><th>Quan es dispara?</th></tr>
+                    <tr><td><code>keydown</code></td><td>Quan la tecla s'enfonsa.</td></tr>
+                    <tr><td><code>keyup</code></td><td>Quan la tecla s'allibera.</td></tr>
+                    <tr><td><code>load</code></td><td>Quan un recurs (web, imatge) acaba de carregar completament.</td></tr>
+                    <tr><td><code>resize</code></td><td>Quan es canvia la mida del navegador.</td></tr>
+                    <tr><td><code>scroll</code></td><td>Quan l'usuari baixa o puja per la pàgina.</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 16: Ratolí Coords SVG -->
+<div class="slide-container">
+    <h2 class="slide-title">15. L'Objecte Event i Coordenades</h2>
+    <div class="content-area">
+        <p>La funció vinculada a l'esdeveniment (handler) sempre rep automàticament un paràmetre amagat: l'<strong>Objecte Event</strong>, que conté detalls útils sobre què ha passat (tecla premuda, l'element on s'ha clicat `event.target`, etc).</p>
+        
+        <div class="svg-container" style="padding: 20px;">
+            <svg width="800" height="300" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg">
+                <style>
+                    .browser { fill: #e2e8f0; stroke: #64748b; stroke-width: 3; }
+                    .viewport { fill: #ffffff; stroke: #94a3b8; stroke-width: 2; }
+                    .element { fill: #fef08a; stroke: #eab308; stroke-width: 2; }
+                    .guide { stroke: #3b82f6; stroke-width: 2; stroke-dasharray: 5,5; marker-end: url(#arrowB); }
+                    .guide-text { font-family: monospace; font-size: 16px; fill: #1d4ed8; font-weight:bold; }
+                    .cursor { fill: #ffffff; stroke: #000; stroke-width: 2; }
+                </style>
+                <defs>
+                    <marker id="arrowB" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <path d="M0,0 L0,6 L9,3 z" fill="#3b82f6"/>
+                    </marker>
+                </defs>
+                
+                <rect x="50" y="10" width="700" height="280" class="browser"/>
+                <rect x="50" y="40" width="700" height="240" class="viewport"/>
+                <rect x="250" y="100" width="300" height="150" class="element"/>
+                
+                <circle cx="450" cy="170" r="5" fill="#ef4444"/>
+                <path d="M450,170 L465,200 L455,200 L465,220 L455,225 L445,205 L435,210 Z" class="cursor"/>
+
+                <!-- clientX -->
+                <line x1="50" y1="170" x2="440" y2="170" class="guide"/>
+                <text x="100" y="160" class="guide-text">event.clientX (Pantalla)</text>
+
+                <!-- offsetX -->
+                <line x1="250" y1="170" x2="440" y2="170" class="guide" style="stroke:#ec4899;"/>
+                <text x="270" y="190" class="guide-text" style="fill:#ec4899;">event.offsetX (Relatiu)</text>
+                
+                <!-- clientY -->
+                <line x1="450" y1="40" x2="450" y2="160" class="guide"/>
+                <text x="460" y="90" class="guide-text">event.clientY</text>
+            </svg>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 17: Codi Obstructiu -->
+<div class="slide-container">
+    <h2 class="slide-title">16. Separació d'Interessos</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <h3>L'Estil Antic (Obstructiu)</h3>
+                <p>Antigament, el codi JS es barrejava dins de les etiquetes HTML usant atributs com <code>onclick=""</code>. Això s'anomena codi "obstructiu".</p>
+                <div class="alert-box">
+                    <strong>Evita això sempre que puguis!</strong> Fa que el codi sigui impossible de mantenir i trenca la separació HTML/JS.
+                </div>
+<pre>
+<span class="com">&lt;!-- MALAMENT ❌ Lògica barrejada amb estructura --&gt;</span>
+&lt;<span class="kw">button</span> <span class="var">onclick</span>=<span class="str">"alert('Clic!'); this.style.color='red';"</span>&gt;
+  Prem aquí
+&lt;/<span class="kw">button</span>&gt;
+</pre>
+            </div>
+            <div>
+                <h3>L'Estil Modern (No Obstructiu)</h3>
+                <p>El HTML es manté net. Al fitxer extern de JS, cerquem l'element i li associem la funció d'escolta.</p>
+<pre>
+<span class="com">&lt;!-- CORRECTE ✅ Només estructura i identificadors --&gt;</span>
+&lt;<span class="kw">button</span> <span class="var">id</span>=<span class="str">"botoProva"</span>&gt;Prem aquí&lt;/<span class="kw">button</span>&gt;
+
+<span class="com">&lt;!-- Al fitxer main.js --&gt;</span>
+<span class="kw">const</span> btn = document.<span class="fn">getElementById</span>(<span class="str">"botoProva"</span>);
+btn.onclick = tractarClic;
+
+<span class="kw">function</span> <span class="fn">tractarClic</span>() {
+  <span class="fn">alert</span>(<span class="str">"Clic net!"</span>);
+}
+</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 18: window.onload -->
+<div class="slide-container">
+    <h2 class="slide-title">17. El problema de la Càrrega (window.onload)</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <h3>El problema de sincronització</h3>
+                <p>Si poses el fitxer JS al <code>&lt;head&gt;</code>, s'executa <strong>abans</strong> que el navegador hagi llegit el <code>&lt;body&gt;</code>. Resultat: `getElementById` retornarà NULL perquè l'element encara no existeix en l'arbre DOM!</p>
+                
+                <h3>La Solució: window.onload</h3>
+                <p>Bloquegem l'execució del nostre codi inicial fins que el navegador dispari l'esdeveniment `load` de la finestra global, indicant que la web i l'arbre DOM estan 100% llestos.</p>
+            </div>
+            <div>
+                <h3>Plantilla de Codi Segur</h3>
+<pre>
+<span class="com">// 1. Assignar la funció principal al load de la finestra</span>
+window.onload = inicialitzar;
+
+<span class="com">// 2. Funció on vincules TOTS els teus esdeveniments</span>
+<span class="kw">function</span> <span class="fn">inicialitzar</span>() {
+  <span class="kw">const</span> boto = document.<span class="fn">getElementById</span>(<span class="str">"botoAccio"</span>);
+  
+  <span class="com">// VIGILA! Assignem la funció per nom, SENSE PARÈNTESIS</span>
+  boto.onclick = tractarClic; 
+}
+
+<span class="com">// 3. Handlers (funcions d'execució)</span>
+<span class="kw">function</span> <span class="fn">tractarClic</span>() {
+  <span class="fn">alert</span>(<span class="str">"Ja es pot fer clic sense errors!"</span>);
+}
+</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 19: Timers -->
+<div class="slide-container">
+    <h2 class="slide-title">18. Gestió del Temps (Timers)</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <h3>Retard simple (setTimeout)</h3>
+                <p>S'utilitza per retardar l'execució d'una funció X mil·lisegons. S'executa només <strong>una vegada</strong>.</p>
+<pre>
+<span class="kw">function</span> <span class="fn">programarBomba</span>() {
+  <span class="com">// Crida a la funció 'boom' després de 3000ms (3 seg)</span>
+  <span class="kw">const</span> timerId = <span class="fn">setTimeout</span>(boom, <span class="str">3000</span>);
+}
+
+<span class="kw">function</span> <span class="fn">boom</span>() { 
+  <span class="fn">alert</span>(<span class="str">"BOOOM!"</span>); 
+}
+
+<span class="com">// Si vols aturar-ho abans que exploti:</span>
+<span class="com">// clearTimeout(timerId);</span>
+</pre>
+            </div>
+            <div>
+                <h3>Repetició constant (setInterval)</h3>
+                <p>Executa una funció contínuament cada X mil·lisegons (ideal per a rellotges o animacions antigues).</p>
+<pre>
+<span class="kw">let</span> intervalRellotge;
+
+<span class="kw">function</span> <span class="fn">iniciarRellotge</span>() {
+  <span class="com">// S'executa cada 1 segon</span>
+  intervalRellotge = <span class="fn">setInterval</span>(actualitzarHora, <span class="str">1000</span>);
+}
+
+<span class="kw">function</span> <span class="fn">aturarRellotge</span>() {
+  <span class="com">// Deté la repetició</span>
+  <span class="fn">clearInterval</span>(intervalRellotge);
+}
+</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 20: Formularis -->
+<div class="slide-container">
+    <h2 class="slide-title">19. Validació de Formularis</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <h3>Aturar l'enviament de dades</h3>
+                <p>Molt sovint utilitzem JS per verificar si les dades d'un formulari són vàlides abans d'enviar-les al servidor PHP. Escoltem l'esdeveniment <code>onsubmit</code>.</p>
+                <p>Si detectem un error (ex. un camp buit), hem d'aturar l'acció per defecte del navegador. Es pot fer cridant a <strong><code>event.preventDefault()</code></strong> o fent que la funció retorni <code>false</code>.</p>
+            </div>
+            <div>
+                <h3>Exemple de Validació</h3>
+<pre>
+window.onload = <span class="kw">function</span>() {
+  <span class="kw">const</span> form = document.<span class="fn">getElementById</span>(<span class="str">"meuForm"</span>);
+  form.onsubmit = validarForm;
+}
+
+<span class="kw">function</span> <span class="fn">validarForm</span>(event) {
+  <span class="kw">const</span> nomUser = document.<span class="fn">getElementById</span>(<span class="str">"user"</span>).value;
+  
+  <span class="kw">if</span> (nomUser.length &lt; <span class="str">3</span>) {
+    <span class="fn">alert</span>(<span class="str">"El nom és massa curt!"</span>);
+    <span class="com">// Aturem el formulari! No viatja al servidor.</span>
+    event.<span class="fn">preventDefault</span>(); 
+    <span class="kw">return</span> <span class="kw">false</span>;
+  }
+}
+</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 21: Llibreries -->
+<div class="slide-container">
+    <h2 class="slide-title">20. Llibreries i l'Ecosistema Actual</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <p>Escriure tot amb JS "pur" (Vanilla JS) és necessari per entendre la base, però a mesura que les webs creixen, el codi per manipular el DOM i gestionar events complexos es torna difícil de mantenir.</p>
+                <h3>Evolució Eines</h3>
+                <ul>
+                    <li><strong>L'època daurada de jQuery:</strong> Va dominar durant anys simplificant seleccions, animacions i solucionant incompatibilitats entre navegadors (ex. <code>$('#id').fadeIn()</code>).</li>
+                    <li><strong>Frameworks Reactius (Avui):</strong> React, Vue.js, Angular. Creen "Single Page Applications" (SPAs). En comptes de tocar directament el DOM, es creen components reactius que s'actualitzen automàticament segons l'estat de les dades.</li>
+                </ul>
+            </div>
+            <div>                
+                    <h3>Integració via CDN</h3>
+                    <p>Per usar qualsevol llibreria externa, s'inclou l'enllaç de la "Content Delivery Network" abans del teu propi codi JS.</p>
+<pre>
+<span class="com">&lt;!-- Importar jQuery des de Google --&gt;</span>
+&lt;<span class="kw">script</span> 
+  <span class="var">src</span>=<span class="str">"https://ajax.googleapis.com/.../3.6.0/jquery.min.js"</span>&gt;
+&lt;/<span class="kw">script</span>&gt;
+
+<span class="com">&lt;!-- El teu codi que utilitza jQuery --&gt;</span>
+&lt;<span class="kw">script</span> <span class="var">src</span>=<span class="str">"meu_codi.js"</span>&gt;&lt;/<span class="kw">script</span>&gt;
+</pre>
+                </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
